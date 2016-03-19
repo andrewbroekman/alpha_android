@@ -1,13 +1,10 @@
 package com.codinginfinity.android;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
@@ -17,7 +14,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
     }
 
-    public void loginFunction(View view) {
+     public void loginFunction(View view) {
         String enteredEmail = ((EditText)findViewById(R.id.edt_email)).getText().toString();
         String enteredPassword = ((EditText)findViewById(R.id.edt_password)).getText().toString();
 
