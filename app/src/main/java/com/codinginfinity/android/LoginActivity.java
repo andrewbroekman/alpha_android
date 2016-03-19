@@ -18,7 +18,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void loginFunction(View view) {
-        /*
         String enteredEmail = ((EditText)findViewById(R.id.edt_email)).getText().toString();
         String enteredPassword = ((EditText)findViewById(R.id.edt_password)).getText().toString();
 
@@ -30,7 +29,6 @@ public class LoginActivity extends AppCompatActivity {
         else {
             Toast.makeText(getApplicationContext(), "Incorrect Credentials", Toast.LENGTH_SHORT).show();
         }
-        */
     }
 
 }
