@@ -1,0 +1,45 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'com.codinginfinity.research.android'
+version = '1.0.0-SNAPSHOT'
+
+repositories {
+    maven {
+        credentials {
+            username = '14022282'
+            password = '3xcDhaW7'
+        }
+        url "https://nexus.codinginfinity.com/content/groups/public"
+    }
+}
+
+buildscript {
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.5.0'
+    }
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "https://nexus.codinginfinity.com/content/repositories/releases") {
+                authentication(userName: '14022282', password: '3xcDhaW7')
+            }
+            snapshotRepository(url: "https://nexus.codinginfinity.com/content/repositories/snapshots") {
+                authentication(userName: '14022282', password: '3xcDhaW7')
+            }
+        }
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
