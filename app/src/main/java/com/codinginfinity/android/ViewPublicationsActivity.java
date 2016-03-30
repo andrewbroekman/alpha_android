@@ -83,7 +83,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
     public void searchItem(String textToSearch){
         for (String item:items){
             //Search if any items starts with entered text - case insensitive as both entered text and items text gets set to lower case
-            if(!(item.toLowerCase()).startsWith(textToSearch.toLowerCase())){
+            if(!(item.toLowerCase()).contains(textToSearch.toLowerCase())){
                 listItems.remove(item);
             }
         }
