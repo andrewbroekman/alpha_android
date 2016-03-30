@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_sort_alp_asc"
+                android:icon="@android:drawable/ic_menu_sort_alphabetically"
+                android:title="A - Z" />
+            <item
+                android:id="@+id/nav_sort_alp_desc"
+                android:icon="@android:drawable/ic_menu_sort_alphabetically"
+                android:title="Z - A" />
+        </menu>
+    </item>
+
+</menu>

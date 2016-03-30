@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void viewPapersFunc(View v){
-        Intent intent = new Intent(this, viewPapersActivity.class);
+        Intent intent = new Intent(this, ViewPublicationsActivity.class);
         startActivity(intent);
     }
 

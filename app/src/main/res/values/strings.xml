@@ -5,4 +5,10 @@
     <string name="loginString">Login</string>
     <string name="titleString">Title</string>
     <string name="userExample">Name: Ruan \nEmail: Ruan@sexygirl.co.za \nResearchGroup: sexyGirl \nUnits Earned: 0.5</string>
+    <string name="title_activity_view_publications">View Publications</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

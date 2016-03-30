@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/list_view_item_name_view_publication"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_toStartOf="@+id/list_view_item_view_view_publication"
+        android:layout_toLeftOf="@+id/list_view_item_view_view_publication"
+        android:focusable="true"
+        android:clickable="true" />
+
+    <ImageButton
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/list_view_item_view_view_publication"
+        android:background="@android:drawable/ic_menu_view"
+        android:layout_alignTop="@+id/list_view_item_edit_view_publication"
+        android:layout_toLeftOf="@+id/list_view_item_edit_view_publication"
+        android:layout_toStartOf="@+id/list_view_item_edit_view_publication"
+        android:clickable="true" />
+    <ImageButton
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="8dp"
+        android:id="@+id/list_view_item_edit_view_publication"
+        android:background="@android:drawable/ic_menu_edit"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:clickable="true" />
+
+</RelativeLayout>

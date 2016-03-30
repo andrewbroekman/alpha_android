@@ -16,9 +16,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".viewPapersActivity" />
         <activity android:name=".addPapersActivity" />
-        <activity android:name=".editUserActivity"></activity>
+        <activity android:name=".editUserActivity" />
+        <activity
+            android:name=".ViewPublicationsActivity"
+            android:label="@string/title_activity_view_publications"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.codinginfinity.android.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
