@@ -15,12 +15,14 @@
     <EditText
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="Search"/>
 
     <ListView
         android:id="@+id/publications_listview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_bar">
     </ListView>
 
 </RelativeLayout>
