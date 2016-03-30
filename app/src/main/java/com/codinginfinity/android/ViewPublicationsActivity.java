@@ -27,6 +27,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ViewPublicationsActivity extends AppCompatActivity
@@ -135,10 +137,29 @@ public class ViewPublicationsActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_share) {
+        if (id == R.id.nav_sort_alp_asc) {
+            //Reset List
+            loadItems();
+            // Sorting A - Z
+            Collections.sort(listItems, new Comparator<String>() {
+                @Override
+                public int compare(String publication1, String publication2)
+                {
+                    return publication1.compareTo(publication2);
+                }
+            });
 
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_sort_alp_desc) {
+            //Reset List
+            loadItems();
+            // Sorting Z - A
+            Collections.sort(listItems, new Comparator<String>() {
+                @Override
+                public int compare(String publication1, String publication2)
+                {
+                    return publication2.compareTo(publication1);
+                }
+            });
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
