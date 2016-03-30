@@ -75,8 +75,9 @@ public class ViewPublicationsActivity extends AppCompatActivity
     public void initList(){
         //load publications into list view
         items=new String[]{"Canada","China","Japan","USA","South-Africa"};
+      //listItems.add("");
         listItems=new ArrayList<>(Arrays.asList(items));
-        adapter=new ArrayAdapter<String>(this,R.layout.list_item_view_publications, R.id.list_view_item_view_publication, listItems);
+        adapter=new ArrayAdapter<String>(this,R.layout.list_item_view_publications, R.id.list_view_item_name_view_publication, listItems);
         listView.setAdapter(adapter);
     }
 
