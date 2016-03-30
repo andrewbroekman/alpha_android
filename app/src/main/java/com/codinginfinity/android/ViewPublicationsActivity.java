@@ -1,5 +1,5 @@
 package com.codinginfinity.android;
-
+//Ruan Klinkert - 14022282
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -51,9 +51,8 @@ public class ViewPublicationsActivity extends AppCompatActivity
         initList();
         editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            //Not required
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -68,9 +67,8 @@ public class ViewPublicationsActivity extends AppCompatActivity
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            //Not required
+            public void afterTextChanged(Editable s) {}
         });
     }
 
@@ -84,7 +82,8 @@ public class ViewPublicationsActivity extends AppCompatActivity
 
     public void searchItem(String textToSearch){
         for (String item:items){
-            if(!item.contains(textToSearch)){
+            //Search if any items starts with entered text - case insensitive as both entered text and items text gets set to lower case
+            if(!(item.toLowerCase()).startsWith(textToSearch.toLowerCase())){
                 listItems.remove(item);
             }
         }
