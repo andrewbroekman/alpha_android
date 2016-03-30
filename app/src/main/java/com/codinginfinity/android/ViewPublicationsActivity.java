@@ -32,11 +32,11 @@ import java.util.List;
 public class ViewPublicationsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    String[] items;
-    ArrayList<String> listItems;
-    ArrayAdapter<String> adapter;
-    ListView listView;
-    EditText editText;
+    private String[] items;
+    private ArrayList<String> listItems=new ArrayList<String>();
+    private MyListAdapter adapter;
+    private ListView listView;
+    private EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +57,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
         listView = (ListView)findViewById(R.id.publications_listview);
         editText = (EditText)findViewById(R.id.search_bar);
         initList();
+        loadItems();
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             //Not required
@@ -64,14 +65,8 @@ public class ViewPublicationsActivity extends AppCompatActivity
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.toString().equals("")){
-                    //reset listview
-                    initList();
-                }
-                else{
-                    //search
-                    searchItem(s.toString());
-                }
+                loadItems();
+                searchItem(s.toString());
             }
 
             @Override
@@ -79,15 +74,16 @@ public class ViewPublicationsActivity extends AppCompatActivity
             public void afterTextChanged(Editable s) {}
         });
     }
-
     public void initList(){
-        //load publications into list view
+        //Load publications from server
         items=new String[]{"Canada","China","Japan","USA","South-Africa"};
-      //listItems.add("");
+    }
+
+    public void loadItems(){
+        //load publications into list view
         listItems=new ArrayList<>(Arrays.asList(items));
-        //adapter=new ArrayAdapter<String>(this,R.layout.list_item_view_publications, R.id.list_view_item_name_view_publication, listItems);
-        //listView.setAdapter(adapter);
-        listView.setAdapter(new MyListAdapter(this, R.layout.list_item_view_publications, listItems));
+        adapter = new MyListAdapter(this, R.layout.list_item_view_publications, listItems);
+        listView.setAdapter(adapter);
     }
 
     public void searchItem(String textToSearch){
@@ -150,9 +146,9 @@ public class ViewPublicationsActivity extends AppCompatActivity
         return true;
     }
 
-    public class MyListAdapter extends ArrayAdapter<String>{
-        public int layout;
-        public MyListAdapter(Context context, int resource, List<String> objects) {
+    private class MyListAdapter extends ArrayAdapter<String>{
+        private int layout;
+        private MyListAdapter(Context context, int resource, List<String> objects) {
             super(context, resource, objects);
             layout = resource;
         }
@@ -160,34 +156,37 @@ public class ViewPublicationsActivity extends AppCompatActivity
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder mainViewHolder = null;
-            if(convertView == null){
+            if(convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(layout, parent, false);
                 ViewHolder viewholder = new ViewHolder();
-                viewholder.publication_name = (TextView)convertView.findViewById(R.id.list_view_item_name_view_publication);
-                viewholder.view_btn = (ImageButton)convertView.findViewById(R.id.list_view_item_view_view_publication);
-                viewholder.edit_btn = (ImageButton)convertView.findViewById(R.id.list_view_item_edit_view_publication);
-                viewholder.view_btn.setOnClickListener(new View.OnClickListener(){
+                viewholder.publication_name = (TextView) convertView.findViewById(R.id.list_view_item_name_view_publication);
+                viewholder.view_btn = (ImageButton) convertView.findViewById(R.id.list_view_item_view_view_publication);
+                viewholder.edit_btn = (ImageButton) convertView.findViewById(R.id.list_view_item_edit_view_publication);
+                convertView.setTag(viewholder);
+            }
+            mainViewHolder = (ViewHolder) convertView.getTag();
+
+
+            mainViewHolder.view_btn.setOnClickListener(new View.OnClickListener(){
                     //View button clicked
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(getContext(), "View button was clicked for item " + position, Toast.LENGTH_SHORT).show();
                     }
                 });
-                viewholder.edit_btn.setOnClickListener(new View.OnClickListener(){
-                    //View button clicked
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(getContext(), "Edit button was clicked for item " + position, Toast.LENGTH_SHORT).show();
+            mainViewHolder.edit_btn.setOnClickListener(new View.OnClickListener() {
+                //View button clicked
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), "Edit button was clicked for item " + position, Toast.LENGTH_SHORT).show();
                     }
                 });
-                convertView.setTag(viewholder);
-            }
-            else {
-                mainViewHolder = (ViewHolder) convertView.getTag();
-                mainViewHolder.publication_name.setText(getItem(position));
-            }
-            return super.getView(position, convertView, parent);
+
+            mainViewHolder.publication_name.setText(getItem(position));
+
+
+            return convertView;
         }
     }
     public class ViewHolder{

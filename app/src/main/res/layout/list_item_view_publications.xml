@@ -9,6 +9,7 @@
         android:padding="16dp"
         android:layout_toStartOf="@+id/list_view_item_view_view_publication"
         android:layout_toLeftOf="@+id/list_view_item_view_view_publication"
+        android:focusable="true"
         android:clickable="true" />
 
     <ImageButton
