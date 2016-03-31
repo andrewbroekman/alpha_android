@@ -139,6 +139,20 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * @return nothing
      */
     public void initList(){
+        /*Structure
+            items = new ArrayList<Publication>();
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH); //Specify the format of date received
+            Date d = null;
+
+            try {
+                d = format.parse(dateString); //Try to create date from date string
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            items.add(new Publication("Name", d,"Research group","Status")); //Add new publication to list of publications
+        */
+
+        //Example data - to be removed
         items = new ArrayList<Publication>();
 
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
@@ -148,12 +162,36 @@ public class ViewPublicationsActivity extends AppCompatActivity
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         items.add(new Publication("USA",            d,"Sexy-Girl","Cancelled"));
+        try {
+            d = format.parse("21-03-2011");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         items.add(new Publication("Japan",          d,"","Active"));
+        try {
+            d = format.parse("18-12-2009");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         items.add(new Publication("China",          d,"","Active"));
+        try {
+            d = format.parse("01-11-2003");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         items.add(new Publication("South-Africa",   d,"Sexy-Girl","Cancelled"));
+        try {
+            d = format.parse("25-08-2010");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         items.add(new Publication("Iraq",           d,"TheG","Active"));
+        try {
+            d = format.parse("08-10-2012");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         items.add(new Publication("Canada",         d,"","Active"));
     }
 
