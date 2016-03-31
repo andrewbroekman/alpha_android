@@ -2,6 +2,7 @@ package com.codinginfinity.android;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -28,10 +29,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * ViewPublicationsActivity
@@ -68,8 +72,8 @@ public class ViewPublicationsActivity extends AppCompatActivity
         }
     }
 
-    private List<Publication> items;
-    private ArrayList<Publication> listItems=new ArrayList<Publication>();
+    private ArrayList<Publication> items; //This list would contain all the objects returned by the server
+    private ArrayList<Publication> listItems=new ArrayList<Publication>(); //This list contains only the objects to be displayed
     private MyListAdapter adapter;
     private ListView listView;
     private EditText editText;
@@ -97,7 +101,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
 
         listView = (ListView)findViewById(R.id.publications_listview);
         editText = (EditText)findViewById(R.id.search_bar);
-        /*try {
+        try {
             initList();
         }
         catch(ParseException e){}
@@ -105,7 +109,8 @@ public class ViewPublicationsActivity extends AppCompatActivity
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             //Not required
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             /**
@@ -117,15 +122,16 @@ public class ViewPublicationsActivity extends AppCompatActivity
              * @param count
              * @return nothing
              */
-         /*   public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 loadItems();
                 searchItem(s.toString());
             }
 
             @Override
             //Not required
-            public void afterTextChanged(Editable s) {}
-        });*/
+            public void afterTextChanged(Editable s) {
+            }
+        });
     }
 
     /**
@@ -135,6 +141,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * @return nothing
      */
     public void initList()throws ParseException{
+        items = new ArrayList<Publication>();
         items.add(new Publication("USA",            new SimpleDateFormat("DD-MM-YYYY").parse("11-09-2001"),"Sexy Girl", "Active"));
         items.add(new Publication("Japan",          new SimpleDateFormat("DD-MM-YYYY").parse("25-12-2015"),"",          "Active"));
         items.add(new Publication("China",          new SimpleDateFormat("DD-MM-YYYY").parse("11-03-2007"),"",          "Active"));
