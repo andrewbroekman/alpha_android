@@ -24,6 +24,8 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -95,7 +97,10 @@ public class ViewPublicationsActivity extends AppCompatActivity
 
         listView = (ListView)findViewById(R.id.publications_listview);
         editText = (EditText)findViewById(R.id.search_bar);
-        initList();
+        /*try {
+            initList();
+        }
+        catch(ParseException e){}
         loadItems();
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -112,7 +117,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
              * @param count
              * @return nothing
              */
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+         /*   public void onTextChanged(CharSequence s, int start, int before, int count) {
                 loadItems();
                 searchItem(s.toString());
             }
@@ -120,7 +125,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
             @Override
             //Not required
             public void afterTextChanged(Editable s) {}
-        });
+        });*/
     }
 
     /**
@@ -129,13 +134,13 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * It would be called once inside the onCreate method.
      * @return nothing
      */
-    public void initList(){
-        items.add(new Publication("USA",            new Date("11-09-2001"),"Sexy Girl", "Active"));
-        items.add(new Publication("Japan",          new Date("25-12-2015"),"",          "Active"));
-        items.add(new Publication("China",          new Date("11-03-2007"),"",          "Active"));
-        items.add(new Publication("South-Africa",   new Date("08-08-2010"),"Sexy Girl", "Active"));
-        items.add(new Publication("Iraq",           new Date("19-01-2008"),"",          "Cancelled"));
-        items.add(new Publication("Canada",         new Date("30-10-2011"),"TheG",      "Active"));
+    public void initList()throws ParseException{
+        items.add(new Publication("USA",            new SimpleDateFormat("DD-MM-YYYY").parse("11-09-2001"),"Sexy Girl", "Active"));
+        items.add(new Publication("Japan",          new SimpleDateFormat("DD-MM-YYYY").parse("25-12-2015"),"",          "Active"));
+        items.add(new Publication("China",          new SimpleDateFormat("DD-MM-YYYY").parse("11-03-2007"),"",          "Active"));
+        items.add(new Publication("South-Africa",   new SimpleDateFormat("DD-MM-YYYY").parse("08-08-2010"),"Sexy Girl", "Active"));
+        items.add(new Publication("Iraq",           new SimpleDateFormat("DD-MM-YYYY").parse("19-01-2008"),"",          "Cancelled"));
+        items.add(new Publication("Canada",         new SimpleDateFormat("DD-MM-YYYY").parse("30-10-2011"),"TheG",      "Active"));
     }
 
     /**
