@@ -19,6 +19,7 @@ public class LoginActivity extends AppCompatActivity {
         String enteredPassword = ((EditText)findViewById(R.id.edt_password)).getText().toString();
 
          if (enteredEmail.compareTo("demo") == 0 && enteredPassword.compareTo("demo") == 0) {
+         //if(1==1){ //Used to speed up debugging
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();

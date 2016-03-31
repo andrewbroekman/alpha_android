@@ -2,6 +2,7 @@ package com.codinginfinity.android;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -22,11 +23,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Locale;
 
 /**
  * ViewPublicationsActivity
@@ -46,8 +56,25 @@ import java.util.List;
 public class ViewPublicationsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private String[] items;
-    private ArrayList<String> listItems=new ArrayList<String>();
+    //Temporary until I know what the object returned from the server looks like
+    public class Publication{
+        String name;
+        Date date;
+        String researchGroup;
+        String status;
+
+        public Publication() {}
+
+        public Publication(String name, Date date, String researchGroup, String status) {
+            this.name = name;
+            this.date = date;
+            this.researchGroup = researchGroup;
+            this.status = status;
+        }
+    }
+
+    private ArrayList<Publication> items; //This list would contain all the objects returned by the server
+    private ArrayList<Publication> listItems=new ArrayList<Publication>(); //This list contains only the objects to be displayed
     private MyListAdapter adapter;
     private ListView listView;
     private EditText editText;
@@ -80,7 +107,8 @@ public class ViewPublicationsActivity extends AppCompatActivity
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             //Not required
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             /**
@@ -99,7 +127,8 @@ public class ViewPublicationsActivity extends AppCompatActivity
 
             @Override
             //Not required
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
     }
 
@@ -110,7 +139,60 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * @return nothing
      */
     public void initList(){
-        items=new String[]{"Canada","China","Japan","USA","South-Africa"};
+        /*Structure
+            items = new ArrayList<Publication>();
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH); //Specify the format of date received
+            Date d = null;
+
+            try {
+                d = format.parse(dateString); //Try to create date from date string
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            items.add(new Publication("Name", d,"Research group","Status")); //Add new publication to list of publications
+        */
+
+        //Example data - to be removed
+        items = new ArrayList<Publication>();
+
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+        Date d = null;
+        try {
+            d = format.parse("11-09-2001");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        items.add(new Publication("USA",            d,"Sexy-Girl","Cancelled"));
+        try {
+            d = format.parse("21-03-2011");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        items.add(new Publication("Japan",          d,"","Active"));
+        try {
+            d = format.parse("18-12-2009");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        items.add(new Publication("China",          d,"","Active"));
+        try {
+            d = format.parse("01-11-2003");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        items.add(new Publication("South-Africa",   d,"Sexy-Girl","Cancelled"));
+        try {
+            d = format.parse("25-08-2010");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        items.add(new Publication("Iraq",           d,"TheG","Active"));
+        try {
+            d = format.parse("08-10-2012");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        items.add(new Publication("Canada",         d,"","Active"));
     }
 
     /**
@@ -120,7 +202,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * @return nothing
      */
     public void loadItems(){
-        listItems=new ArrayList<>(Arrays.asList(items));
+        listItems=new ArrayList<>(items);
         adapter = new MyListAdapter(this, R.layout.list_item_view_publications, listItems);
         listView.setAdapter(adapter);
     }
@@ -133,8 +215,8 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * @return nothing
      */
     public void searchItem(String textToSearch){
-        for (String item:items){
-            if(!(item.toLowerCase()).contains(textToSearch.toLowerCase())){
+        for (Publication item:items){
+            if(!(item.name.toLowerCase()).contains(textToSearch.toLowerCase())){
                 listItems.remove(item);
             }
         }
@@ -197,7 +279,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
         if (id == R.id.nav_sort_alp_asc) {
             loadItems();
 
-            Collections.sort(listItems, new Comparator<String>() {
+            Collections.sort(listItems, new Comparator<Publication>() {
                 @Override
                 /**
                  * This method is called in the sort function, overriding it allows you to call
@@ -206,9 +288,9 @@ public class ViewPublicationsActivity extends AppCompatActivity
                  * @param publication2
                  * @return int
                  */
-                public int compare(String publication1, String publication2)
+                public int compare(Publication publication1, Publication publication2)
                 {
-                    return publication1.compareTo(publication2);
+                    return publication1.name.compareTo(publication2.name);
                 }
             });
         }
@@ -216,7 +298,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
         else if (id == R.id.nav_sort_alp_desc) {
             loadItems();
 
-            Collections.sort(listItems, new Comparator<String>() {
+            Collections.sort(listItems, new Comparator<Publication>() {
                 @Override
                 /**
                  * This method is called in the sort function, overriding it allows you to call
@@ -225,9 +307,47 @@ public class ViewPublicationsActivity extends AppCompatActivity
                  * @param publication2
                  * @return int
                  */
-                public int compare(String publication1, String publication2)
+                public int compare(Publication publication1, Publication publication2)
                 {
-                    return publication2.compareTo(publication1);
+                    return publication2.name.compareTo(publication1.name);
+                }
+            });
+        }
+        //Sort newest to oldest was clicked.
+        else if (id == R.id.nav_sort_date_asc) {
+            loadItems();
+
+            Collections.sort(listItems, new Comparator<Publication>() {
+                @Override
+                /**
+                 * This method is called in the sort function, overriding it allows you to call
+                 * sort on custom objects.
+                 * @param publication1
+                 * @param publication2
+                 * @return int
+                 */
+                public int compare(Publication publication1, Publication publication2)
+                {
+                    return publication1.date.compareTo(publication2.date);
+                }
+            });
+        }
+        //Sort oldest to newest was clicked.
+        else if (id == R.id.nav_sort_date_desc) {
+            loadItems();
+
+            Collections.sort(listItems, new Comparator<Publication>() {
+                @Override
+                /**
+                 * This method is called in the sort function, overriding it allows you to call
+                 * sort on custom objects.
+                 * @param publication1
+                 * @param publication2
+                 * @return int
+                 */
+                public int compare(Publication publication1, Publication publication2)
+                {
+                    return publication2.date.compareTo(publication1.date);
                 }
             });
         }
@@ -243,7 +363,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * view ImageButtons, into the ListView.
      * @author Ruan
      */
-    private class MyListAdapter extends ArrayAdapter<String>{
+    private class MyListAdapter extends ArrayAdapter<Publication>{
         private int layout;
         /**
          * The constructor for MyListAdapter, when called it would call the parent class constructor
@@ -252,12 +372,10 @@ public class ViewPublicationsActivity extends AppCompatActivity
          * @param resource
          * @param objects
          */
-        private MyListAdapter(Context context, int resource, List<String> objects) {
+        private MyListAdapter(Context context, int resource, List<Publication> objects) {
             super(context, resource, objects);
             layout = resource;
         }
-
-
 
         @Override
         /**
@@ -303,7 +421,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
                     }
                 });
 
-            mainViewHolder.publication_name.setText(getItem(position));
+            mainViewHolder.publication_name.setText(getItem(position).name);
 
             return convertView;
         }
