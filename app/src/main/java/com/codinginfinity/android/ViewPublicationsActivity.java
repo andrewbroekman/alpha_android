@@ -22,10 +22,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,8 +49,25 @@ import java.util.List;
 public class ViewPublicationsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private String[] items;
-    private ArrayList<String> listItems=new ArrayList<String>();
+    //Temporary until I know what the object returned from the server looks like
+    public class Publication{
+        String name;
+        Date date_added;
+        String research_group;
+        String status;
+
+        public Publication() {}
+
+        public Publication(String name, Date date_added, String research_group, String status) {
+            this.name = name;
+            this.date_added = date_added;
+            this.research_group = research_group;
+            this.status = status;
+        }
+    }
+
+    private List<Publication> items;
+    private ArrayList<Publication> listItems=new ArrayList<Publication>();
     private MyListAdapter adapter;
     private ListView listView;
     private EditText editText;
@@ -110,7 +130,12 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * @return nothing
      */
     public void initList(){
-        items=new String[]{"Canada","China","Japan","USA","South-Africa"};
+        items.add(new Publication("USA",            new Date("11-09-2001"),"Sexy Girl", "Active"));
+        items.add(new Publication("Japan",          new Date("25-12-2015"),"",          "Active"));
+        items.add(new Publication("China",          new Date("11-03-2007"),"",          "Active"));
+        items.add(new Publication("South-Africa",   new Date("08-08-2010"),"Sexy Girl", "Active"));
+        items.add(new Publication("Iraq",           new Date("19-01-2008"),"",          "Cancelled"));
+        items.add(new Publication("Canada",         new Date("30-10-2011"),"TheG",      "Active"));
     }
 
     /**
@@ -120,7 +145,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * @return nothing
      */
     public void loadItems(){
-        listItems=new ArrayList<>(Arrays.asList(items));
+        listItems=new ArrayList<>(items);
         adapter = new MyListAdapter(this, R.layout.list_item_view_publications, listItems);
         listView.setAdapter(adapter);
     }
@@ -133,8 +158,8 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * @return nothing
      */
     public void searchItem(String textToSearch){
-        for (String item:items){
-            if(!(item.toLowerCase()).contains(textToSearch.toLowerCase())){
+        for (Publication item:items){
+            if(!(item.name.toLowerCase()).contains(textToSearch.toLowerCase())){
                 listItems.remove(item);
             }
         }
@@ -197,7 +222,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
         if (id == R.id.nav_sort_alp_asc) {
             loadItems();
 
-            Collections.sort(listItems, new Comparator<String>() {
+            Collections.sort(listItems, new Comparator<Publication>() {
                 @Override
                 /**
                  * This method is called in the sort function, overriding it allows you to call
@@ -206,9 +231,9 @@ public class ViewPublicationsActivity extends AppCompatActivity
                  * @param publication2
                  * @return int
                  */
-                public int compare(String publication1, String publication2)
+                public int compare(Publication publication1, Publication publication2)
                 {
-                    return publication1.compareTo(publication2);
+                    return publication1.name.compareTo(publication2.name);
                 }
             });
         }
@@ -216,7 +241,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
         else if (id == R.id.nav_sort_alp_desc) {
             loadItems();
 
-            Collections.sort(listItems, new Comparator<String>() {
+            Collections.sort(listItems, new Comparator<Publication>() {
                 @Override
                 /**
                  * This method is called in the sort function, overriding it allows you to call
@@ -225,9 +250,9 @@ public class ViewPublicationsActivity extends AppCompatActivity
                  * @param publication2
                  * @return int
                  */
-                public int compare(String publication1, String publication2)
+                public int compare(Publication publication1, Publication publication2)
                 {
-                    return publication2.compareTo(publication1);
+                    return publication2.name.compareTo(publication1.name);
                 }
             });
         }
@@ -243,7 +268,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * view ImageButtons, into the ListView.
      * @author Ruan
      */
-    private class MyListAdapter extends ArrayAdapter<String>{
+    private class MyListAdapter extends ArrayAdapter<Publication>{
         private int layout;
         /**
          * The constructor for MyListAdapter, when called it would call the parent class constructor
@@ -252,12 +277,10 @@ public class ViewPublicationsActivity extends AppCompatActivity
          * @param resource
          * @param objects
          */
-        private MyListAdapter(Context context, int resource, List<String> objects) {
+        private MyListAdapter(Context context, int resource, List<Publication> objects) {
             super(context, resource, objects);
             layout = resource;
         }
-
-
 
         @Override
         /**
@@ -303,7 +326,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
                     }
                 });
 
-            mainViewHolder.publication_name.setText(getItem(position));
+            mainViewHolder.publication_name.setText(getItem(position).name);
 
             return convertView;
         }
