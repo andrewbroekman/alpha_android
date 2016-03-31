@@ -36,6 +36,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Locale;
 
 /**
  * ViewPublicationsActivity
@@ -58,15 +59,15 @@ public class ViewPublicationsActivity extends AppCompatActivity
     //Temporary until I know what the object returned from the server looks like
     public class Publication{
         String name;
-        Date date_created;
+        Date date;
         String researchGroup;
         String status;
 
         public Publication() {}
 
-        public Publication(String name,Date date_created, String researchGroup, String status) {
+        public Publication(String name, Date date, String researchGroup, String status) {
             this.name = name;
-            this.date_created = date_created;
+            this.date = date;
             this.researchGroup = researchGroup;
             this.status = status;
         }
@@ -139,16 +140,21 @@ public class ViewPublicationsActivity extends AppCompatActivity
      */
     public void initList(){
         items = new ArrayList<Publication>();
+
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+        Date d = null;
         try {
-            items.add(new Publication("USA",            new SimpleDateFormat("DD-MM-YYYY").parse("11-09-2001"), "Sexy-Girl","Cancelled"));
-            items.add(new Publication("Japan",          new SimpleDateFormat("DD-MM-YYYY").parse("16-03-2005"), "","Active"));
-            items.add(new Publication("China",          new SimpleDateFormat("DD-MM-YYYY").parse("01-10-2011"), "","Active"));
-            items.add(new Publication("South-Africa",   new SimpleDateFormat("DD-MM-YYYY").parse("28-02-2007"), "Sexy-Girl","Cancelled"));
-            items.add(new Publication("Iraq",           new SimpleDateFormat("DD-MM-YYYY").parse("15-12-2012"), "TheG","Active"));
-            items.add(new Publication("Canada",         new SimpleDateFormat("DD-MM-YYYY").parse("21-07-2009"), "","Active"));
+            d = format.parse("11-09-2001");
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        items.add(new Publication("USA",            d,"Sexy-Girl","Cancelled"));
+        items.add(new Publication("Japan",          d,"","Active"));
+        items.add(new Publication("China",          d,"","Active"));
+        items.add(new Publication("South-Africa",   d,"Sexy-Girl","Cancelled"));
+        items.add(new Publication("Iraq",           d,"TheG","Active"));
+        items.add(new Publication("Canada",         d,"","Active"));
     }
 
     /**
