@@ -11,4 +11,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="Sort_alpha">Sort alphabetically</string>
+    <string name="Sort_date">Sort by date created</string>
+    <string name="sort_alp_asc">A - Z</string>
+    <string name="sort_alp_desc">Z - A</string>
+    <string name="sort_date_asc">Newest - Oldest</string>
+    <string name="sort_date_desc">Oldest - Newest</string>
 </resources>

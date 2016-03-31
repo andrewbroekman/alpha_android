@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Communicate">
+    <item
+        android:title="@string/Sort_alpha"
+        android:icon="@android:drawable/ic_menu_sort_alphabetically">
         <menu>
             <item
                 android:id="@+id/nav_sort_alp_asc"
-                android:icon="@android:drawable/ic_menu_sort_alphabetically"
-                android:title="A - Z" />
+                android:title="@string/sort_alp_asc" />
             <item
                 android:id="@+id/nav_sort_alp_desc"
-                android:icon="@android:drawable/ic_menu_sort_alphabetically"
-                android:title="Z - A" />
+                android:title="@string/sort_alp_desc" />
+        </menu>
+    </item>
+    <item
+        android:title="@string/Sort_date"
+        android:icon="@android:drawable/ic_menu_sort_by_size">
+        <menu>
+            <item
+                android:id="@+id/nav_sort_date_asc"
+                android:title="@string/sort_date_asc" />
+            <item
+                android:id="@+id/nav_sort_date_desc"
+                android:title="@string/sort_date_desc" />
         </menu>
     </item>
 
