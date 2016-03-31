@@ -275,6 +275,44 @@ public class ViewPublicationsActivity extends AppCompatActivity
                 }
             });
         }
+        //Sort newest to oldest was clicked.
+        else if (id == R.id.nav_sort_date_asc) {
+            loadItems();
+
+            Collections.sort(listItems, new Comparator<Publication>() {
+                @Override
+                /**
+                 * This method is called in the sort function, overriding it allows you to call
+                 * sort on custom objects.
+                 * @param publication1
+                 * @param publication2
+                 * @return int
+                 */
+                public int compare(Publication publication1, Publication publication2)
+                {
+                    return publication1.date.compareTo(publication2.date);
+                }
+            });
+        }
+        //Sort oldest to newest was clicked.
+        else if (id == R.id.nav_sort_date_desc) {
+            loadItems();
+
+            Collections.sort(listItems, new Comparator<Publication>() {
+                @Override
+                /**
+                 * This method is called in the sort function, overriding it allows you to call
+                 * sort on custom objects.
+                 * @param publication1
+                 * @param publication2
+                 * @return int
+                 */
+                public int compare(Publication publication1, Publication publication2)
+                {
+                    return publication2.date.compareTo(publication1.date);
+                }
+            });
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
