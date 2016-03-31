@@ -29,15 +29,15 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * <h1>ViewPublicationsActivity.class</h1>
+ * ViewPublicationsActivity
  * This activity would be used to retrieve and display a list of
  * publications that the current user is affiliated with.
- * <p>
- *     The activity contains a ListView to display the publications, each
- *     item in the ListView has an edit and view button. An EditText is used to
- *     search for a specific article. The Activity has a navigation drawer activity
- *     that contains sorting and filtering options.
- * </p>
+ *
+ * The activity contains a ListView to display the publications, each
+ * item in the ListView has an edit and view button. An EditText is used to
+ * search for a specific article. The Activity has a navigation drawer activity
+ * that contains sorting and filtering options.
+ *
  *
  * @author  Ruan Klinkert - 14022282
  * @version 1.0
@@ -55,8 +55,8 @@ public class ViewPublicationsActivity extends AppCompatActivity
     @Override
     /**
      * This method gets called when the activity is created.
-     * @param Bundle savedInstanceState
-     * @return void
+     * @param savedInstanceState
+     * @return nothing
      */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +90,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
              * @param start
              * @param before
              * @param count
-             * @return void
+             * @return nothing
              */
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 loadItems();
@@ -107,7 +107,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * This method is used to request all publications from the server via a REST request, and
      * store it in an array of publications.
      * It would be called once inside the onCreate method.
-     * @return void
+     * @return nothing
      */
     public void initList(){
         items=new String[]{"Canada","China","Japan","USA","South-Africa"};
@@ -117,7 +117,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * This method is used to load all items inside the array of publications into
      * an ArrayList, it would be called multiple times, when sorting searching or filtering the list.
      * This function would return the list to it's original state.
-     * @return void
+     * @return nothing
      */
     public void loadItems(){
         listItems=new ArrayList<>(Arrays.asList(items));
@@ -130,7 +130,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * entered in the searchbox. If a particular pulication does not, it is removed from the ArrayList
      * of publications.
      * @param textToSearch
-     * @return void
+     * @return nothing
      */
     public void searchItem(String textToSearch){
         for (String item:items){
@@ -146,7 +146,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
     /**
      * This method is used called when the back button is pressed. If the navigation drawer is open,
      * it would close it, else it would call the parents onBackPressed method.
-     * @return void
+     * @return nothing
      */
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -309,7 +309,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
         }
     }
     /**
-     * <h1>ViewHolder<h1/>
+     * ViewHolder
      * This class is used to store a reference to the ImageButtons and TextView of each item, to reduce the
      * number of times it has to be inflated.
      * @author Ruan
