@@ -58,17 +58,10 @@ public class ViewPublicationsActivity extends AppCompatActivity
     //Temporary until I know what the object returned from the server looks like
     public class Publication{
         String name;
-        Date date_added;
-        String research_group;
-        String status;
-
         public Publication() {}
 
-        public Publication(String name, Date date_added, String research_group, String status) {
+        public Publication(String name) {
             this.name = name;
-            this.date_added = date_added;
-            this.research_group = research_group;
-            this.status = status;
         }
     }
 
@@ -101,11 +94,8 @@ public class ViewPublicationsActivity extends AppCompatActivity
 
         listView = (ListView)findViewById(R.id.publications_listview);
         editText = (EditText)findViewById(R.id.search_bar);
-        try {
-            initList();
-        }
-        catch(ParseException e){}
-        loadItems();
+        //initList();
+        //loadItems();
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             //Not required
@@ -123,8 +113,8 @@ public class ViewPublicationsActivity extends AppCompatActivity
              * @return nothing
              */
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                loadItems();
-                searchItem(s.toString());
+                //loadItems();
+                //searchItem(s.toString());
             }
 
             @Override
@@ -140,14 +130,14 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * It would be called once inside the onCreate method.
      * @return nothing
      */
-    public void initList()throws ParseException{
+    public void initList(){
         items = new ArrayList<Publication>();
-        items.add(new Publication("USA",            new SimpleDateFormat("DD-MM-YYYY").parse("11-09-2001"),"Sexy Girl", "Active"));
-        items.add(new Publication("Japan",          new SimpleDateFormat("DD-MM-YYYY").parse("25-12-2015"),"",          "Active"));
-        items.add(new Publication("China",          new SimpleDateFormat("DD-MM-YYYY").parse("11-03-2007"),"",          "Active"));
-        items.add(new Publication("South-Africa",   new SimpleDateFormat("DD-MM-YYYY").parse("08-08-2010"),"Sexy Girl", "Active"));
-        items.add(new Publication("Iraq",           new SimpleDateFormat("DD-MM-YYYY").parse("19-01-2008"),"",          "Cancelled"));
-        items.add(new Publication("Canada",         new SimpleDateFormat("DD-MM-YYYY").parse("30-10-2011"),"TheG",      "Active"));
+        items.add(new Publication("USA"));
+        items.add(new Publication("Japan"));
+        items.add(new Publication("China"));
+        items.add(new Publication("South-Africa"));
+        items.add(new Publication("Iraq"));
+        items.add(new Publication("Canada"));
     }
 
     /**
