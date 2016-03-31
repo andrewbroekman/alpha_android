@@ -1,9 +1,7 @@
 package com.codinginfinity.android;
-//Ruan Klinkert - 14022282
+
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -20,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +28,21 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * ViewPublicationsActivity
+ * This activity would be used to retrieve and display a list of
+ * publications that the current user is affiliated with.
+ *
+ * The activity contains a ListView to display the publications, each
+ * item in the ListView has an edit and view button. An EditText is used to
+ * search for a specific article. The Activity has a navigation drawer activity
+ * that contains sorting and filtering options.
+ *
+ *
+ * @author  Ruan Klinkert - 14022282
+ * @version 1.0
+ * @since   2016-03-31
+ */
 public class ViewPublicationsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -41,6 +53,11 @@ public class ViewPublicationsActivity extends AppCompatActivity
     private EditText editText;
 
     @Override
+    /**
+     * This method gets called when the activity is created.
+     * @param savedInstanceState
+     * @return nothing
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_publications);
@@ -66,6 +83,15 @@ public class ViewPublicationsActivity extends AppCompatActivity
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
+            /**
+             * This method gets called when the EditText's text is changed.
+             * It is used to call the searchItem function.
+             * @param s the current CharSequence in the EditText
+             * @param start
+             * @param before
+             * @param count
+             * @return nothing
+             */
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 loadItems();
                 searchItem(s.toString());
@@ -76,21 +102,38 @@ public class ViewPublicationsActivity extends AppCompatActivity
             public void afterTextChanged(Editable s) {}
         });
     }
+
+    /**
+     * This method is used to request all publications from the server via a REST request, and
+     * store it in an array of publications.
+     * It would be called once inside the onCreate method.
+     * @return nothing
+     */
     public void initList(){
-        //Load publications from server
         items=new String[]{"Canada","China","Japan","USA","South-Africa"};
     }
 
+    /**
+     * This method is used to load all items inside the array of publications into
+     * an ArrayList, it would be called multiple times, when sorting searching or filtering the list.
+     * This function would return the list to it's original state.
+     * @return nothing
+     */
     public void loadItems(){
-        //load publications into list view
         listItems=new ArrayList<>(Arrays.asList(items));
         adapter = new MyListAdapter(this, R.layout.list_item_view_publications, listItems);
         listView.setAdapter(adapter);
     }
 
+    /**
+     * This method is used to search if any of the publications' names contains the String that was
+     * entered in the searchbox. If a particular pulication does not, it is removed from the ArrayList
+     * of publications.
+     * @param textToSearch
+     * @return nothing
+     */
     public void searchItem(String textToSearch){
         for (String item:items){
-            //Search if any items starts with entered text - case insensitive as both entered text and items text gets set to lower case
             if(!(item.toLowerCase()).contains(textToSearch.toLowerCase())){
                 listItems.remove(item);
             }
@@ -100,6 +143,11 @@ public class ViewPublicationsActivity extends AppCompatActivity
     }
 
     @Override
+    /**
+     * This method is used called when the back button is pressed. If the navigation drawer is open,
+     * it would close it, else it would call the parents onBackPressed method.
+     * @return nothing
+     */
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -110,20 +158,24 @@ public class ViewPublicationsActivity extends AppCompatActivity
     }
 
     @Override
+    /**
+     * This method adds items to the action bar if it is present.
+     * @return boolean
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.view_publications, menu);
         return true;
     }
 
     @Override
+    /**
+     * This method handles action bar item clicks.
+     * @return boolean
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //Settings was clicked.
         if (id == R.id.action_settings) {
             return true;
         }
@@ -133,28 +185,46 @@ public class ViewPublicationsActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
+    /**
+     * This method handles navigation view item clicks.
+     * @param item
+     * @return boolean
+     */
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        //Sort from A - Z was clicked.
         if (id == R.id.nav_sort_alp_asc) {
-            //Reset List
             loadItems();
-            // Sorting A - Z
+
             Collections.sort(listItems, new Comparator<String>() {
                 @Override
+                /**
+                 * This method is called in the sort function, overriding it allows you to call
+                 * sort on custom objects.
+                 * @param publication1
+                 * @param publication2
+                 * @return int
+                 */
                 public int compare(String publication1, String publication2)
                 {
                     return publication1.compareTo(publication2);
                 }
             });
-
-        } else if (id == R.id.nav_sort_alp_desc) {
-            //Reset List
+        }
+        //Sort from Z - A was clicked.
+        else if (id == R.id.nav_sort_alp_desc) {
             loadItems();
-            // Sorting Z - A
+
             Collections.sort(listItems, new Comparator<String>() {
                 @Override
+                /**
+                 * This method is called in the sort function, overriding it allows you to call
+                 * sort on custom objects.
+                 * @param publication1
+                 * @param publication2
+                 * @return int
+                 */
                 public int compare(String publication1, String publication2)
                 {
                     return publication2.compareTo(publication1);
@@ -167,14 +237,35 @@ public class ViewPublicationsActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * <h1>MyListAdapter<h1/>
+     * This custom ArrayAdapter class is used to load custom list items containing clickable edit and
+     * view ImageButtons, into the ListView.
+     * @author Ruan
+     */
     private class MyListAdapter extends ArrayAdapter<String>{
         private int layout;
+        /**
+         * The constructor for MyListAdapter, when called it would call the parent class constructor
+         * and set a pointer to the custom layout file that would be used to populate the ListView.
+         * @param context
+         * @param resource
+         * @param objects
+         */
         private MyListAdapter(Context context, int resource, List<String> objects) {
             super(context, resource, objects);
             layout = resource;
         }
 
+
+
         @Override
+        /**
+         * @param position
+         * @param convertView
+         * @param parent
+         * @return View
+         */
         public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder mainViewHolder = null;
             if(convertView == null) {
@@ -190,26 +281,39 @@ public class ViewPublicationsActivity extends AppCompatActivity
 
 
             mainViewHolder.view_btn.setOnClickListener(new View.OnClickListener(){
-                    //View button clicked
                     @Override
+                    /**
+                     * This method is called when the view button for an item is clicked.
+                     * @param v reference to object calling the function
+                     * @return void
+                     */
                     public void onClick(View v) {
                         Toast.makeText(getContext(), "View button was clicked for item " + position, Toast.LENGTH_SHORT).show();
                     }
                 });
             mainViewHolder.edit_btn.setOnClickListener(new View.OnClickListener() {
-                //View button clicked
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(), "Edit button was clicked for item " + position, Toast.LENGTH_SHORT).show();
+                    @Override
+                    /**
+                     * This method is called when the edit button for an item is clicked.
+                     * @param v reference to object calling the function
+                     * @return void
+                    */
+                    public void onClick(View v) {
+                        Toast.makeText(getContext(), "Edit button was clicked for item " + position, Toast.LENGTH_SHORT).show();
                     }
                 });
 
             mainViewHolder.publication_name.setText(getItem(position));
 
-
             return convertView;
         }
     }
+    /**
+     * ViewHolder
+     * This class is used to store a reference to the ImageButtons and TextView of each item, to reduce the
+     * number of times it has to be inflated.
+     * @author Ruan
+     */
     public class ViewHolder{
         TextView publication_name;
         ImageButton view_btn;
