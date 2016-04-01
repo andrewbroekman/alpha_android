@@ -407,6 +407,11 @@ public class ViewPublicationsActivity extends AppCompatActivity
                      */
                     public void onClick(View v) {
                         Toast.makeText(getContext(), "View button was clicked for item " + position, Toast.LENGTH_SHORT).show();
+
+                        /*
+                            Intent intent = new Intent(this, ViewPublication.class);
+                            startActivity(intent);
+                         */
                     }
                 });
             mainViewHolder.edit_btn.setOnClickListener(new View.OnClickListener() {
@@ -418,6 +423,11 @@ public class ViewPublicationsActivity extends AppCompatActivity
                     */
                     public void onClick(View v) {
                         Toast.makeText(getContext(), "Edit button was clicked for item " + position, Toast.LENGTH_SHORT).show();
+
+                        /*
+                            Intent intent = new Intent(this, EditPublication.class);
+                            startActivity(intent);
+                         */
                     }
                 });
 
