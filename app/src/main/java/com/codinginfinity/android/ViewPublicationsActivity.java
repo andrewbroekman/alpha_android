@@ -1,6 +1,7 @@
 package com.codinginfinity.android;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.Editable;
@@ -23,6 +24,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
@@ -139,60 +142,81 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * @return nothing
      */
     public void initList(){
-        /*Structure
-            items = new ArrayList<Publication>();
-            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH); //Specify the format of date received
-            Date d = null;
-
-            try {
-                d = format.parse(dateString); //Try to create date from date string
-            } catch (ParseException e) {
-                e.printStackTrace();
+        /*
+            //Retrieve username/userId
+            String value = "";
+            Bundle extras = getIntent().getExtras();
+            if (extras != null) {
+                value = extras.getString("username");
             }
-            items.add(new Publication("Name", d,"Research group","Status")); //Add new publication to list of publications
         */
 
-        //Example data - to be removed
-        items = new ArrayList<Publication>();
+        //JSON string example
+        /*
+        [
+            {
+                    "name" : "USA",
+                    "date" : "11-09-2001",
+                    "researchGroup" : "Sexy-Girl",
+                    "status" : "Cancelled"
+            },
+            {
+                    "name" : "Japan",
+                    "date" : "21-03-2011",
+                    "researchGroup" : "",
+                    "status" : "Active"
+            },
+            {
+                    "name" : "China",
+                    "date" : "18-12-2009",
+                    "researchGroup" : "",
+                    "status" : "Active"
+            },
+            {
+                    "name" : "South-Africa",
+                    "date" : "01-11-2003",
+                    "researchGroup" : "Sexy-Girl",
+                    "status" : "Cancelled"
+            },
+            {
+                    "name" : "Iraq",
+                    "date" : "25-08-2010",
+                    "researchGroup" : "TheG",
+                    "status" : "Active"
+            },
+            {
+                    "name" : "Canada",
+                    "date" : "08-10-2012",
+                    "researchGroup" : "",
+                    "status" : "Active"
+            },
+        ]
+        */
 
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
-        Date d = null;
+        //Retrieve jsonString from server
+        String jsonString = "[ {\"name\" : \"Uncle-Sam\",\"date\" : \"11-09-2001\",\"researchGroup\" : \"Sexy-Girl\",\"status\" : \"Cancelled\"}, {\"name\" : \"Japan\",\"date\" : \"21-03-2011\",\"researchGroup\" : \"\",\"status\" : \"Active\"}, {\"name\" : \"China\",\"date\" : \"18-12-2009\",\"researchGroup\" : \"\",\"status\" : \"Active\"},{\"name\" : \"South-Africa\",\"date\" : \"01-11-2003\",\"researchGroup\" : \"Sexy-Girl\",\"status\" : \"Cancelled\"}, {\"name\" : \"Iraq\",\"date\" : \"25-08-2010\",\"researchGroup\" : \"TheG\",\"status\" : \"Active\"}, {\"name\" : \"Canada\",\"date\" : \"08-10-2012\",\"researchGroup\" : \"\",\"status\" : \"Active\"}, ]";
+
         try {
-            d = format.parse("11-09-2001");
-        } catch (ParseException e) {
+            JSONArray jsonArray = new JSONArray(jsonString);
+            items = new ArrayList<Publication>();
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+            Date d;
+
+            for (int i =0; i<jsonArray.length();i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i); //Get each publication from array
+
+                d = null;
+                try {
+                    d = format.parse(jsonObject.getString("date")); //Create date
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                items.add(new Publication(jsonObject.getString("name"), d, jsonObject.getString("researchGroup"), jsonObject.getString("status")));
+            }
+
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-        items.add(new Publication("USA",            d,"Sexy-Girl","Cancelled"));
-        try {
-            d = format.parse("21-03-2011");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        items.add(new Publication("Japan",          d,"","Active"));
-        try {
-            d = format.parse("18-12-2009");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        items.add(new Publication("China",          d,"","Active"));
-        try {
-            d = format.parse("01-11-2003");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        items.add(new Publication("South-Africa",   d,"Sexy-Girl","Cancelled"));
-        try {
-            d = format.parse("25-08-2010");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        items.add(new Publication("Iraq",           d,"TheG","Active"));
-        try {
-            d = format.parse("08-10-2012");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        items.add(new Publication("Canada",         d,"","Active"));
     }
 
     /**
@@ -268,7 +292,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     /**
-     * This method handles navigation view item clicks.
+     * This method handles navigation drawer item clicks.
      * @param item
      * @return boolean
      */
@@ -358,7 +382,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
     }
 
     /**
-     * <h1>MyListAdapter<h1/>
+     * MyListAdapter
      * This custom ArrayAdapter class is used to load custom list items containing clickable edit and
      * view ImageButtons, into the ListView.
      * @author Ruan
@@ -407,6 +431,19 @@ public class ViewPublicationsActivity extends AppCompatActivity
                      */
                     public void onClick(View v) {
                         Toast.makeText(getContext(), "View button was clicked for item " + position, Toast.LENGTH_SHORT).show();
+
+                        /*
+                            Intent intent = new Intent(this, ViewPublication.class);
+                            intent.putExtra("new_variable_name","value");
+                            startActivity(intent);
+
+                            //Retrieve variable in ViewPublication with
+                            Bundle extras = getIntent().getExtras();
+                            if (extras != null) {
+                                String value = extras.getString("new_variable_name");
+                            }
+                        */
+
                     }
                 });
             mainViewHolder.edit_btn.setOnClickListener(new View.OnClickListener() {
@@ -418,6 +455,18 @@ public class ViewPublicationsActivity extends AppCompatActivity
                     */
                     public void onClick(View v) {
                         Toast.makeText(getContext(), "Edit button was clicked for item " + position, Toast.LENGTH_SHORT).show();
+
+                        /*
+                            Intent intent = new Intent(this, EditPublication.class);
+                            intent.putExtra("new_variable_name","value");
+                            startActivity(intent);
+
+                            //Retrieve variable in EditPublication with
+                            Bundle extras = getIntent().getExtras();
+                            if (extras != null) {
+                                String value = extras.getString("new_variable_name");
+                            }
+                         */
                     }
                 });
 
