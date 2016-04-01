@@ -24,6 +24,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
@@ -142,68 +144,79 @@ public class ViewPublicationsActivity extends AppCompatActivity
     public void initList(){
         /*
             //Retrieve username/userId
+            String value = "";
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
-                String value = extras.getString("username");
+                value = extras.getString("username");
             }
         */
 
+        //JSON string example
+        /*
+        [
+            {
+                    "name" : "USA",
+                    "date" : "11-09-2001",
+                    "researchGroup" : "Sexy-Girl",
+                    "status" : "Cancelled"
+            },
+            {
+                    "name" : "Japan",
+                    "date" : "21-03-2011",
+                    "researchGroup" : "",
+                    "status" : "Active"
+            },
+            {
+                    "name" : "China",
+                    "date" : "18-12-2009",
+                    "researchGroup" : "",
+                    "status" : "Active"
+            },
+            {
+                    "name" : "South-Africa",
+                    "date" : "01-11-2003",
+                    "researchGroup" : "Sexy-Girl",
+                    "status" : "Cancelled"
+            },
+            {
+                    "name" : "Iraq",
+                    "date" : "25-08-2010",
+                    "researchGroup" : "TheG",
+                    "status" : "Active"
+            },
+            {
+                    "name" : "Canada",
+                    "date" : "08-10-2012",
+                    "researchGroup" : "",
+                    "status" : "Active"
+            },
+        ]
+        */
 
+        //Retrieve jsonString from server
+        String jsonString = "[ {\"name\" : \"Uncle-Sam\",\"date\" : \"11-09-2001\",\"researchGroup\" : \"Sexy-Girl\",\"status\" : \"Cancelled\"}, {\"name\" : \"Japan\",\"date\" : \"21-03-2011\",\"researchGroup\" : \"\",\"status\" : \"Active\"}, {\"name\" : \"China\",\"date\" : \"18-12-2009\",\"researchGroup\" : \"\",\"status\" : \"Active\"},{\"name\" : \"South-Africa\",\"date\" : \"01-11-2003\",\"researchGroup\" : \"Sexy-Girl\",\"status\" : \"Cancelled\"}, {\"name\" : \"Iraq\",\"date\" : \"25-08-2010\",\"researchGroup\" : \"TheG\",\"status\" : \"Active\"}, {\"name\" : \"Canada\",\"date\" : \"08-10-2012\",\"researchGroup\" : \"\",\"status\" : \"Active\"}, ]";
 
-        /*Structure
+        try {
+            JSONArray jsonArray = new JSONArray(jsonString);
             items = new ArrayList<Publication>();
-            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH); //Specify the format of date received
-            Date d = null;
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+            Date d;
 
-            try {
-                d = format.parse(dateString); //Try to create date from date string
-            } catch (ParseException e) {
-                e.printStackTrace();
+            for (int i =0; i<jsonArray.length();i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i); //Get each publication from array
+
+                d = null;
+                try {
+                    d = format.parse(jsonObject.getString("date")); //Create date
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                items.add(new Publication(jsonObject.getString("name"), d, jsonObject.getString("researchGroup"), jsonObject.getString("status")));
             }
-            items.add(new Publication("Name", d,"Research group","Status")); //Add new publication to list of publications
-        */
 
-        //Example data - to be removed
-        items = new ArrayList<Publication>();
-
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
-        Date d = null;
-        try {
-            d = format.parse("11-09-2001");
-        } catch (ParseException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-        items.add(new Publication("USA",            d,"Sexy-Girl","Cancelled"));
-        try {
-            d = format.parse("21-03-2011");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        items.add(new Publication("Japan",          d,"","Active"));
-        try {
-            d = format.parse("18-12-2009");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        items.add(new Publication("China",          d,"","Active"));
-        try {
-            d = format.parse("01-11-2003");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        items.add(new Publication("South-Africa",   d,"Sexy-Girl","Cancelled"));
-        try {
-            d = format.parse("25-08-2010");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        items.add(new Publication("Iraq",           d,"TheG","Active"));
-        try {
-            d = format.parse("08-10-2012");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        items.add(new Publication("Canada",         d,"","Active"));
     }
 
     /**
