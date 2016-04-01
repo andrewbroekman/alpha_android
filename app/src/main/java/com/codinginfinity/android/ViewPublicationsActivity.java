@@ -1,6 +1,7 @@
 package com.codinginfinity.android;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.Editable;
@@ -139,6 +140,16 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * @return nothing
      */
     public void initList(){
+        /*
+            //Retrieve username/userId
+            Bundle extras = getIntent().getExtras();
+            if (extras != null) {
+                String value = extras.getString("username");
+            }
+        */
+
+
+
         /*Structure
             items = new ArrayList<Publication>();
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH); //Specify the format of date received
@@ -268,7 +279,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     /**
-     * This method handles navigation view item clicks.
+     * This method handles navigation drawer item clicks.
      * @param item
      * @return boolean
      */
@@ -358,7 +369,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
     }
 
     /**
-     * <h1>MyListAdapter<h1/>
+     * MyListAdapter
      * This custom ArrayAdapter class is used to load custom list items containing clickable edit and
      * view ImageButtons, into the ListView.
      * @author Ruan
@@ -410,8 +421,16 @@ public class ViewPublicationsActivity extends AppCompatActivity
 
                         /*
                             Intent intent = new Intent(this, ViewPublication.class);
+                            intent.putExtra("new_variable_name","value");
                             startActivity(intent);
-                         */
+
+                            //Retrieve variable in ViewPublication with
+                            Bundle extras = getIntent().getExtras();
+                            if (extras != null) {
+                                String value = extras.getString("new_variable_name");
+                            }
+                        */
+
                     }
                 });
             mainViewHolder.edit_btn.setOnClickListener(new View.OnClickListener() {
@@ -426,7 +445,14 @@ public class ViewPublicationsActivity extends AppCompatActivity
 
                         /*
                             Intent intent = new Intent(this, EditPublication.class);
+                            intent.putExtra("new_variable_name","value");
                             startActivity(intent);
+
+                            //Retrieve variable in EditPublication with
+                            Bundle extras = getIntent().getExtras();
+                            if (extras != null) {
+                                String value = extras.getString("new_variable_name");
+                            }
                          */
                     }
                 });
