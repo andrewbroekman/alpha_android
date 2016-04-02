@@ -34,8 +34,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Supervisor"
-                android:id="@+id/super_view"
+                android:text="Owner"
+                android:id="@+id/owner_view"
                 android:layout_marginTop="30dp"
                 android:layout_below="@+id/name_view"
                 android:layout_alignParentStart="true"
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/name_edit"
-                android:layout_above="@+id/super_view"
+                android:layout_above="@+id/owner_view"
                 android:layout_alignStart="@+id/super_edit"
                 android:layout_alignEnd="@+id/super_edit"
                 android:hint="Name of Publication"
@@ -73,8 +73,8 @@
                 android:text="Type"
                 android:id="@+id/type_view"
                 android:layout_marginTop="30dp"
-                android:layout_below="@+id/super_view"
-                android:layout_alignEnd="@+id/super_view"
+                android:layout_below="@+id/owner_view"
+                android:layout_alignEnd="@+id/owner_view"
                 android:textSize="22dp"
                 android:textColor="#000" />
 
@@ -101,18 +101,19 @@
                 android:textSize="22dp"
                 android:textColor="#000" />
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/state_edit"
-                android:layout_above="@+id/target_view"
-                android:layout_alignStart="@+id/type_edit"
-                android:layout_alignEnd="@+id/type_edit"
-                android:hint="Not started, published etc"
-                android:textColor="#000"
-                android:textSize="18dp" />
 
-            <TextView
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/state_edit"
+            style="@android:attr/spinnerStyle"
+            android:layout_above="@+id/target_view"
+            android:layout_alignBottom="@+id/state_view"
+            android:layout_alignStart="@+id/type_edit"
+            android:layout_alignEnd="@+id/type_edit" />
+
+
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -183,7 +184,6 @@
                 android:text="Authors"
                 android:textColor="#000"
                 android:layout_below="@+id/url_view"
-                android:layout_alignEnd="@+id/url_view"
                 />
 
         <Button
