@@ -7,12 +7,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
+import static com.example.stuart.alphaandroidinterface.R.array.state_array;
 
 public class AddPublicationAsSuper extends AppCompatActivity {
 
