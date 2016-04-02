@@ -20,4 +20,12 @@
     <string name="logout">Sign Out</string>
     <string name="title_activity_add_publication_as_super">Add Publication</string>
     <string name="menu_activity">Menu</string>
+    <string-array name="state_array">
+        <item>In Progress</item>
+        <item>Submitted</item>
+        <item>InRevision</item>
+        <item>Rejected</item>
+        <item>Published</item>
+        <item>Abandoned</item>
+    </string-array>
 </resources>
