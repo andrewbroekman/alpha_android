@@ -137,6 +137,26 @@
                 android:textSize="18dp"
                 android:textColor="#000" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="URL"
+            android:id="@+id/url_view"
+            android:textSize="22sp"
+            android:textColor="#000"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/target_view"
+            android:layout_alignEnd="@+id/target_view" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/url_edit"
+            android:hint="Publication URL"
+            android:layout_alignBottom="@+id/url_view"
+            android:layout_alignStart="@+id/target_edit" />
+
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -148,8 +168,8 @@
                 android:maxLines="30"
                 android:textSize="18dp"
                 android:textColor="#000"
-                android:layout_below="@+id/target_edit"
-                android:layout_alignStart="@+id/target_edit"
+                android:layout_below="@+id/url_edit"
+                android:layout_alignStart="@+id/url_edit"
                 android:layout_weight="1"
                 android:singleLine = "true"
                 />
@@ -162,8 +182,8 @@
                 android:textSize="22dp"
                 android:text="Authors"
                 android:textColor="#000"
-                android:layout_below="@+id/target_view"
-                android:layout_alignEnd="@+id/target_view"
+                android:layout_below="@+id/url_view"
+                android:layout_alignEnd="@+id/url_view"
                 />
 
         <Button
