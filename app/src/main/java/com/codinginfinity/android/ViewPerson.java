@@ -134,7 +134,7 @@ public class ViewPerson extends AppCompatActivity {
      */
     public void btnViewOnClick(View v)
     {
-        Intent intent = new Intent(this, ViewPapers.class);
+        Intent intent = new Intent(this, ViewPublicationsActivity.class);
         startActivity(intent);
     }
 }
