@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void editUserFunc(View v){
-        Intent intent = new Intent(this, editUserActivity.class);
+        Intent intent = new Intent(this, ViewPerson.class);
         startActivity(intent);
     }
 
