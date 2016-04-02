@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Supervisor"
+        android:text="Owner"
         android:id="@+id/super_view"
         android:layout_marginTop="30dp"
         android:layout_below="@+id/name_view"
@@ -79,19 +79,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="State"
         android:id="@+id/state_view"
-        android:layout_below="@+id/type_view"
-        android:layout_alignStart="@+id/type_view"
+        android:layout_below="@+id/target_view"
         android:layout_marginTop="30dp"
+        android:layout_alignEnd="@id/target_view"
         android:textSize="22dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/state_edit"
-        android:layout_above="@+id/target_view"
-        android:layout_alignStart="@+id/type_edit"
-        android:layout_alignEnd="@+id/type_edit"
-        android:hint="Not started, published etc" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -100,8 +91,7 @@
         android:text="Target"
         android:id="@+id/target_view"
         android:layout_marginTop="30dp"
-        android:layout_below="@+id/state_view"
-        android:layout_alignEnd="@+id/state_view"
+        android:layout_below="@+id/type_view"
         android:textSize="22dp" />
 
     <EditText
@@ -110,20 +100,48 @@
         android:inputType="date"
         android:ems="10"
         android:id="@+id/target_edit"
+        android:hint="dd/mm/yyyy"
         android:layout_alignBottom="@+id/target_view"
-        android:layout_alignStart="@+id/state_edit"
-        android:layout_alignEnd="@+id/state_edit"
-        android:hint="dd/mm/yyyy" />
+        android:layout_alignStart="@+id/type_edit" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/state_edit"
+        style="@android:attr/spinnerStyle"
+        android:layout_alignTop="@+id/state_view"
+        android:layout_alignStart="@+id/target_edit" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="URL"
+        android:id="@+id/url_view"
+        android:textSize="22sp"
+        android:textColor="#000"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/state_view"
+        android:layout_alignEnd="@+id/state_view" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/url_edit"
+        android:hint="Publication URL"
+        android:layout_alignBottom="@+id/url_view"
+        android:layout_alignStart="@+id/state_edit" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
         android:id="@+id/submit"
-        android:layout_marginTop="71dp"
-        android:layout_below="@+id/target_edit"
-        android:layout_centerHorizontal="true"
         android:maxHeight="10dp"
-        android:longClickable="false" />
+        android:longClickable="false"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@+id/url_edit"
+        android:layout_marginBottom="124dp" />
 
 </RelativeLayout>
