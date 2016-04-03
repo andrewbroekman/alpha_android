@@ -31,11 +31,18 @@ public class AddPublicationAsSuper extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        Bundle bundle = getIntent().getExtras();
-        String type_user = "super";//bundle.getString("type");
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_publication_as_super);
+        int result = this.getResources().getConfiguration().orientation;
+        if (result == 1)
+        {
+            //set content view to portrait
+            setContentView(R.layout.activity_add_publication_as_super);
+        }
+        else
+        {
+            //set content view to landscape}
+            setContentView(R.layout.activity_add_publication_as_super);
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 	    
