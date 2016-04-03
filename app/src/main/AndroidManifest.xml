@@ -18,13 +18,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".addPapersActivity" />
         <activity android:name=".editUserActivity" />
-        <activity android:name=".ViewPerson">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ViewPerson"/>
         <activity
             android:name=".ViewPublicationsActivity"
             android:label="@string/title_activity_view_publications"
