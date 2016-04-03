@@ -31,11 +31,18 @@ public class AddPublication extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        Bundle bundle = getIntent().getExtras();
-        String type_user = "super";//bundle.getString("type");
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_publication);
+        int result = this.getResources().getConfiguration().orientation;
+        if (result == 1)
+        {
+            //set content view to portrait
+            setContentView(R.layout.activity_add_publication);
+        }
+        else
+        {
+            //set content view to landscape}
+            setContentView(R.layout.activity_add_publication_landscape);
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 	    
