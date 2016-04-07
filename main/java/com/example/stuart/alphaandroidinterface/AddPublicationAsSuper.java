@@ -20,13 +20,12 @@ import static com.example.stuart.alphaandroidinterface.R.array.state_array;
 
 public class AddPublicationAsSuper extends AppCompatActivity {
 
+    protected CreatePublications newPublication;
     protected String file = "Publications";
-    protected String filestream;
-    EditText name, supervisor, type, state, target, authors;
-    String name_s, supervisor_s, type_s, state_s, target_s, start_s, authors_s;
-    String authorsList [];
-    String priv = "";
-    int dynam_id = 0;
+    EditText name, owner, type, target, url;
+    Spinner state;
+    String name_s, owner_s, type_s, state_s, target_s, start_s, url_s;
+    Date envisioned_date, start_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,59 +35,76 @@ public class AddPublicationAsSuper extends AppCompatActivity {
         if (result == 1)
         {
             //set content view to portrait
-            setContentView(R.layout.activity_add_publication_as_super);
+            setContentView(R.layout.activity_add_publication);
         }
         else
         {
             //set content view to landscape}
-            setContentView(R.layout.activity_add_publication_as_super);
+            setContentView(R.layout.activity_add_publication_landscape);
         }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-	    
-	    Spinner spinner = (Spinner) findViewById(R.id.state_edit);
+
+        Spinner spinner = (Spinner) findViewById(R.id.state_edit);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                state_array, android.R.layout.simple_spinner_item);
+        state_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
-        Button button = (Button) findViewById(R.id.submit);
-        if (button != null)
-            button.setOnClickListener(new View.OnClickListener()
-            {
-                public void onClick(View v) {
-                    name = (EditText) findViewById(R.id.name_edit);
-                    name_s = name.getText().toString();
+            Button button = (Button) findViewById(R.id.submit);
+            if (button != null)
+                button.setOnClickListener(new View.OnClickListener()
+                {
+                    public void onClick(View v) {
+                        name = (EditText) findViewById(R.id.name_edit);
+                        name_s = name.getText().toString();
 
-                    supervisor = (EditText) findViewById(R.id.super_edit);
-                    supervisor_s = supervisor.getText().toString();
+                        owner = (EditText) findViewById(R.id.super_edit);
+                        owner_s = owner.getText().toString();
 
-                    type = (EditText) findViewById(R.id.type_edit);
-                    type_s = type.getText().toString();
+                        type = (EditText) findViewById(R.id.type_edit);
+                        type_s = type.getText().toString();
 
-                    state = (EditText) findViewById(R.id.state_edit);
-                    state_s = state.getText().toString();
+                        state = (Spinner) findViewById(R.id.state_edit);
+                        state_s = state.getSelectedItem().toString();
 
-                    target = (EditText) findViewById(R.id.target_edit);
-                    target_s = target.getText().toString();
+                        target = (EditText) findViewById(R.id.target_edit);
+                        target_s = target.getText().toString();
 
-                    DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                    Date dateobj = new Date();
+                        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                        try
+                        {
+                            envisioned_date = df.parse(target_s);
+                        }
+                        catch (ParseException e)
+                        {
+                            e.printStackTrace();
+                        }
 
-                    start_s = df.format(dateobj);
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        start_date = new Date();
 
-                    authors = (EditText) findViewById(R.id.authors);
-                    authors_s = authors.getText().toString();
+                        url = (EditText) findViewById(R.id.url_edit);
+                        url_s = url.getText().toString();
 
-                    authorsList = authors_s.split("\n");
 
-                    startActivity(new Intent(AddPublicationAsSuper.this, MainMenu.class));
-                }
-            });
-    }
+                        newPublication = new CreatePublications(
+                                name_s,
+                                owner_s,
+                                type_s,
+                                state_s,
+                                url_s,
+                                envisioned_date,
+                                start_date
+                                );
+
+                        startActivity(new Intent(AddPublication.this, MainMenu.class));
+                    }
+                });
+        }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
