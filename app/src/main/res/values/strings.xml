@@ -11,6 +11,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
     <string name="Sort_alpha">Sort alphabetically</string>
     <string name="Sort_date">Sort by date created</string>
     <string name="sort_alp_asc">A - Z</string>
