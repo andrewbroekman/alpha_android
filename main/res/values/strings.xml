@@ -10,6 +10,13 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
+    <string name="pub_name">Name of Publication</string>
+    <string name="pub_owner">Name of Owner</string>
+    <string name="pub_type">Book, Journal etc...</string>
+    <string name="pub_vision">Envisioned Date - dd-mm-yyyy</string>
+    <string name="pub_url">Publication URL</string>
+    <string name="pub_author">Add each Author on a new line</string>
+    <string name="pub_submit">Submit</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
@@ -28,4 +35,10 @@
         <item>Published</item>
         <item>Abandoned</item>
     </string-array>
+    <string name="title_activity_add_publication_as_super_landscape">
+        AddPublicationAsSuperLandscape
+    </string>
+    <string name="title_activity_add_publication_landscape">AddPublication_landscape</string>
+    <string name="title_activity_edit_publication">EditPublication</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>
