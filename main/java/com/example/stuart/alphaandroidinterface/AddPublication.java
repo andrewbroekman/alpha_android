@@ -21,6 +21,7 @@ import static com.example.stuart.alphaandroidinterface.R.array.state_array;
 
 public class AddPublication extends AppCompatActivity {
 
+    protected CreatePublications newPublication;
     protected String file = "Publications";
     protected String filestream;
     EditText name, supervisor, type, state, target;
