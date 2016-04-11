@@ -11,7 +11,7 @@ repositories {
             username = '14022282'
             password = '3xcDhaW7'
         }
-        url "https://nexus.codinginfinity.com/content/groups/public"
+        url "https://nexus.codinginfinity.com/content/repositories/snapshots"
     }
 }
 
