@@ -104,7 +104,11 @@ public class ViewPerson extends AppCompatActivity {
            return ;
        }
     }
-
+    /**
+     * This function will cancl lany edited texts and restore them to their previous states
+     * 
+     * @param   v   the View
+     */
     public void btnCancelOnClick(View v){
         Button cancelBtn = (Button) v ;
         Button viewBtn = (Button) findViewById(R.id.btnView);
