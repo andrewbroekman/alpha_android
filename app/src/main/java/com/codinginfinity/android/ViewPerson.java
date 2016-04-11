@@ -92,7 +92,6 @@ public class ViewPerson extends AppCompatActivity {
                Toast.makeText(getApplicationContext(), s + " is not a valid number", Toast.LENGTH_SHORT).show() ;
            }
            Random2 = random2.getText().toString() ;
-           viewBtn.setText(Name);
            editBtn.setText("Edit");
            name.setEnabled(false);
            email.setEnabled(false);
