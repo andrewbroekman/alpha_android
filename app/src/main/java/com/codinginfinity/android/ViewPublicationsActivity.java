@@ -232,7 +232,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
     }
 
     /**
-     * This method is used to search if any of the publications' names contains the String that was
+     * This method is used to search if any of the publications' names,status or researchGroup name contains the String that was
      * entered in the searchbox. If a particular pulication does not, it is removed from the ArrayList
      * of publications.
      * @param textToSearch
@@ -240,7 +240,9 @@ public class ViewPublicationsActivity extends AppCompatActivity
      */
     public void searchItem(String textToSearch){
         for (Publication item:items){
-            if(!(item.name.toLowerCase()).contains(textToSearch.toLowerCase())){
+            if(!(item.name.toLowerCase()).contains(textToSearch.toLowerCase())
+            && !(item.researchGroup.toLowerCase()).contains(textToSearch.toLowerCase())
+            && !(item.status.toLowerCase()).contains(textToSearch.toLowerCase())){
                 listItems.remove(item);
             }
         }
