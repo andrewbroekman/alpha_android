@@ -24,7 +24,7 @@ buildscript {
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: "https://nexus.codinginfinity.com/content/repositories/releases") {
+            repository(url: "https://nexus.codinginfinity.com/content/repositories/snapshots") {
                 authentication(userName: '14022282', password: '3xcDhaW7')
             }
             snapshotRepository(url: "https://nexus.codinginfinity.com/content/repositories/snapshots") {
