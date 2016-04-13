@@ -152,7 +152,7 @@ public class ViewPerson extends AppCompatActivity {
         return true;
     }
 
-    @override  
+    @Override  
     /**
      * This method handles action bar item clicks.
      * @return boolean
