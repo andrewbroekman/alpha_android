@@ -92,7 +92,7 @@ public class AddPublication extends AppCompatActivity {
                     url_s = url.getText().toString();
 
 
-                    newPublication = new CreatePublications(
+                 /*   newPublication = new CreatePublications(
                             name_s,
                             owner_s,
                             type_s,
@@ -100,7 +100,7 @@ public class AddPublication extends AppCompatActivity {
                             url_s,
                             envisioned_date,
                             start_date
-                    );
+                    );*/
 
                     startActivity(new Intent(AddPublication.this, MainMenu.class));
                 }
@@ -126,7 +126,7 @@ public class AddPublication extends AppCompatActivity {
                 break;
 
             case R.id.viewpublications:
-                startActivity(new Intent(AddPublication.this, ViewPublications.class));
+                startActivity(new Intent(AddPublication.this, ViewPublicationsActivity.class));
 
                 break;
 

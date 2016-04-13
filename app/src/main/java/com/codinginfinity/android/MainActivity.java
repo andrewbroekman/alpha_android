@@ -78,9 +78,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
-    public void addPaperFunc(View v){
-        Intent intent = new Intent(this, addPapersActivity.class);
-        startActivity(intent);
+    public void addPaperFunc(View v)
+    {
+        boolean userpriv = true;
+        if(userpriv) {
+            Intent intent = new Intent(this, AddPublicationAsSuper.class);
+            startActivity(intent);
+        }
+        else
+        {
+            Intent intent = new Intent(this, AddPublication.class);
+            startActivity(intent);
+        }
     }
     public void addPaperFunc(){
         Intent intent = new Intent(this, addPapersActivity.class);
