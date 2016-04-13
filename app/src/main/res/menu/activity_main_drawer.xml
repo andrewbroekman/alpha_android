@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:title="Communicate">
+            <item
+                android:id="@+id/nav_view_publication"
+
+                android:title="View Publication"
+                />
+            <item
+                android:id="@+id/nav_add_papers"
+
+                android:title="Add Publication"
+                />
+            <item
+                android:id="@+id/nav_view_user"
+
+                android:title="View Profile"
+                />
+    </group>
+
+</menu>
