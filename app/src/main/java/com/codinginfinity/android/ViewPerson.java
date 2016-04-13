@@ -39,7 +39,7 @@ public class ViewPerson extends AppCompatActivity {
     }
     private String Name ;
     private String Email ;
-    private String Random2 ;
+    private String ResearchGroup ;
     private Float UnitedEarned ;
     /**
      * when this button is clicked it makes all the edit
@@ -57,7 +57,7 @@ public class ViewPerson extends AppCompatActivity {
         EditText name = (EditText) findViewById(R.id.edtName);
         EditText email = (EditText) findViewById(R.id.edtEmail);
         EditText unitedEarned = (EditText) findViewById(R.id.edtUnitsEarned);
-        EditText random2 = (EditText) findViewById(R.id.editText5);
+        EditText researchGroup = (EditText) findViewById(R.id.editText5);
         Name = name.getText().toString() ;
         Email = email.getText().toString() ;
         String s = unitedEarned.getText().toString() ;
@@ -69,12 +69,11 @@ public class ViewPerson extends AppCompatActivity {
         {
             Toast.makeText(getApplicationContext(), s + " is not a valid number", Toast.LENGTH_SHORT).show() ;
         }
-        Random2 = random2.getText().toString() ;
+        ResearchGroup = researchGroup.getText().toString() ;
        if (editBtn.getText().equals("Edit")) {
            name.setEnabled(true);
            email.setEnabled(true);
-           unitedEarned.setEnabled(true);
-           random2.setEnabled(true);
+           researchGroup.setEnabled(true);
            editBtn.setText("save");
            cancelBtn.setEnabled(true);
            cancelBtn.setVisibility(View.VISIBLE);
@@ -93,12 +92,11 @@ public class ViewPerson extends AppCompatActivity {
            {
                Toast.makeText(getApplicationContext(), s + " is not a valid number", Toast.LENGTH_SHORT).show() ;
            }
-           Random2 = random2.getText().toString() ;
+           ResearchGroup = researchGroup.getText().toString() ;
            editBtn.setText("Edit");
            name.setEnabled(false);
            email.setEnabled(false);
-           unitedEarned.setEnabled(false);
-           random2.setEnabled(false);
+           researchGroup.setEnabled(false);
            viewBtn.setEnabled(true);
            cancelBtn.setEnabled(false);
            cancelBtn.setVisibility(View.INVISIBLE);
@@ -117,16 +115,16 @@ public class ViewPerson extends AppCompatActivity {
         EditText name = (EditText) findViewById(R.id.edtName);
         EditText email = (EditText) findViewById(R.id.edtEmail);
         EditText unitedEarned = (EditText) findViewById(R.id.edtUnitsEarned);
-        EditText random2 = (EditText) findViewById(R.id.editText5);
+        EditText researchGroup = (EditText) findViewById(R.id.editText5);
         name.setText(Name);
         email.setText(Email);
         unitedEarned.setText(UnitedEarned.toString());
-        random2.setText(Random2);
+        researchGroup.setText(ResearchGroup);
         editBtn.setText("Edit");
         name.setEnabled(false);
         email.setEnabled(false);
         unitedEarned.setEnabled(false);
-        random2.setEnabled(false);
+        researchGroup.setEnabled(false);
         viewBtn.setEnabled(true);
         cancelBtn.setVisibility(View.INVISIBLE);
         cancelBtn.setEnabled(false);
@@ -167,5 +165,13 @@ public class ViewPerson extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void btnReportOnClick(View v)
+    {
+        Intent intent = new Intent(this, ViewReport.class);
+        startActivity(intent);
+    }
+
+
 
 }
