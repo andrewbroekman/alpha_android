@@ -4,17 +4,17 @@
     <group android:title="Communicate">
             <item
                 android:id="@+id/nav_view_publication"
-                android:icon="@mipmap/ic_menu_copy_holo_light"
+
                 android:title="View Publication"
                 />
             <item
                 android:id="@+id/nav_add_papers"
-                android:icon="@mipmap/ic_add_publication"
+
                 android:title="Add Publication"
                 />
             <item
                 android:id="@+id/nav_view_user"
-                android:icon="@mipmap/ic_view_profile"
+
                 android:title="View Profile"
                 />
     </group>
