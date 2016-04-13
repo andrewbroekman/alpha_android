@@ -136,7 +136,7 @@ public class AddPublication extends AppCompatActivity {
                 break;
 
             case R.id.signout:
-                startActivity(new Intent(AddPublication.this, Login.class));
+                startActivity(new Intent(AddPublication.this, LoginActivity.class));
 
                 break;
 
