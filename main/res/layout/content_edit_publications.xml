@@ -14,7 +14,7 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:id="@+id/edit_pub"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.example.stuart.alphaandroidinterface.EditPublication"
+        tools:context="com.codinginfinity.android.EditPublication"
         tools:showIn="@layout/activity_edit_publication"
         android:weightSum="1">
 
