@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void editUserFunc(View v){
-        Intent intent = new Intent(this, editUserActivity.class);
+        Intent intent = new Intent(this, ViewPerson.class);
         startActivity(intent);
     }
     public void editUserFunc(){

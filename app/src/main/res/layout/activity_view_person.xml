@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.codinginfinity.android.ViewPerson">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtName"
+        android:layout_marginTop="25dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/lblName"
+        android:layout_toEndOf="@+id/lblName"
+        android:layout_marginLeft="31dp"
+        android:layout_marginStart="31dp"
+        android:layout_alignParentEnd="true"
+        android:enabled="false"
+        android:text="Mark"
+        android:singleLine="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name:"
+        android:id="@+id/lblName"
+        android:textSize="12sp"
+        android:layout_marginBottom="8dp"
+        android:layout_alignBottom="@+id/edtName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtEmail"
+        android:layout_below="@+id/edtName"
+        android:layout_alignLeft="@+id/edtName"
+        android:layout_alignStart="@+id/edtName"
+        android:layout_alignParentEnd="true"
+        android:text="mark@swag.com"
+        android:enabled="false"
+        android:singleLine="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email:"
+        android:id="@+id/lblEmail"
+        android:textSize="12sp"
+        android:layout_marginBottom="8dp"
+        android:layout_alignBottom="@+id/edtEmail"
+        android:layout_toLeftOf="@+id/edtName"
+        android:layout_toStartOf="@+id/edtName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Units Earned:"
+        android:id="@+id/lblUnitsEarned"
+        android:textSize="12sp"
+        android:layout_alignBottom="@+id/edtUnitsEarned"
+        android:layout_toLeftOf="@+id/edtEmail"
+        android:layout_toStartOf="@+id/edtEmail" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:enabled="false"
+        android:id="@+id/edtUnitsEarned"
+        android:text="69"
+        android:layout_below="@+id/edtEmail"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/edtEmail"
+        android:layout_alignStart="@+id/edtEmail" />
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText5"
+        android:enabled="false"
+        android:text="Belthazor"
+        android:singleLine="true"
+        android:layout_below="@+id/edtUnitsEarned"
+        android:layout_alignLeft="@+id/edtUnitsEarned"
+        android:layout_alignStart="@+id/edtUnitsEarned"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textView4"
+        android:textSize="12sp"
+        android:layout_alignBaseline="@+id/editText5"
+        android:layout_alignBottom="@+id/editText5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:width="150dp"
+        android:id="@+id/btnEdit"
+        android:layout_marginBottom="118dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="btnEditOnClick"
+        android:enabled="true"
+        android:clickable="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Papers"
+        android:width="150dp"
+        android:id="@+id/btnView"
+        android:layout_alignTop="@+id/btnEdit"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="btnViewOnClick"
+        android:enabled="true"
+        android:clickable="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/btnCancel"
+        android:layout_below="@+id/btnView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:visibility="invisible"
+        android:enabled="false"
+        android:onClick="btnCancelOnClick"
+        android:clickable="true" />
+
+
+</RelativeLayout>
