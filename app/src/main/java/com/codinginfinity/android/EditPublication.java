@@ -1,5 +1,5 @@
-package com.codinginfinity.android;
-//package com.example.jocelyn.editpublication;
+//package com.codinginfinity.android;
+package com.example.jocelyn.editpublication;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,12 +10,44 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 
 public class EditPublication extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publication);
+        int count=0;
+        BufferedReader br;
+        try {
+            if((br = new BufferedReader(new FileReader(""))) != null) {
+                String sCurrentLine;
+                while ((sCurrentLine = br.readLine()) != null) {//just to count the number of elements in the file to create the array
+                    count++;
+                }
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        String [] strArray = new String[count];
+        try{
+            if ((br = new BufferedReader(new FileReader(""))) != null) {
+                String sCurrentLine;
+                int i=0;
+                while ((sCurrentLine = br.readLine()) != null) {
+                    strArray[i] = sCurrentLine;
+                    i++;
+                }
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
     private String Name ;
