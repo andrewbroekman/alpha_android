@@ -271,7 +271,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * @return boolean
      */
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.view_publications, menu);
+        getMenuInflater().inflate(R.menu.addpublications, menu);
         return true;
     }
 
@@ -431,9 +431,6 @@ public class ViewPublicationsActivity extends AppCompatActivity
                      * @return void
                      */
                     public void onClick(View v) {
-                        Toast.makeText(getContext(), "View button was clicked for item " + position, Toast.LENGTH_SHORT).show();
-
-
                             Intent intent = new Intent(ViewPublicationsActivity.this, EditPub.class);
                             intent.putExtra("pulication_name",getItem(position).name);
                             startActivity(intent);
