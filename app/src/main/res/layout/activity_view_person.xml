@@ -169,7 +169,6 @@
         android:layout_alignLeft="@+id/edtReasearch"
         android:layout_alignStart="@+id/edtReasearch"
         android:layout_alignParentEnd="true"
-        android:editable="false"
         android:text="082 589 8083"
         android:enabled="false"
         android:singleLine="true"/>

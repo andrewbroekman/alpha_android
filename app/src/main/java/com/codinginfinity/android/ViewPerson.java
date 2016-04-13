@@ -73,6 +73,7 @@ public class ViewPerson extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), s + " is not a valid number", Toast.LENGTH_SHORT).show() ;
         }
         ResearchGroup = researchGroup.getText().toString() ;
+        ContactD = contactD.getText().toString();
        if (editBtn.getText().equals("Edit")) {
            name.setEnabled(true);
            email.setEnabled(true);
@@ -103,6 +104,7 @@ public class ViewPerson extends AppCompatActivity {
            name.setEnabled(false);
            email.setEnabled(false);
            researchGroup.setEnabled(false);
+           contactD.setEnabled(false);
            viewBtn.setEnabled(true);
            reportBtn.setEnabled(true);
            cancelBtn.setEnabled(false);
@@ -124,15 +126,18 @@ public class ViewPerson extends AppCompatActivity {
         EditText email = (EditText) findViewById(R.id.edtEmail);
         EditText unitedEarned = (EditText) findViewById(R.id.edtUnitsEarned);
         EditText researchGroup = (EditText) findViewById(R.id.edtReasearch);
+        EditText conD = (EditText) findViewById(R.id.edtCon);
         name.setText(Name);
         email.setText(Email);
         unitedEarned.setText(UnitedEarned.toString());
         researchGroup.setText(ResearchGroup);
+        conD.setText(ContactD);
         editBtn.setText("Edit");
         name.setEnabled(false);
         email.setEnabled(false);
         unitedEarned.setEnabled(false);
         researchGroup.setEnabled(false);
+        conD.setEnabled(false);
         viewBtn.setEnabled(true);
         reBtn.setEnabled(true);
         cancelBtn.setVisibility(View.INVISIBLE);
