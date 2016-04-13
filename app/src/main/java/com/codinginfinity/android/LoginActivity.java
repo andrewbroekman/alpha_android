@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"Sexy-Girl\"," +
                                              "\"units\" : \"5\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"1\"" +
+                                             "\"permission\" : \"1\"," +
                                              "\"publications\" : []" +
                                          "}," +
                                          "{" +
@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"Sexy-Girl\"," +
                                              "\"units\" : \"1\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"2\"" +
+                                             "\"permission\" : \"2\"," +
                                              "\"publications\" : []" +
                                          "}," +
                                          "{" +
@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"\"," +
                                              "\"units\" : \"8\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"1\"" +
+                                             "\"permission\" : \"1\"," +
                                              "\"publications\" : []" +
                                          "}," +
                                          "{" +
@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"Sexy-Girl\"," +
                                              "\"units\" : \"7\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"1\"" +
+                                             "\"permission\" : \"1\"," +
                                              "\"publications\" : []" +
                                          "}," +
                                          "{" +
@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"Sexy-Girl\"," +
                                              "\"units\" : \"12\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"3\"" +
+                                             "\"permission\" : \"3\"," +
                                              "\"publications\" : []" +
                                          "}," +
                                          "{" +
@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"Sexy-Girl\"," +
                                              "\"units\" : \"9\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"1\"" +
+                                             "\"permission\" : \"1\"," +
                                              "\"publications\" : []" +
                                          "}," +
                                          "{" +
@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"TheG\"," +
                                              "\"units\" : \"5\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"3\"" +
+                                             "\"permission\" : \"3\"," +
                                              "\"publications\" : []" +
                                          "}," +
                                          "{" +
@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"\"," +
                                              "\"units\" : \"3\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"1\"" +
+                                             "\"permission\" : \"1\"," +
                                              "\"publications\" : []" +
                                          "}," +
                                          "{" +
@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"Sexy-Girl\"," +
                                              "\"units\" : \"5\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"1\"" +
+                                             "\"permission\" : \"1\"," +
                                              "\"publications\" : []" +
                                          "}," +
                                          "{" +
@@ -134,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"TheG\"," +
                                              "\"units\" : \"8\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"1\"" +
+                                             "\"permission\" : \"1\"," +
                                              "\"publications\" : []" +
                                          "}," +
                                          "{" +
@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"\"," +
                                              "\"units\" : \"9\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"1\"" +
+                                             "\"permission\" : \"1\"," +
                                              "\"publications\" : []" +
                                          "}," +
                                          "{" +
@@ -154,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"TheG\"," +
                                              "\"units\" : \"5\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"1\"" +
+                                             "\"permission\" : \"1\"," +
                                              "\"publications\" : []" +
                                          "}," +
                                          "{" +
@@ -164,7 +164,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"demo\"," +
                                              "\"units\" : \"5\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"1\"" +
+                                             "\"permission\" : \"1\"," +
                                              "\"publications\" : []" +
                                          "}" +
                                     "]";
@@ -172,13 +172,8 @@ public class LoginActivity extends AppCompatActivity {
          }
 
          //Get people.json
-         String [] loadText = Load(file);
-         String peopleJsonString = "";
+         String peopleJsonString = Load(file);
 
-         for (int i = 0; i < loadText.length; i++)
-         {
-             peopleJsonString += loadText[i];
-         }
 
          String username = "";
          String password = "";
@@ -264,7 +259,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public static String[] Load(File file)
+    public static String Load(File file)
     {
         FileInputStream fis = null;
         try
@@ -305,7 +300,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
         catch (IOException e) {e.printStackTrace();}
-        return array;
+
+        String returnString = "";
+        for (int k = 0; k < array.length; k++)
+        {
+            returnString += array[k];
+        }
+
+        return returnString;
     }
 
 }
