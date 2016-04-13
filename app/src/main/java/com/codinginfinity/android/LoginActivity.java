@@ -9,6 +9,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
      public void loginFunction(View view) {
-         String enteredEmail = ((EditText) findViewById(R.id.edt_email)).getText().toString();
+         String enteredName = ((EditText) findViewById(R.id.edt_name)).getText().toString();
          String enteredPassword = ((EditText) findViewById(R.id.edt_password)).getText().toString();
 
          File file = new File(path + "/people.json");
@@ -154,8 +158,37 @@ public class LoginActivity extends AppCompatActivity {
              Save(file, peopleJsonString);
          }
 
-         if (enteredEmail.compareTo("demo") == 0 && enteredPassword.compareTo("demo") == 0) {
-             //if(1==1){ //Used to speed up debugging
+         //Get people.json
+         String [] loadText = Load(file);
+         String peopleJsonString = "";
+
+         for (int i = 0; i < loadText.length; i++)
+         {
+             peopleJsonString += loadText[i];
+         }
+
+         String username = "";
+         String password = "";
+
+         // Try to make json object
+         try {
+             JSONArray jsonArray = new JSONArray(peopleJsonString);
+
+             for (int i =0; i<jsonArray.length();i++) {
+                 JSONObject jsonObject = jsonArray.getJSONObject(i); //Get each person from array
+
+                 if (enteredName.compareTo(jsonObject.getString("name")) == 0){
+                     username = jsonObject.getString("name");
+                     password = jsonObject.getString("password");
+                     break;
+                 }
+             }
+
+         } catch (JSONException e) {
+             e.printStackTrace();
+         }
+
+         if (enteredName.compareTo(username) == 0 && enteredPassword.compareTo(password) == 0) {
              Intent intent = new Intent(this, MainActivity.class);
              startActivity(intent);
              finish();
