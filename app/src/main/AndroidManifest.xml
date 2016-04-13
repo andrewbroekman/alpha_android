@@ -35,6 +35,7 @@
         </activity>
         <activity android:name=".addPapersActivity" />
         <activity android:name=".editUserActivity" />
+        <activity android:name=".ViewReport" />
         <activity android:name=".ViewPerson" />
         <activity
             android:name=".AddPublication"
