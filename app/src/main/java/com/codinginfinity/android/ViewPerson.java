@@ -39,8 +39,9 @@ public class ViewPerson extends AppCompatActivity {
     }
     private String Name ;
     private String Email ;
-    private String Random2 ;
+    private String ResearchGroup ;
     private Float UnitedEarned ;
+    private String ContactD;
     /**
      * when this button is clicked it makes all the edit
      * boxes enabled and changes the button to a save button.
@@ -53,11 +54,13 @@ public class ViewPerson extends AppCompatActivity {
     {
        Button editBtn = (Button) v ;
        Button viewBtn = (Button) findViewById(R.id.btnView);
+        Button reportBtn = (Button) findViewById(R.id.btnRe);
         Button cancelBtn = (Button) findViewById(R.id.btnCancel);
         EditText name = (EditText) findViewById(R.id.edtName);
         EditText email = (EditText) findViewById(R.id.edtEmail);
+        EditText contactD = (EditText) findViewById(R.id.edtCon);
         EditText unitedEarned = (EditText) findViewById(R.id.edtUnitsEarned);
-        EditText random2 = (EditText) findViewById(R.id.editText5);
+        EditText researchGroup = (EditText) findViewById(R.id.edtReasearch);
         Name = name.getText().toString() ;
         Email = email.getText().toString() ;
         String s = unitedEarned.getText().toString() ;
@@ -69,16 +72,17 @@ public class ViewPerson extends AppCompatActivity {
         {
             Toast.makeText(getApplicationContext(), s + " is not a valid number", Toast.LENGTH_SHORT).show() ;
         }
-        Random2 = random2.getText().toString() ;
+        ResearchGroup = researchGroup.getText().toString() ;
        if (editBtn.getText().equals("Edit")) {
            name.setEnabled(true);
            email.setEnabled(true);
-           unitedEarned.setEnabled(true);
-           random2.setEnabled(true);
+           researchGroup.setEnabled(true);
+           contactD.setEnabled(true);
            editBtn.setText("save");
            cancelBtn.setEnabled(true);
            cancelBtn.setVisibility(View.VISIBLE);
            viewBtn.setEnabled(false);
+           reportBtn.setEnabled(false);
            return ;
        }
        if(editBtn.getText().equals("save")){
@@ -93,13 +97,14 @@ public class ViewPerson extends AppCompatActivity {
            {
                Toast.makeText(getApplicationContext(), s + " is not a valid number", Toast.LENGTH_SHORT).show() ;
            }
-           Random2 = random2.getText().toString() ;
+           ResearchGroup = researchGroup.getText().toString() ;
+           ContactD = contactD.getText().toString() ;
            editBtn.setText("Edit");
            name.setEnabled(false);
            email.setEnabled(false);
-           unitedEarned.setEnabled(false);
-           random2.setEnabled(false);
+           researchGroup.setEnabled(false);
            viewBtn.setEnabled(true);
+           reportBtn.setEnabled(true);
            cancelBtn.setEnabled(false);
            cancelBtn.setVisibility(View.INVISIBLE);
            return ;
@@ -114,20 +119,22 @@ public class ViewPerson extends AppCompatActivity {
         Button cancelBtn = (Button) v ;
         Button viewBtn = (Button) findViewById(R.id.btnView);
         Button editBtn = (Button) findViewById(R.id.btnEdit);
+        Button reBtn = (Button) findViewById(R.id.btnRe);
         EditText name = (EditText) findViewById(R.id.edtName);
         EditText email = (EditText) findViewById(R.id.edtEmail);
         EditText unitedEarned = (EditText) findViewById(R.id.edtUnitsEarned);
-        EditText random2 = (EditText) findViewById(R.id.editText5);
+        EditText researchGroup = (EditText) findViewById(R.id.edtReasearch);
         name.setText(Name);
         email.setText(Email);
         unitedEarned.setText(UnitedEarned.toString());
-        random2.setText(Random2);
+        researchGroup.setText(ResearchGroup);
         editBtn.setText("Edit");
         name.setEnabled(false);
         email.setEnabled(false);
         unitedEarned.setEnabled(false);
-        random2.setEnabled(false);
+        researchGroup.setEnabled(false);
         viewBtn.setEnabled(true);
+        reBtn.setEnabled(true);
         cancelBtn.setVisibility(View.INVISIBLE);
         cancelBtn.setEnabled(false);
         return ;
@@ -167,5 +174,13 @@ public class ViewPerson extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void btnReportOnClick(View v)
+    {
+        Intent intent = new Intent(this, ViewReport.class);
+        startActivity(intent);
+    }
+
+
 
 }
