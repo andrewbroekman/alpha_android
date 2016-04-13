@@ -26,7 +26,7 @@ public class AddPublication extends AppCompatActivity {
     EditText name, owner, type, target, url;
     Spinner state;
     String name_s, owner_s, type_s, state_s, target_s, start_s, url_s;
-    Date envisioned_date, start_date;
+    String envisioned_date, start_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -73,20 +73,14 @@ public class AddPublication extends AppCompatActivity {
                     state_s = state.getSelectedItem().toString();
 
                     target = (EditText) findViewById(R.id.target_edit);
-                    target_s = target.getText().toString();
+                    envisioned_date = target.getText().toString();
+                    Date newdate = new Date();
 
-                    DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                    try
-                    {
-                        envisioned_date = df.parse(target_s);
-                    }
-                    catch (ParseException e)
-                    {
-                        e.printStackTrace();
-                    }
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                    start_date = new Date();
+                    //String envisioned_date = sdf.format(target_s);
+
+                    start_date = sdf.format(newdate);
 
                     url = (EditText) findViewById(R.id.url_edit);
                     url_s = url.getText().toString();
@@ -98,7 +92,8 @@ public class AddPublication extends AppCompatActivity {
                             state_s,
                             url_s,
                             envisioned_date,
-                            start_date
+                            start_date,
+                            getApplicationContext()
                     );
 
                     startActivity(new Intent(AddPublication.this, MainActivity.class));
