@@ -59,5 +59,6 @@
     <string name="title_activity_add_publication_landscape">AddPublication_landscape</string>
     <string name="title_activity_edit_publication">EditPublication</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_test">Test</string>
 </resources>
 
