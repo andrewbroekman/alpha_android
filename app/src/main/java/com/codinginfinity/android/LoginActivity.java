@@ -169,6 +169,7 @@ public class LoginActivity extends AppCompatActivity {
 
          String username = "";
          String password = "";
+         String permission = "";
 
          // Try to make json object
          try {
@@ -180,6 +181,7 @@ public class LoginActivity extends AppCompatActivity {
                  if (enteredName.compareTo(jsonObject.getString("name")) == 0){
                      username = jsonObject.getString("name");
                      password = jsonObject.getString("password");
+                     permission = jsonObject.getString("permission");
                      break;
                  }
              }
@@ -190,6 +192,8 @@ public class LoginActivity extends AppCompatActivity {
 
          if (enteredName.compareTo(username) == 0 && enteredPassword.compareTo(password) == 0) {
              Intent intent = new Intent(this, MainActivity.class);
+             intent.putExtra("username",username);
+             intent.putExtra("permission",permission);
              startActivity(intent);
              finish();
          } else {
