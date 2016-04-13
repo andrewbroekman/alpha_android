@@ -418,7 +418,6 @@ public class ViewPublicationsActivity extends AppCompatActivity
                 ViewHolder viewholder = new ViewHolder();
                 viewholder.publication_name = (TextView) convertView.findViewById(R.id.list_view_item_name_view_publication);
                 viewholder.view_btn = (ImageButton) convertView.findViewById(R.id.list_view_item_view_view_publication);
-                viewholder.edit_btn = (ImageButton) convertView.findViewById(R.id.list_view_item_edit_view_publication);
                 convertView.setTag(viewholder);
             }
             mainViewHolder = (ViewHolder) convertView.getTag();
@@ -464,6 +463,5 @@ public class ViewPublicationsActivity extends AppCompatActivity
     public class ViewHolder{
         TextView publication_name;
         ImageButton view_btn;
-        ImageButton edit_btn;
     }
 }
