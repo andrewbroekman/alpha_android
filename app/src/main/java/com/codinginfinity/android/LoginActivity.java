@@ -37,138 +37,147 @@ public class LoginActivity extends AppCompatActivity {
          File file = new File(path + "/people.json");
          if (!file.exists()) { // Generate fake json
              String peopleJsonString = "[" +
-                     "{" +
-                     "\"name\" : \"Kimi Raikkonen\"," +
-                     "\"password\" : \"qwerty123\"," +
-                     "\"email\" : \"Kimi.Raikkonen@gmail.com\"," +
-                     "\"group\" : \"Sexy-Girl\"," +
-                     "\"units\" : \"5\"," +
-                     "\"contact\" : \"0123456789\"," +
-                     "\"permission\" : \"1\"" +
-                     "}," +
-                     "{" +
-                     "\"name\" : \"Felipe Massa\"," +
-                     "\"password\" : \"qwerty123\"," +
-                     "\"email\" : \"Felipe.Massa@gmail.com\"," +
-                     "\"group\" : \"Sexy-Girl\"," +
-                     "\"units\" : \"1\"," +
-                     "\"contact\" : \"0123456789\"," +
-                     "\"permission\" : \"2\"" +
-                     "}," +
-                     "{" +
-                     "\"name\" : \"Fernando Alonso\"," +
-                     "\"password\" : \"qwerty123\"," +
-                     "\"email\" : \"Fernando.Alonso@gmail.com\"," +
-                     "\"group\" : \"\"," +
-                     "\"units\" : \"8\"," +
-                     "\"contact\" : \"0123456789\"," +
-                     "\"permission\" : \"1\"" +
-                     "}," +
-                     "{" +
-                     "\"name\" : \"Jenson Button\"," +
-                     "\"password\" : \"qwerty123\"," +
-                     "\"email\" : \"Jenson.Button@gmail.com\"," +
-                     "\"group\" : \"Sexy-Girl\"," +
-                     "\"units\" : \"7\"," +
-                     "\"contact\" : \"0123456789\"," +
-                     "\"permission\" : \"1\"" +
-                     "}," +
-                     "{" +
-                     "\"name\" : \"Valteri Bottas\"," +
-                     "\"password\" : \"qwerty123\"," +
-                     "\"email\" : \"Valteri.Bottas@gmail.com\"," +
-                     "\"group\" : \"Sexy-Girl\"," +
-                     "\"units\" : \"12\"," +
-                     "\"contact\" : \"0123456789\"," +
-                     "\"permission\" : \"3\"" +
-                     "}," +
-                     "{" +
-                     "\"name\" : \"Sebastian Vettel\"," +
-                     "\"password\" : \"qwerty123\"," +
-                     "\"email\" : \"Sebastian.Vettel@gmail.com\"," +
-                     "\"group\" : \"Sexy-Girl\"," +
-                     "\"units\" : \"9\"," +
-                     "\"contact\" : \"0123456789\"," +
-                     "\"permission\" : \"1\"" +
-                     "}," +
-                     "{" +
-                     "\"name\" : \"Nico Rosbergl\"," +
-                     "\"password\" : \"qwerty123\"," +
-                     "\"email\" : \"Nico.Rosberg@gmail.com\"," +
-                     "\"group\" : \"TheG\"," +
-                     "\"units\" : \"5\"," +
-                     "\"contact\" : \"0123456789\"," +
-                     "\"permission\" : \"3\"" +
-                     "}," +
-                     "{" +
-                     "\"name\" : \"Valentino Rossi\"," +
-                     "\"password\" : \"qwerty123\"," +
-                     "\"email\" : \"Valentino.Rossi@gmail.com\"," +
-                     "\"group\" : \"\"," +
-                     "\"units\" : \"3\"," +
-                     "\"contact\" : \"0123456789\"," +
-                     "\"permission\" : \"1\"" +
-                     "}," +
-                     "{" +
-                     "\"name\" : \"Colin McRae\"," +
-                     "\"password\" : \"qwerty123\"," +
-                     "\"email\" : \"Colin.McRae@gmail.com\"," +
-                     "\"group\" : \"Sexy-Girl\"," +
-                     "\"units\" : \"5\"," +
-                     "\"contact\" : \"0123456789\"," +
-                     "\"permission\" : \"1\"" +
-                     "}," +
-                     "{" +
-                     "\"name\" : \"Michael Schumacher\"," +
-                     "\"password\" : \"qwerty123\"," +
-                     "\"email\" : \"Michael.Schumacher@gmail.com\"," +
-                     "\"group\" : \"TheG\"," +
-                     "\"units\" : \"8\"," +
-                     "\"contact\" : \"0123456789\"," +
-                     "\"permission\" : \"1\"" +
-                     "}," +
-                     "{" +
-                     "\"name\" : \"Juan Pablo Montoya\"," +
-                     "\"password\" : \"qwerty123\"," +
-                     "\"email\" : \"Juan.Pablo.Montoya@gmail.com\"," +
-                     "\"group\" : \"\"," +
-                     "\"units\" : \"9\"," +
-                     "\"contact\" : \"0123456789\"," +
-                     "\"permission\" : \"1\"" +
-                     "}," +
-                     "{" +
-                     "\"name\" : \"Robert Kubica\"," +
-                     "\"password\" : \"qwerty123\"," +
-                     "\"email\" : \"Robert.Kubica@gmail.com\"," +
-                     "\"group\" : \"TheG\"," +
-                     "\"units\" : \"5\"," +
-                     "\"contact\" : \"0123456789\"," +
-                     "\"permission\" : \"1\"" +
-                     "}," +
-                     "{" +
-                     "\"name\" : \"demo\"," +
-                     "\"password\" : \"demo\"," +
-                     "\"email\" : \"demo@gmail.com\"," +
-                     "\"group\" : \"demo\"," +
-                     "\"units\" : \"5\"," +
-                     "\"contact\" : \"0123456789\"," +
-                     "\"permission\" : \"1\"" +
-                     "}" +
-                     "]";
+                                         "{" +
+                                             "\"name\" : \"Kimi Raikkonen\"," +
+                                             "\"password\" : \"qwerty123\"," +
+                                             "\"email\" : \"Kimi.Raikkonen@gmail.com\"," +
+                                             "\"group\" : \"Sexy-Girl\"," +
+                                             "\"units\" : \"5\"," +
+                                             "\"contact\" : \"0123456789\"," +
+                                             "\"permission\" : \"1\"," +
+                                             "\"publications\" : []" +
+                                         "}," +
+                                         "{" +
+                                             "\"name\" : \"Felipe Massa\"," +
+                                             "\"password\" : \"qwerty123\"," +
+                                             "\"email\" : \"Felipe.Massa@gmail.com\"," +
+                                             "\"group\" : \"Sexy-Girl\"," +
+                                             "\"units\" : \"1\"," +
+                                             "\"contact\" : \"0123456789\"," +
+                                             "\"permission\" : \"2\"," +
+                                             "\"publications\" : []" +
+                                         "}," +
+                                         "{" +
+                                             "\"name\" : \"Fernando Alonso\"," +
+                                             "\"password\" : \"qwerty123\"," +
+                                             "\"email\" : \"Fernando.Alonso@gmail.com\"," +
+                                             "\"group\" : \"\"," +
+                                             "\"units\" : \"8\"," +
+                                             "\"contact\" : \"0123456789\"," +
+                                             "\"permission\" : \"1\"," +
+                                             "\"publications\" : []" +
+                                         "}," +
+                                         "{" +
+                                             "\"name\" : \"Jenson Button\"," +
+                                             "\"password\" : \"qwerty123\"," +
+                                             "\"email\" : \"Jenson.Button@gmail.com\"," +
+                                             "\"group\" : \"Sexy-Girl\"," +
+                                             "\"units\" : \"7\"," +
+                                             "\"contact\" : \"0123456789\"," +
+                                             "\"permission\" : \"1\"," +
+                                             "\"publications\" : []" +
+                                         "}," +
+                                         "{" +
+                                             "\"name\" : \"Valteri Bottas\"," +
+                                             "\"password\" : \"qwerty123\"," +
+                                             "\"email\" : \"Valteri.Bottas@gmail.com\"," +
+                                             "\"group\" : \"Sexy-Girl\"," +
+                                             "\"units\" : \"12\"," +
+                                             "\"contact\" : \"0123456789\"," +
+                                             "\"permission\" : \"3\"," +
+                                             "\"publications\" : []" +
+                                         "}," +
+                                         "{" +
+                                             "\"name\" : \"Sebastian Vettel\"," +
+                                             "\"password\" : \"qwerty123\"," +
+                                             "\"email\" : \"Sebastian.Vettel@gmail.com\"," +
+                                             "\"group\" : \"Sexy-Girl\"," +
+                                             "\"units\" : \"9\"," +
+                                             "\"contact\" : \"0123456789\"," +
+                                             "\"permission\" : \"1\"," +
+                                             "\"publications\" : []" +
+                                         "}," +
+                                         "{" +
+                                             "\"name\" : \"Nico Rosbergl\"," +
+                                             "\"password\" : \"qwerty123\"," +
+                                             "\"email\" : \"Nico.Rosberg@gmail.com\"," +
+                                             "\"group\" : \"TheG\"," +
+                                             "\"units\" : \"5\"," +
+                                             "\"contact\" : \"0123456789\"," +
+                                             "\"permission\" : \"3\"," +
+                                             "\"publications\" : []" +
+                                         "}," +
+                                         "{" +
+                                             "\"name\" : \"Valentino Rossi\"," +
+                                             "\"password\" : \"qwerty123\"," +
+                                             "\"email\" : \"Valentino.Rossi@gmail.com\"," +
+                                             "\"group\" : \"\"," +
+                                             "\"units\" : \"3\"," +
+                                             "\"contact\" : \"0123456789\"," +
+                                             "\"permission\" : \"1\"," +
+                                             "\"publications\" : []" +
+                                         "}," +
+                                         "{" +
+                                             "\"name\" : \"Colin McRae\"," +
+                                             "\"password\" : \"qwerty123\"," +
+                                             "\"email\" : \"Colin.McRae@gmail.com\"," +
+                                             "\"group\" : \"Sexy-Girl\"," +
+                                             "\"units\" : \"5\"," +
+                                             "\"contact\" : \"0123456789\"," +
+                                             "\"permission\" : \"1\"," +
+                                             "\"publications\" : []" +
+                                         "}," +
+                                         "{" +
+                                             "\"name\" : \"Michael Schumacher\"," +
+                                             "\"password\" : \"qwerty123\"," +
+                                             "\"email\" : \"Michael.Schumacher@gmail.com\"," +
+                                             "\"group\" : \"TheG\"," +
+                                             "\"units\" : \"8\"," +
+                                             "\"contact\" : \"0123456789\"," +
+                                             "\"permission\" : \"1\"," +
+                                             "\"publications\" : []" +
+                                         "}," +
+                                         "{" +
+                                             "\"name\" : \"Juan Pablo Montoya\"," +
+                                             "\"password\" : \"qwerty123\"," +
+                                             "\"email\" : \"Juan.Pablo.Montoya@gmail.com\"," +
+                                             "\"group\" : \"\"," +
+                                             "\"units\" : \"9\"," +
+                                             "\"contact\" : \"0123456789\"," +
+                                             "\"permission\" : \"1\"," +
+                                             "\"publications\" : []" +
+                                         "}," +
+                                         "{" +
+                                             "\"name\" : \"Robert Kubica\"," +
+                                             "\"password\" : \"qwerty123\"," +
+                                             "\"email\" : \"Robert.Kubica@gmail.com\"," +
+                                             "\"group\" : \"TheG\"," +
+                                             "\"units\" : \"5\"," +
+                                             "\"contact\" : \"0123456789\"," +
+                                             "\"permission\" : \"1\"," +
+                                             "\"publications\" : []" +
+                                         "}," +
+                                         "{" +
+                                             "\"name\" : \"demo\"," +
+                                             "\"password\" : \"demo\"," +
+                                             "\"email\" : \"demo@gmail.com\"," +
+                                             "\"group\" : \"demo\"," +
+                                             "\"units\" : \"5\"," +
+                                             "\"contact\" : \"0123456789\"," +
+                                             "\"permission\" : \"1\"," +
+                                             "\"publications\" : []" +
+                                         "}" +
+                                    "]";
              Save(file, peopleJsonString);
          }
 
          //Get people.json
-         String [] loadText = Load(file);
-         String peopleJsonString = "";
+         String peopleJsonString = Load(file);
 
-         for (int i = 0; i < loadText.length; i++)
-         {
-             peopleJsonString += loadText[i];
-         }
 
          String username = "";
          String password = "";
+         String permission = "";
 
          // Try to make json object
          try {
@@ -180,6 +189,7 @@ public class LoginActivity extends AppCompatActivity {
                  if (enteredName.compareTo(jsonObject.getString("name")) == 0){
                      username = jsonObject.getString("name");
                      password = jsonObject.getString("password");
+                     permission = jsonObject.getString("permission");
                      break;
                  }
              }
@@ -190,6 +200,8 @@ public class LoginActivity extends AppCompatActivity {
 
          if (enteredName.compareTo(username) == 0 && enteredPassword.compareTo(password) == 0) {
              Intent intent = new Intent(this, MainActivity.class);
+             intent.putExtra("username",username);
+             intent.putExtra("permission",permission);
              startActivity(intent);
              finish();
          } else {
@@ -247,7 +259,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public static String[] Load(File file)
+    public static String Load(File file)
     {
         FileInputStream fis = null;
         try
@@ -288,7 +300,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
         catch (IOException e) {e.printStackTrace();}
-        return array;
+
+        String returnString = "";
+        for (int k = 0; k < array.length; k++)
+        {
+            returnString += array[k];
+        }
+
+        return returnString;
     }
 
 }
