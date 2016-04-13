@@ -37,6 +37,7 @@
         <activity android:name=".editUserActivity" />
         <activity android:name=".ViewReport" />
         <activity android:name=".ViewPerson" />
+        <activity android:name=".EditPub" />
         <activity
             android:name=".AddPublication"
             android:label="@string/title_activity_add_publication"
