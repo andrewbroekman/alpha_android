@@ -1,19 +1,15 @@
-package com.example.stuart.alphaandroidinterface;
+package com.codinginfinity.android;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
+import com.codinginfinity.android.R;import java.lang.Override;import java.lang.String;
 
 
 public class Login extends ActionBarActivity {
@@ -65,7 +61,9 @@ public class Login extends ActionBarActivity {
                     }
                     finally
                     {*/
-                        startActivity(new Intent(Login.this, MainMenu.class));
+                    String type = "admin";
+                    Intent intent = new Intent(Login.this, MainMenu.class);
+                    startActivity(intent);
                     //}
                 }
                 else

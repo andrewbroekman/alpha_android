@@ -1,4 +1,4 @@
-package com.example.stuart.alphaandroidinterface;
+package com.codinginfinity.android;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,37 +10,46 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import com.codinginfinity.android.R;
+
+import java.lang.CharSequence;import java.lang.Override;import java.lang.String;import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-import static com.example.stuart.alphaandroidinterface.R.array.state_array;
+import static com.codinginfinity.android.R.array.state_array;
 
 public class AddPublicationAsSuper extends AppCompatActivity {
 
     protected CreatePublications newPublication;
     protected String file = "Publications";
-    EditText name, owner, type, target, url;
     Spinner state;
-    String name_s, owner_s, type_s, state_s, target_s, start_s, url_s;
+    EditText name, owner, type, target, authors, url;
+    String name_s, owner_s, type_s, state_s, target_s, authors_s, url_s;
+    String authorsList [];
     Date envisioned_date, start_date;
+    ArrayList<String> arrayList;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         int result = this.getResources().getConfiguration().orientation;
         if (result == 1)
         {
             //set content view to portrait
-            setContentView(R.layout.activity_add_publication);
+            setContentView(R.layout.activity_add_publication_as_super);
         }
         else
         {
             //set content view to landscape}
-            setContentView(R.layout.activity_add_publication_landscape);
+            setContentView(R.layout.activity_add_publication_as_super_landscape);
         }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -48,63 +57,88 @@ public class AddPublicationAsSuper extends AppCompatActivity {
         Spinner spinner = (Spinner) findViewById(R.id.state_edit);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-        state_array, android.R.layout.simple_spinner_item);
+                state_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
-            Button button = (Button) findViewById(R.id.submit);
-            if (button != null)
-                button.setOnClickListener(new View.OnClickListener()
-                {
-                    public void onClick(View v) {
-                        name = (EditText) findViewById(R.id.name_edit);
-                        name_s = name.getText().toString();
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.add_publication_super);
 
-                        owner = (EditText) findViewById(R.id.super_edit);
-                        owner_s = owner.getText().toString();
+        name = (EditText) findViewById(R.id.name_edit);
+        name.setWidth(name.getWidth() - 150);
 
-                        type = (EditText) findViewById(R.id.type_edit);
-                        type_s = type.getText().toString();
+        owner = (EditText) findViewById(R.id.super_edit);
+        owner.setWidth(owner.getWidth()-50);
 
-                        state = (Spinner) findViewById(R.id.state_edit);
-                        state_s = state.getSelectedItem().toString();
+        type = (EditText) findViewById(R.id.type_edit);
+        type.setWidth(type.getWidth()-50);
 
-                        target = (EditText) findViewById(R.id.target_edit);
-                        target_s = target.getText().toString();
+        state = (Spinner) findViewById(R.id.state_edit);
 
-                        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                        try
-                        {
-                            envisioned_date = df.parse(target_s);
-                        }
-                        catch (ParseException e)
-                        {
-                            e.printStackTrace();
-                        }
+        target = (EditText) findViewById(R.id.target_edit);
+        target.setWidth(target.getWidth()-50);
 
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                        start_date = new Date();
+        url = (EditText) findViewById(R.id.url_edit);
+        url.setWidth(url.getWidth()-50);
 
-                        url = (EditText) findViewById(R.id.url_edit);
-                        url_s = url.getText().toString();
+        authors = (EditText) findViewById(R.id.authors);
+        authors.setWidth(authors.getWidth()-50);
 
+        Button button = (Button) findViewById(R.id.submit);
+        if (button != null)
+            button.setOnClickListener(new View.OnClickListener()
+            {
+                public void onClick(View v) {
+                    name_s = name.getText().toString();
 
-                        newPublication = new CreatePublications(
-                                name_s,
-                                owner_s,
-                                type_s,
-                                state_s,
-                                url_s,
-                                envisioned_date,
-                                start_date
-                                );
+                    owner_s = owner.getText().toString();
 
-                        startActivity(new Intent(AddPublication.this, MainMenu.class));
+                    type_s = type.getText().toString();
+
+                    state_s = state.getSelectedItem().toString();
+
+                    target_s = target.getText().toString();
+
+                    DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                    try
+                    {
+                        envisioned_date = df.parse(target_s);
                     }
-                });
-        }
+                    catch (ParseException e)
+                    {
+                        e.printStackTrace();
+                    }
+
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    start_date = new Date();
+
+                    authors_s = authors.getText().toString();
+
+                    authorsList = authors_s.split("\n");
+
+                    url_s = url.getText().toString();
+
+                    arrayList = new ArrayList<>(Arrays.asList(authorsList));
+
+                    for(int i = 0 ; i < arrayList.size() ; i++)
+                        if(arrayList.get(i).equals(""))
+                            arrayList.remove(i);
+
+                    newPublication = new CreatePublications(
+                            name_s,
+                            owner_s,
+                            type_s,
+                            state_s,
+                            url_s,
+                            envisioned_date,
+                            start_date,
+                            arrayList);
+
+                    startActivity(new Intent(AddPublicationAsSuper.this, MainMenu.class));
+                }
+            });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

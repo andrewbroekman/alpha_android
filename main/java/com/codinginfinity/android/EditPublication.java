@@ -1,4 +1,4 @@
-package com.example.stuart.alphaandroidinterface;
+package com.codinginfinity.android;
 
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
@@ -10,10 +10,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
-import java.util.ArrayList;
+
+import com.codinginfinity.android.R;
+
+import java.lang.Integer;import java.lang.Override;import java.lang.String;import java.util.ArrayList;
 
 public class EditPublication extends AppCompatActivity {
 
@@ -22,9 +23,6 @@ public class EditPublication extends AppCompatActivity {
     ArrayList<Integer> placeholder, placeholder2;
     LinearLayout linearLayout1, linearLayout2;
 
-    int size;
-    int top = 0;
-    int bottom = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +37,6 @@ public class EditPublication extends AppCompatActivity {
 
         linearLayout1.setLayoutParams(params);
         linearLayout2.setLayoutParams(params);
-
 
         list= new ArrayList<>();
         placeholder = new ArrayList<>();
@@ -156,7 +153,7 @@ public class EditPublication extends AppCompatActivity {
         EditText editText = new EditText(this);
         final ImageButton button_Add = new ImageButton(this);
         params = new LinearLayout.LayoutParams(
-                   LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
         params.topMargin = 10;
         editText.setLayoutParams(params);
@@ -196,7 +193,7 @@ public class EditPublication extends AppCompatActivity {
         {
             public void onClick(View v)
             {
-               final EditText et = (EditText) findViewById(401);
+                final EditText et = (EditText) findViewById(401);
                 if(!isEmpty(et))
                 {
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(EditPublication.this);

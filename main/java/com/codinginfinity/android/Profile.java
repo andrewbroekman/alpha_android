@@ -1,7 +1,7 @@
-package com.example.stuart.alphaandroidinterface;
+package com.codinginfinity.android;
 
 /**
- * Created by Stuart on 2016/03/31.
+ * Created by Stuart on 2016/04/11.
  */
 public class Profile {
 }

@@ -1,4 +1,4 @@
-package com.example.stuart.alphaandroidinterface;
+package com.codinginfinity.android;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import com.codinginfinity.android.R;import java.lang.Override;import java.lang.String;
 
 public class MainMenu extends AppCompatActivity
 {
@@ -56,7 +58,7 @@ public class MainMenu extends AppCompatActivity
             {
                 public void onClick(View v)
                 {
-                        startActivity(new Intent(MainMenu.this, ViewPublications.class));
+                    startActivity(new Intent(MainMenu.this, ViewPublications.class));
                 }
             });
 
@@ -66,7 +68,7 @@ public class MainMenu extends AppCompatActivity
             {
                 public void onClick(View v)
                 {
-                     startActivity(new Intent(MainMenu.this, AddPublication.class));
+                    startActivity(new Intent(MainMenu.this, EditPublication.class));
                 }
             });
     }

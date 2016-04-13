@@ -1,44 +1,26 @@
-package com.example.stuart.alphaandroidinterface;
+package com.codinginfinity.android;
 
 import android.content.Intent;
-import android.graphics.Path;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import com.codinginfinity.android.R;import java.lang.Override;
 
 public class ViewPublications extends AppCompatActivity {
 
-    protected String file = "publications.txt";
-    protected String filestream;
-    BufferedReader br;
-    TextView textView = (TextView) findViewById(R.id.display);
+    //CreatePublications pubs = new CreatePublications();
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_publications);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
 
-        Button button = (Button) findViewById(R.id.button);
-        if(button != null)
-            button.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v)
-                {
-                    startActivity(new Intent(ViewPublications.this, MainMenu.class));
-                }
-            });
     }
 
     @Override
