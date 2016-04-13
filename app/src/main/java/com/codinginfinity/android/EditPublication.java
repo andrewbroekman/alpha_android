@@ -1,5 +1,5 @@
-//package com.codinginfinity.android;
-package com.example.jocelyn.editpublication;
+package com.codinginfinity.android;
+//package com.example.jocelyn.editpublication;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
