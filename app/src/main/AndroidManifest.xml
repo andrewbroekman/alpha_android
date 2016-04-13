@@ -19,7 +19,6 @@
         <activity android:name=".addPapersActivity" />
         <activity android:name=".editUserActivity" />
         <activity android:name=".ViewPerson"/>
-        <activity android:name=".EditPublication"/>
         <activity
             android:name=".ViewPublicationsActivity"
             android:label="@string/title_activity_view_publications"
@@ -29,6 +28,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.codinginfinity.android.MainActivity" />
         </activity>
+        <activity android:name=".EditPublication"/>
     </application>
 
 </manifest>
