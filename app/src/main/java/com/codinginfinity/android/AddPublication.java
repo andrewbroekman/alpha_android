@@ -91,7 +91,6 @@ public class AddPublication extends AppCompatActivity {
                     url = (EditText) findViewById(R.id.url_edit);
                     url_s = url.getText().toString();
 
-
                     newPublication = new CreatePublications(
                             name_s,
                             owner_s,
@@ -102,7 +101,7 @@ public class AddPublication extends AppCompatActivity {
                             start_date
                     );
 
-                    startActivity(new Intent(AddPublication.this, MainMenu.class));
+                    startActivity(new Intent(AddPublication.this, MainActivity.class));
                 }
             });
     }
@@ -121,12 +120,12 @@ public class AddPublication extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         switch(item.getItemId()){
             case R.id.menu:
-                startActivity(new Intent(AddPublication.this, MainMenu.class));
+                startActivity(new Intent(AddPublication.this, MainActivity.class));
 
                 break;
 
             case R.id.viewpublications:
-                startActivity(new Intent(AddPublication.this, ViewPublications.class));
+                startActivity(new Intent(AddPublication.this, ViewPublicationsActivity.class));
 
                 break;
 
@@ -136,7 +135,7 @@ public class AddPublication extends AppCompatActivity {
                 break;
 
             case R.id.signout:
-                startActivity(new Intent(AddPublication.this, Login.class));
+                startActivity(new Intent(AddPublication.this, LoginActivity.class));
 
                 break;
 

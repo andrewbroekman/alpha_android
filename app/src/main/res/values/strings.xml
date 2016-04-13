@@ -19,8 +19,6 @@
     <string name="sort_date_asc">Newest - Oldest</string>
     <string name="sort_date_desc">Oldest - Newest</string>
     <string name="searchbar_text">Search by name, research group or status</string>
-    <resources>
-    <string name="app_name">Research System</string>
     <string name="title_activity_publications">Publications</string>
     <string name="title_activity_login">Sign in</string>
 
@@ -44,7 +42,6 @@
         completions."
     </string>
     <string name="title_activity_add_publication">Add Publication</string>
-    <string name="title_activity_view_publications">View Publications</string>
     <string name="logout">Sign Out</string>
     <string name="title_activity_add_publication_as_super">Add Publication</string>
     <string name="menu_activity">Menu</string>
@@ -62,5 +59,6 @@
     <string name="title_activity_add_publication_landscape">AddPublication_landscape</string>
     <string name="title_activity_edit_publication">EditPublication</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_test">Test</string>
 </resources>
 

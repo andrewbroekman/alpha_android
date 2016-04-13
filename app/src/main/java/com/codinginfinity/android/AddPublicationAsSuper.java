@@ -12,8 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.codinginfinity.android.R;
+
+import org.json.JSONException;
 
 import java.lang.CharSequence;import java.lang.Override;import java.lang.String;import java.text.ParseException;
 import java.util.ArrayList;
@@ -32,7 +36,7 @@ public class AddPublicationAsSuper extends AppCompatActivity {
     EditText name, owner, type, target, authors, url;
     String name_s, owner_s, type_s, state_s, target_s, authors_s, url_s;
     String authorsList [];
-    Date envisioned_date, start_date;
+    String envisioned_date, start_date;
     ArrayList<String> arrayList;
 
     @Override
@@ -98,20 +102,14 @@ public class AddPublicationAsSuper extends AppCompatActivity {
 
                     state_s = state.getSelectedItem().toString();
 
-                    target_s = target.getText().toString();
+                    envisioned_date = target.getText().toString();
+                    Date newdate = new Date();
 
-                    DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                    try
-                    {
-                        envisioned_date = df.parse(target_s);
-                    }
-                    catch (ParseException e)
-                    {
-                        e.printStackTrace();
-                    }
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                    start_date = new Date();
+                    //String envisioned_date = sdf.format(target_s);
+
+                    start_date = sdf.format(newdate);
 
                     authors_s = authors.getText().toString();
 
@@ -125,17 +123,26 @@ public class AddPublicationAsSuper extends AppCompatActivity {
                         if(arrayList.get(i).equals(""))
                             arrayList.remove(i);
 
-                    newPublication = new CreatePublications(
-                            name_s,
-                            owner_s,
-                            type_s,
-                            state_s,
-                            url_s,
-                            envisioned_date,
-                            start_date,
-                            arrayList);
+                    try
+                    {
+                        newPublication = new CreatePublications(
+                                name_s,
+                                owner_s,
+                                type_s,
+                                state_s,
+                                url_s,
+                                envisioned_date,
+                                start_date,
+                                arrayList,
+                                getApplicationContext());
+                    }
+                    catch (JSONException e)
+                    {
+                        e.printStackTrace();
+                    }
 
-                    startActivity(new Intent(AddPublicationAsSuper.this, MainMenu.class));
+                    Toast.makeText(getApplicationContext(), "Publication Successfully Created!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(AddPublicationAsSuper.this, MainActivity.class));
                 }
             });
     }
@@ -154,12 +161,12 @@ public class AddPublicationAsSuper extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         switch(item.getItemId()){
             case R.id.menu:
-                startActivity(new Intent(AddPublicationAsSuper.this, MainMenu.class));
+                startActivity(new Intent(AddPublicationAsSuper.this, MainActivity.class));
 
                 break;
 
             case R.id.viewpublications:
-                startActivity(new Intent(AddPublicationAsSuper.this, ViewPublications.class));
+                startActivity(new Intent(AddPublicationAsSuper.this, ViewPublicationsActivity.class));
 
                 break;
 
@@ -169,10 +176,9 @@ public class AddPublicationAsSuper extends AppCompatActivity {
                 break;
 
             case R.id.signout:
-                startActivity(new Intent(AddPublicationAsSuper.this, Login.class));
+                startActivity(new Intent(AddPublicationAsSuper.this, LoginActivity.class));
 
                 break;
-
         }
         return false;
     }
