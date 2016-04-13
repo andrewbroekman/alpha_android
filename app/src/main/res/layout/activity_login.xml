@@ -7,19 +7,19 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.codinginfinity.android.LoginActivity"
-    android:background="#dcdcdc">
+    tools:context="com.codinginfinity.android.LoginActivity">
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:id="@+id/edt_email"
+        android:id="@+id/edt_name"
         android:layout_above="@+id/edt_password"
         android:layout_alignLeft="@+id/edt_password"
         android:layout_alignStart="@+id/edt_password"
-        android:layout_marginBottom="85dp" />
+        android:layout_marginBottom="85dp"
+        android:hint="username" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -28,7 +28,8 @@
         android:ems="10"
         android:id="@+id/edt_password"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:hint="password" />
 
     <Button
         android:layout_width="wrap_content"
@@ -40,23 +41,5 @@
         android:layout_marginTop="75dp"
         android:onClick="loginFunction"
         android:clickable="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/emailString"
-        android:id="@+id/textView"
-        android:layout_above="@+id/edt_email"
-        android:layout_alignLeft="@+id/edt_email"
-        android:layout_alignStart="@+id/edt_email" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/passwordString"
-        android:id="@+id/textView2"
-        android:layout_above="@+id/edt_password"
-        android:layout_alignLeft="@+id/edt_password"
-        android:layout_alignStart="@+id/edt_password" />
 
 </RelativeLayout>

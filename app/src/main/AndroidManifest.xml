@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.codinginfinity.android">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -32,6 +35,7 @@
         </activity>
         <activity android:name=".addPapersActivity" />
         <activity android:name=".editUserActivity" />
+        <activity android:name=".ViewReport" />
         <activity android:name=".ViewPerson" />
         <activity
             android:name=".AddPublication"

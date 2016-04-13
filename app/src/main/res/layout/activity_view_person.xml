@@ -86,7 +86,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText5"
+        android:id="@+id/edtReasearch"
         android:enabled="false"
         android:text="Belthazor"
         android:singleLine="true"
@@ -98,19 +98,21 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
+        android:text="Research Group:"
         android:id="@+id/textView4"
         android:textSize="12sp"
-        android:layout_alignBaseline="@+id/editText5"
-        android:layout_alignBottom="@+id/editText5"
+        android:layout_alignBottom="@+id/edtReasearch"
+        android:layout_alignLeft="@+id/lblEmail"
+        android:layout_alignStart="@+id/lblEmail"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/edtReasearch"
+        android:layout_toStartOf="@+id/edtReasearch"/>
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:text="Edit"
-        android:width="150dp"
         android:id="@+id/btnEdit"
         android:layout_marginBottom="118dp"
         android:layout_alignParentBottom="true"
@@ -118,24 +120,27 @@
         android:layout_alignParentStart="true"
         android:onClick="btnEditOnClick"
         android:enabled="true"
-        android:clickable="true" />
+        android:clickable="true"
+        android:layout_toStartOf="@+id/btnRe"
+        android:layout_toLeftOf="@+id/btnRe" />
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:text="View Papers"
-        android:width="150dp"
         android:id="@+id/btnView"
         android:layout_alignTop="@+id/btnEdit"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:onClick="btnViewOnClick"
         android:enabled="true"
-        android:clickable="true" />
+        android:clickable="true"
+        android:layout_toEndOf="@+id/btnRe"
+        android:layout_toRightOf="@+id/btnRe" />
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:text="Cancel"
         android:id="@+id/btnCancel"
         android:layout_below="@+id/btnView"
@@ -145,6 +150,39 @@
         android:enabled="false"
         android:onClick="btnCancelOnClick"
         android:clickable="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Reports"
+        android:id="@+id/btnRe"
+        android:onClick="btnReportOnClick"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@+id/btnEdit"
+        android:layout_above="@+id/btnCancel" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtCon"
+        android:layout_below="@+id/edtReasearch"
+        android:layout_alignLeft="@+id/edtReasearch"
+        android:layout_alignStart="@+id/edtReasearch"
+        android:layout_alignParentEnd="true"
+        android:text="082 589 8083"
+        android:enabled="false"
+        android:singleLine="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cell number"
+        android:id="@+id/lblCell"
+        android:layout_alignBottom="@+id/edtCon"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/edtCon"
+        android:layout_toStartOf="@+id/edtCon" />/>
 
 
 </RelativeLayout>
