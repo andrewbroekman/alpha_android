@@ -125,7 +125,7 @@ public class AddPublicationAsSuper extends AppCompatActivity {
                         if(arrayList.get(i).equals(""))
                             arrayList.remove(i);
 
-                    newPublication = new CreatePublications(
+                    /*newPublication = new CreatePublications(
                             name_s,
                             owner_s,
                             type_s,
@@ -133,7 +133,7 @@ public class AddPublicationAsSuper extends AppCompatActivity {
                             url_s,
                             envisioned_date,
                             start_date,
-                            arrayList);
+                            arrayList);*/
 
                     startActivity(new Intent(AddPublicationAsSuper.this, MainMenu.class));
                 }
@@ -159,7 +159,7 @@ public class AddPublicationAsSuper extends AppCompatActivity {
                 break;
 
             case R.id.viewpublications:
-                startActivity(new Intent(AddPublicationAsSuper.this, ViewPublications.class));
+                startActivity(new Intent(AddPublicationAsSuper.this, ViewPublicationsActivity.class));
 
                 break;
 
@@ -169,7 +169,7 @@ public class AddPublicationAsSuper extends AppCompatActivity {
                 break;
 
             case R.id.signout:
-                startActivity(new Intent(AddPublicationAsSuper.this, Login.class));
+                startActivity(new Intent(AddPublicationAsSuper.this, LoginActivity.class));
 
                 break;
 
