@@ -104,6 +104,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent intent = new Intent(this, editUserActivity.class);
         startActivity(intent);
     }
+    
+    public void addUserFunc(View v)
+    {
+        Intent intent = new Intent(this, AddUser.class);
+        startActivity(intent);
+    }
 
     @Override
     /**
