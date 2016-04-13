@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.view.Menu;
+import android.view.MenuItem;
 
 /**
  * ViewPersons activity will retrive and display the current
@@ -140,4 +142,30 @@ public class ViewPerson extends AppCompatActivity {
         Intent intent = new Intent(this, ViewPublicationsActivity.class);
         startActivity(intent);
     }
+    @Override
+    /**
+     * This method adds items to the action bar if it is present.
+     * @return boolean
+     */
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.view_publications, menu);
+        return true;
+    }
+
+    @Override  
+    /**
+     * This method handles action bar item clicks.
+     * @return boolean
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        //Settings was clicked.
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }
