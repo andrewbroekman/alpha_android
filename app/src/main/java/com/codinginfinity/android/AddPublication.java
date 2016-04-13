@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.lang.CharSequence;import java.lang.Override;import java.lang.String;import java.text.ParseException;
 import java.util.Date;
@@ -96,6 +97,7 @@ public class AddPublication extends AppCompatActivity {
                             getApplicationContext()
                     );
 
+                    Toast.makeText(getApplicationContext(), "Publication Successfully Created!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(AddPublication.this, MainActivity.class));
                 }
             });
