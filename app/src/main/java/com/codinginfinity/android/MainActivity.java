@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.action_settings) {
             return true;
         }
-        else if (id == R.id.action_logout)
+        else if (id == R.id.action_Logout)
         {
             return true;
         }
@@ -138,15 +138,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
-    /*@SuppressWarnings("StatementWithEmptyBody")
-    @Override
+    @SuppressWarnings("StatementWithEmptyBody")
+   /* @Override
     *
      * This method handles navigation view item clicks.
      * @param item
-     * @return boolean
+     * @return boolean*/
 
     public boolean onNavigationItemSelected(MenuItem item) {
-        try {
+        /*try {
             int id = item.getItemId();
 
             //Sort from A - Z was clicked.
@@ -167,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         catch (Exception e)
         {
             return false;
-        }
-    }*/
+        }*/
+        return false;
+    }
 }
