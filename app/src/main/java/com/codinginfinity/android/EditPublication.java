@@ -504,10 +504,12 @@ public class EditPublication extends AppCompatActivity {
             }
             if (btnEdit.getText().equals("Save")) {
                 name = edtName.getText().toString();
-                owner = edtName.getText().toString();
-                type = edtName.getText().toString();
-                envisionedDate = edtName.getText().toString();
-                url = edtName.getText().toString();
+                owner = edtOwner.getText().toString();
+                type = edtType.getText().toString();
+                Spinner s = (Spinner) findViewById(R.id.state_edit);
+                state = s.getSelectedItem().toString();
+                envisionedDate = edtDate.getText().toString();
+                url = edtURL.getText().toString();
                 btnEdit.setText("Edit");
                 btnEdit.setEnabled(true);
                 btnCancel.setVisibility(View.INVISIBLE);
@@ -529,45 +531,53 @@ public class EditPublication extends AppCompatActivity {
                     ibList.get(i).setEnabled(false);
                 }
 
-                File file = new File(path, "/publications.json");
+                int e = 0;
+                File file = new File(path + "/people.json");
                 String pubString = Load(file);
                 String startDate = "";
+                JSONArray jsonArray;
                 try {
-                    JSONArray jsonArray = new JSONArray(pubString);
-                    JSONArray jsonPubArray;
+                    jsonArray = new JSONArray(pubString);
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i); //Get each person from array
-
-                        if (user.compareTo(jsonObject.getString("name")) == 0) {
+                        edtName.setText("HELLO1" + "\n" + user);
+                        if (user.compareTo(jsonObject.getString("name")) == 0)
+                        {
                             publications = jsonObject.getJSONArray("publications");
-                            for (i = 0; i < jsonArray.length(); i++) {
-                                jsonObject = publications.getJSONObject(i);
+                            for (int j = 0; j < publications.length(); j++)
+                            {
+                                jsonObject = publications.getJSONObject(j);
+                                edtName.setText("HELLO");
                                 if (pub_name.compareTo(jsonObject.getString("name")) == 0)
                                 {
-                                    startDate = jsonObject.getString("startdate");
-                                    jsonArray.remove(i);
+                                    JSONObject person = new JSONObject();
+                                    jsonObject.put("name", name);
+                                    jsonObject.put("owner", owner);
+                                    jsonObject.put("type", type);
+                                    jsonObject.put("state", state);
+                                    jsonObject.put("envisioned", envisionedDate);
+                                    jsonObject.put("url", url);
+                                    jsonObject.put("author", list);
+                                    publications.put(person);
+                                    break;
                                 }
+                                e++;
                             }
                         }
                     }
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("name", name);
-                    jsonObject.put("owner", owner);
-                    jsonObject.put("type", type);
-                    jsonObject.put("state", state);
-                    jsonObject.put("startdate", startDate);
-                    jsonObject.put("envisioned", envisionedDate);
-                    jsonObject.put("url", url);
-                    jsonObject.put("author", list);
-                    publications.put(jsonObject);
-                    Save(file,jsonArray.toString());
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+
+                    Save(file,jsonArray.toString());
+                    pubString = Load(file);
+                    edtName.setText(pubString);
+                    // Intent intent = new Intent(this, ViewPublicationsActivity.class);
+                    // intent.putExtra("User",user);
+                    //startActivity(intent);
+
+                } catch (JSONException ew) {
+                    ew.printStackTrace();
                 }
-                Intent intent = new Intent(this, ViewPublicationsActivity.class);
-                intent.putExtra("User",user);
-                startActivity(intent);
+
 
             }
         }
