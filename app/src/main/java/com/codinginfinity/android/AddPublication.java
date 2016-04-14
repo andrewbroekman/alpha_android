@@ -100,8 +100,7 @@ public class AddPublication extends AppCompatActivity {
                                 state_s,
                                 url_s,
                                 envisioned_date,
-                                start_date,
-                                getApplicationContext()
+                                start_date
                         );
                     } catch (JSONException e) {
                         e.printStackTrace();
