@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
@@ -44,25 +45,21 @@ public class CreatePublications
         obj.put("startdate", start);
         obj.put("author", authors);
         String pub = obj.toString();
+        String jsonString;
+        File file = new File(path + "/publications.json");
 
-        String FILENAME = "publications.json";
+        if(file.exists())
+        {
+            jsonString = Load(file);
+            jsonString += "," + pub;
 
-        FileOutputStream fos = null;
-        try
-        {
-            fos = ctx.openFileOutput(FILENAME, Context.MODE_APPEND);
-            fos.write(pub.getBytes());
-            fos.write("\n\r".getBytes());
-            fos.close();
+            Save(file,jsonString);
         }
-        catch (FileNotFoundException e)
+        else
         {
-            e.printStackTrace();
+            Save(file, pub);
         }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+
     }
 
     public CreatePublications(String adderName, String name, String owner, String type, String state, String url, String target, String start, Context ctx) throws JSONException
@@ -104,7 +101,7 @@ public class CreatePublications
                     }
                 }
             }
-            Save(file,jsonArray.toString());
+            Save(file, jsonArray.toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -117,6 +114,40 @@ public class CreatePublications
         return obj;
     }
 
+
+    public static void Save(File file, String dataString)
+    {
+        String [] data = String.valueOf(dataString).split(System.getProperty("line.separator"));
+        FileOutputStream fos = null;
+        try
+        {
+            fos = new FileOutputStream(file);
+        }
+        catch (FileNotFoundException e) {e.printStackTrace();}
+        try
+        {
+            try
+            {
+                for (int i = 0; i<data.length; i++)
+                {
+                    fos.write(data[i].getBytes());
+                    if (i < data.length-1)
+                    {
+                        fos.write("\n".getBytes());
+                    }
+                }
+            }
+            catch (IOException e) {e.printStackTrace();}
+        }
+        finally
+        {
+            try
+            {
+                fos.close();
+            }
+            catch (IOException e) {e.printStackTrace();}
+        }
+    }
 
     public static String Load(File file)
     {
@@ -169,38 +200,4 @@ public class CreatePublications
         return returnString;
     }
 
-
-    public static void Save(File file, String dataString)
-    {
-        String [] data = String.valueOf(dataString).split(System.getProperty("line.separator"));
-        FileOutputStream fos = null;
-        try
-        {
-            fos = new FileOutputStream(file);
-        }
-        catch (FileNotFoundException e) {e.printStackTrace();}
-        try
-        {
-            try
-            {
-                for (int i = 0; i<data.length; i++)
-                {
-                    fos.write(data[i].getBytes());
-                    if (i < data.length-1)
-                    {
-                        fos.write("\n".getBytes());
-                    }
-                }
-            }
-            catch (IOException e) {e.printStackTrace();}
-        }
-        finally
-        {
-            try
-            {
-                fos.close();
-            }
-            catch (IOException e) {e.printStackTrace();}
-        }
-    }
 }
