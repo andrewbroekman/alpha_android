@@ -18,6 +18,7 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    String username;
     @Override
     /**
      * This method gets called when the activity is created.
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         try {
             String user = "Admin";
-
+            username = "Kimi Raikkonen";
             if (user.equals("Admin"))
                 setContentView(R.layout.activity_main_admin);
             else
@@ -71,16 +72,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     public void viewPapersFunc(View v){
         Intent intent = new Intent(this, ViewPublicationsActivity.class);
+        intent.putExtra("User",username);
         startActivity(intent);
     }
     public void viewPapersFunc(){
         Intent intent = new Intent(this, ViewPublicationsActivity.class);
+        intent.putExtra("User",username);
         startActivity(intent);
     }
 
     public void addPaperFunc(View v)
     {
-        boolean userpriv = true;
+        boolean userpriv = false;
         if(userpriv) {
             Intent intent = new Intent(this, AddPublicationAsSuper.class);
             startActivity(intent);
@@ -88,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         else
         {
             Intent intent = new Intent(this, AddPublication.class);
+            intent.putExtra("User",username);
             startActivity(intent);
         }
     }
@@ -110,6 +114,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent intent = new Intent(this, AddUser.class);
         startActivity(intent);
     }
+    
+    public void groupsFunc(View v)
+    {
+        Intent intent = new Intent(this, GroupList.class);
+        startActivity(intent);
+    }
+
 
     public void viewGroupsFunc(View v)
     {

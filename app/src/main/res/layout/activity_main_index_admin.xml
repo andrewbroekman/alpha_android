@@ -353,7 +353,11 @@
             android:measureWithLargestChild="true"
             android:id="@+id/tableRow"
             android:clickable="true"
+<<<<<<< HEAD
             android:onClick="viewGroupsFunc" >
+=======
+            android:onClick="groupsFunc" >
+>>>>>>> refs/remotes/origin/develop
 
             <RelativeLayout
                 android:layout_width="wrap_content"

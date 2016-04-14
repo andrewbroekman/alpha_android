@@ -3,7 +3,6 @@ package com.codinginfinity.android;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -29,12 +28,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -49,52 +42,38 @@ import java.util.ListIterator;
 import java.util.Locale;
 
 /**
- * ViewPublicationsActivity
+ * Group List
  * This activity would be used to retrieve and display a list of
- * publications that the current user is affiliated with.
+ * Research groups that the current user is affiliated with.
  *
- * The activity contains a ListView to display the publications, each
- * item in the ListView has an edit and view button. An EditText is used to
+ * The activity contains a ListView to display the Groups, each
+ * item in the ListView has aview button. An EditText is used to
  * search for a specific article. The Activity has a navigation drawer activity
  * that contains sorting and filtering options.
- *
- *
- * @author  Ruan Klinkert - 14022282
- * @version 1.0
- * @since   2016-03-31
  */
-public class ViewPublicationsActivity extends AppCompatActivity
+public class GroupList extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-
     //Temporary until I know what the object returned from the server looks like
-    public class Publication{
+    public class Group{
         String name;
-        String owner;
-        String type;
-        String state;
-        String url;
-        Date date;
+        String fieldOfStudy;
+        String leader ;
 
-        public Publication() {}
+        public Group() {}
 
-        public Publication(String name, String owner, String type, String state, String url, Date date) {
+        public Group(String name, String fieldOfStudy, String leader) {
             this.name = name;
-            this.date = date;
-            this.state = state;
-            this.owner = owner;
-            this.type = type;
-            this.url = url;
+            this.fieldOfStudy = fieldOfStudy ;
+            this.leader = leader ;
         }
     }
 
-    private ArrayList<Publication> items; //This list would contain all the objects returned by the server
-    private ArrayList<Publication> listItems=new ArrayList<Publication>(); //This list contains only the objects to be displayed
+    private ArrayList<Group> items; //This list would contain all the objects returned by the server
+    private ArrayList<Group> listItems=new ArrayList<Group>(); //This list contains only the objects to be displayed
     private MyListAdapter adapter;
     private ListView listView;
     private EditText editText;
-    private String username;
 
     @Override
     /**
@@ -104,7 +83,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
      */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_publications);
+        setContentView(R.layout.activity_group_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -117,9 +96,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        username = getIntent().getExtras().getString("User");
-
-        listView = (ListView)findViewById(R.id.publications_listview);
+        listView = (ListView)findViewById(R.id.group_listview);
         editText = (EditText)findViewById(R.id.search_bar);
         initList();
         loadItems();
@@ -152,48 +129,24 @@ public class ViewPublicationsActivity extends AppCompatActivity
     }
 
     /**
-     * This method is used to request all publications from the server via a REST request, and
-     * store it in an array of publications.
+     * This method is used to request all Groups from the json file, and
+     * store it in an array of Groups.
      * It would be called once inside the onCreate method.
      * @return nothing
      */
     public void initList(){
-        File file = new File(path + "/people.json");
-        String jsonString = Load(file);
+
+        String jsonString = "[ {\"name\" : \"CIRG\",\"fieldOfStudy\" : \"Artifical Inteligence\",\"leader\" : \"1\"}, {\"name\" : \"ICSA\",\"fieldOfStudy\" : \"Distributed Systems Security and Privacy\",\"leader\" : \"2\"}, {\"name\" : \"SSFM\",\"fieldOfStudy\" : \"System Specifications and Formal Methods\",\"leader\" : \"3\"},{\"name\" : \"SESAr\",\"fieldOfStudy\" : \"Software Engineering and Software Architecture\",\"leader\" : \"4\"}, {\"name\" : \"CSEDAR\",\"fieldOfStudy\" : \"Education Didactics and Applications Research\",\"leader\" : \"5\"}, {\"name\" : \"SexyGurls\",\"fieldOfStudy\" : \"Swag\",\"leader\" : \"Snoop Dawgg\"} ]";
 
         try {
             JSONArray jsonArray = new JSONArray(jsonString);
-            items = new ArrayList<Publication>();
-            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
-            Date d;
+            items = new ArrayList<Group>();
 
             for (int i =0; i<jsonArray.length();i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i); //Get each publication from array
+                JSONObject jsonObject = jsonArray.getJSONObject(i); //Get each group from array
 
-                if (jsonObject.getString("name").compareTo(username) == 0) {
-                    JSONArray jsonPubArray = jsonObject.getJSONArray("publications");
-
-                    for (int k = 0; k <jsonPubArray.length();k++) {
-                        JSONObject jsonPub = jsonPubArray.getJSONObject(k);
-
-                        d = null;
-                       /* try {
-                            d = format.parse(jsonPub.getString("start")); //Create date
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        */
-
-                        items.add(new Publication(jsonPub.getString("name"),
-                                        jsonPub.getString("owner"),
-                                        jsonPub.getString("type"),
-                                        jsonPub.getString("state"),
-                                        jsonPub.getString("url"),
-                                        d
-                                )
-                        );
-                    }
-                }
+                
+                items.add(new Group(jsonObject.getString("name"), jsonObject.getString("fieldOfStudy"), jsonObject.getString("leader")));
             }
 
         } catch (JSONException e) {
@@ -202,31 +155,28 @@ public class ViewPublicationsActivity extends AppCompatActivity
     }
 
     /**
-     * This method is used to load all items inside the array of publications into
+     * This method is used to load all items inside the array of Groups into
      * an ArrayList, it would be called multiple times, when sorting searching or filtering the list.
      * This function would return the list to it's original state.
      * @return nothing
      */
     public void loadItems(){
         listItems=new ArrayList<>(items);
-        adapter = new MyListAdapter(this, R.layout.list_item_view_publications, listItems);
+        adapter = new MyListAdapter(this, R.layout.list_item_group_list, listItems);
         listView.setAdapter(adapter);
     }
 
     /**
-     * This method is used to search if any of the publications' names,status or researchGroup name contains the String that was
-     * entered in the searchbox. If a particular pulication does not, it is removed from the ArrayList
-     * of publications.
+     * This method is used to search if any of the Group names, or feild of study contains the String that was
+     * entered in the searchbox. If a particular group does not, it is removed from the ArrayList
+     * of groups.
      * @param textToSearch
      * @return nothing
      */
     public void searchItem(String textToSearch){
-        for (Publication item:items){
+        for (Group item:items){
             if(!(item.name.toLowerCase()).contains(textToSearch.toLowerCase())
-            && !(item.owner.toLowerCase()).contains(textToSearch.toLowerCase())
-            && !(item.type.toLowerCase()).contains(textToSearch.toLowerCase())
-            && !(item.state.toLowerCase()).contains(textToSearch.toLowerCase())
-            && !(item.url.toLowerCase()).contains(textToSearch.toLowerCase())){
+            && !(item.fieldOfStudy.toLowerCase()).contains(textToSearch.toLowerCase())){
                 listItems.remove(item);
             }
         }
@@ -289,18 +239,18 @@ public class ViewPublicationsActivity extends AppCompatActivity
         if (id == R.id.nav_sort_alp_asc) {
             loadItems();
 
-            Collections.sort(listItems, new Comparator<Publication>() {
+            Collections.sort(listItems, new Comparator<Group>() {
                 @Override
                 /**
                  * This method is called in the sort function, overriding it allows you to call
                  * sort on custom objects.
-                 * @param publication1
-                 * @param publication2
+                 * @param group1
+                 * @param group2
                  * @return int
                  */
-                public int compare(Publication publication1, Publication publication2)
+                public int compare(Group group1, Group group2)
                 {
-                    return publication1.name.compareTo(publication2.name);
+                    return group1.name.compareTo(group2.name);
                 }
             });
         }
@@ -308,56 +258,18 @@ public class ViewPublicationsActivity extends AppCompatActivity
         else if (id == R.id.nav_sort_alp_desc) {
             loadItems();
 
-            Collections.sort(listItems, new Comparator<Publication>() {
+            Collections.sort(listItems, new Comparator<Group>() {
                 @Override
                 /**
                  * This method is called in the sort function, overriding it allows you to call
                  * sort on custom objects.
-                 * @param publication1
-                 * @param publication2
+                 * @param group1
+                 * @param group2
                  * @return int
                  */
-                public int compare(Publication publication1, Publication publication2)
+                public int compare(Group group1, Group group2)
                 {
-                    return publication2.name.compareTo(publication1.name);
-                }
-            });
-        }
-        //Sort newest to oldest was clicked.
-        else if (id == R.id.nav_sort_date_asc) {
-            loadItems();
-
-            Collections.sort(listItems, new Comparator<Publication>() {
-                @Override
-                /**
-                 * This method is called in the sort function, overriding it allows you to call
-                 * sort on custom objects.
-                 * @param publication1
-                 * @param publication2
-                 * @return int
-                 */
-                public int compare(Publication publication1, Publication publication2)
-                {
-                    return publication1.date.compareTo(publication2.date);
-                }
-            });
-        }
-        //Sort oldest to newest was clicked.
-        else if (id == R.id.nav_sort_date_desc) {
-            loadItems();
-
-            Collections.sort(listItems, new Comparator<Publication>() {
-                @Override
-                /**
-                 * This method is called in the sort function, overriding it allows you to call
-                 * sort on custom objects.
-                 * @param publication1
-                 * @param publication2
-                 * @return int
-                 */
-                public int compare(Publication publication1, Publication publication2)
-                {
-                    return publication2.date.compareTo(publication1.date);
+                    return group2.name.compareTo(group1.name);
                 }
             });
         }
@@ -373,7 +285,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * view ImageButtons, into the ListView.
      * @author Ruan
      */
-    private class MyListAdapter extends ArrayAdapter<Publication>{
+    private class MyListAdapter extends ArrayAdapter<Group>{
         private int layout;
         /**
          * The constructor for MyListAdapter, when called it would call the parent class constructor
@@ -382,7 +294,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
          * @param resource
          * @param objects
          */
-        private MyListAdapter(Context context, int resource, List<Publication> objects) {
+        private MyListAdapter(Context context, int resource, List<Group> objects) {
             super(context, resource, objects);
             layout = resource;
         }
@@ -400,8 +312,8 @@ public class ViewPublicationsActivity extends AppCompatActivity
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(layout, parent, false);
                 ViewHolder viewholder = new ViewHolder();
-                viewholder.publication_name = (TextView) convertView.findViewById(R.id.list_view_item_name_view_publication);
-                viewholder.view_btn = (ImageButton) convertView.findViewById(R.id.list_view_item_view_view_publication);
+                viewholder.group_name = (TextView) convertView.findViewById(R.id.list_view_item_name_group_list);
+                viewholder.view_btn = (ImageButton) convertView.findViewById(R.id.list_view_item_view_group_list);
                 convertView.setTag(viewholder);
             }
             mainViewHolder = (ViewHolder) convertView.getTag();
@@ -415,14 +327,22 @@ public class ViewPublicationsActivity extends AppCompatActivity
                      * @return void
                      */
                     public void onClick(View v) {
-                            Intent intent = new Intent(ViewPublicationsActivity.this, EditPub.class);
-                            intent.putExtra("pulication_name",getItem(position).name);
+                            Intent intent = new Intent(GroupList.this, EditPub.class);
+                            intent.putExtra("group_name",getItem(position).name);
                             startActivity(intent);
+
+                        /*
+                            //Retrieve variable in Viewgroup with
+                            Bundle extras = getIntent().getExtras();
+                            if (extras != null) {
+                                String value = extras.getString("new_variable_name");
+                            }
+                        */
 
                     }
                 });
 
-            mainViewHolder.publication_name.setText(getItem(position).name);
+            mainViewHolder.group_name.setText(getItem(position).name);
 
             return convertView;
         }
@@ -434,58 +354,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * @author Ruan
      */
     public class ViewHolder{
-        TextView publication_name;
+        TextView group_name;
         ImageButton view_btn;
-    }
-
-    public static String Load(File file)
-    {
-        FileInputStream fis = null;
-        try
-        {
-            fis = new FileInputStream(file);
-        }
-        catch (FileNotFoundException e) {e.printStackTrace();}
-        InputStreamReader isr = new InputStreamReader(fis);
-        BufferedReader br = new BufferedReader(isr);
-
-        String test;
-        int anzahl=0;
-        try
-        {
-            while ((test=br.readLine()) != null)
-            {
-                anzahl++;
-            }
-        }
-        catch (IOException e) {e.printStackTrace();}
-
-        try
-        {
-            fis.getChannel().position(0);
-        }
-        catch (IOException e) {e.printStackTrace();}
-
-        String[] array = new String[anzahl];
-
-        String line;
-        int i = 0;
-        try
-        {
-            while((line=br.readLine())!=null)
-            {
-                array[i] = line;
-                i++;
-            }
-        }
-        catch (IOException e) {e.printStackTrace();}
-
-        String returnString = "";
-        for (int k = 0; k < array.length; k++)
-        {
-            returnString += array[k];
-        }
-
-        return returnString;
     }
 }

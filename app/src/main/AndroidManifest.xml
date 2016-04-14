@@ -48,6 +48,10 @@
             android:label="@string/title_activity_add_publication_as_super"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".EditPublication"
+            android:label="@string/title_activity_edit_publication"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ViewPublicationsActivity"
             android:label="@string/title_activity_view_publications"
             android:parentActivityName=".MainActivity"
@@ -64,9 +68,16 @@
             android:name=".Test"
             android:label="@string/title_activity_test"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/develop
 =======
 >>>>>>> parent of ae18679... Added activity
+=======
+        <activity
+            android:name=".GroupList"
+            android:label="Group List"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+>>>>>>> refs/remotes/origin/develop
     </application>
 
 </manifest>

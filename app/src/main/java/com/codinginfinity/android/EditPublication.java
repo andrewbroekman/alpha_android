@@ -3,17 +3,34 @@ package com.codinginfinity.android;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.codinginfinity.android.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.Integer;import java.lang.Override;import java.lang.String;import java.util.ArrayList;
 
 public class EditPublication extends AppCompatActivity {
@@ -22,6 +39,12 @@ public class EditPublication extends AppCompatActivity {
     ArrayList<String> list;
     ArrayList<Integer> placeholder, placeholder2;
     LinearLayout linearLayout1, linearLayout2;
+    public String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+    String pub_name;
+    EditText edtName1, edtOwner1, edtType1, edtDate1, edtURL1;
+    Spinner edtSpinner;
+    String [] spinnerOps;
+    String name, owner, type, state, envisionedDate, url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,27 +55,46 @@ public class EditPublication extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+/*
+        int count=0;
+        BufferedReader br;
+        try {
+            if((br = new BufferedReader(new FileReader(""))) != null) {
+                String sCurrentLine;
+                while ((sCurrentLine = br.readLine()) != null) {//just to count the number of elements in the file to create the array
+                    count++;
+                }
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        String [] strArray = new String[count];
+        try{
+            if ((br = new BufferedReader(new FileReader(""))) != null) {
+                String sCurrentLine;
+                int i=0;
+                while ((sCurrentLine = br.readLine()) != null) {
+                    strArray[i] = sCurrentLine;
+                    i++;
+                }
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+*/
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
 
         linearLayout1.setLayoutParams(params);
         linearLayout2.setLayoutParams(params);
 
-        list= new ArrayList<>();
         placeholder = new ArrayList<>();
         placeholder2 = new ArrayList<>();
-        list.add("Kimi Raikkonen");
-        list.add("Felipe Massa");
-        list.add("Fernando Alonso");
-        list.add("Jenson Button");
-        list.add("Valteri Bottas");
-        list.add("Sebastian Vettel");
-        list.add("Nico Rosberg");
-        list.add("Valentino Rossi");
-        list.add("Colin McRae");
-        list.add("Michael Schumacher");
-        list.add("Juan Pablo Montoya");
-        list.add("Robert Kubica");
+
 
         /*LinearLayout.LayoutParams */params = new LinearLayout.LayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -161,15 +203,11 @@ public class EditPublication extends AppCompatActivity {
         editText.setTextSize(18);
         editText.setHint("Add New Author...");
         editText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        int id = placeholder.get(placeholder.size()-1);
-        id++;
         editText.setId(401);
         editText.setLayoutParams(params);
         params = new LinearLayout.LayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
-        id = placeholder2.get(placeholder2.size()- 1);
-        id++;
         button_Add.setId(402);
 
         String uri2 = "@drawable/plus";  // where myresource (without the extension) is the file
@@ -334,5 +372,83 @@ public class EditPublication extends AppCompatActivity {
             return true;
         }
     }
+/*
+    dunno what all this stuff does
+
+    private String Name ;
+    private String Owner;
+    private String Type;
+    private String Date;
+    private String URL;
+    public void oneditclick(View v){
+        Button btnEdit = (Button) v ;
+        Button btnCancel = (Button) findViewById(R.id.btnCan) ;
+        EditText edtName = (EditText) findViewById(R.id.name_edit) ;
+        EditText edtOwner = (EditText) findViewById(R.id.owner_edit) ;
+        EditText edtType = (EditText) findViewById(R.id.type_edit) ;
+        EditText edtDate = (EditText) findViewById(R.id.date_edit) ;
+        EditText edtURL = (EditText) findViewById(R.id.url_edit) ;
+        Name = edtName.getText().toString() ;
+        Owner = edtOwner.getText().toString() ;
+        Type = edtType.getText().toString() ;
+        Date = edtDate.getText().toString() ;
+        URL = edtURL.getText().toString() ;
+
+        if(btnEdit.getText().equals("Edit"))
+        {
+            edtName.setEnabled(true);
+            edtOwner.setEnabled(true);
+            edtType.setEnabled(true);
+            edtDate.setEnabled(true);
+            edtURL.setEnabled(true);
+            btnEdit.setText("Save");
+            btnCancel.setVisibility(View.VISIBLE);
+            btnCancel.setEnabled(true);
+            return;
+        }
+        if(btnEdit.getText().equals("Save")){
+            Name = edtName.getText().toString() ;
+            Owner = edtName.getText().toString() ;
+            Type = edtName.getText().toString() ;
+            Date = edtName.getText().toString() ;
+            URL = edtName.getText().toString() ;
+            btnEdit.setText("Edit");
+            btnEdit.setEnabled(true);
+            btnCancel.setVisibility(View.INVISIBLE);
+            btnCancel.setEnabled(false);
+            edtName.setEnabled(false);
+            edtOwner.setEnabled(false);
+            edtType.setEnabled(false);
+            edtDate.setEnabled(false);
+            edtURL.setEnabled(false);
+            return;
+        }
+    }
+
+    public void cancelClick(View v) {
+        Button btnCan = (Button) v ;
+        Button btnEdit = (Button) findViewById(R.id.btnEdit) ;
+        EditText edtName = (EditText) findViewById(R.id.name_edit) ;
+        EditText edtOwner = (EditText) findViewById(R.id.owner_edit) ;
+        EditText edtType = (EditText) findViewById(R.id.type_edit) ;
+        EditText edtDate = (EditText) findViewById(R.id.date_edit) ;
+        EditText edtURL = (EditText) findViewById(R.id.url_edit) ;
+        btnEdit.setText("Edit");
+        edtName.setText(Name);
+        edtOwner.setText(Owner);
+        edtType.setText(Type);
+        edtDate.setText(Date);
+        edtURL.setText(URL);
+        edtName.setEnabled(false);
+        edtOwner.setEnabled(false);
+        edtType.setEnabled(false);
+        edtDate.setEnabled(false);
+        edtURL.setEnabled(false);
+        btnCan.setVisibility(View.INVISIBLE);
+        btnCan.setEnabled(false);
+        return;
+    }
+*/
+   
 }
 
