@@ -240,7 +240,7 @@ public class EditPublication extends AppCompatActivity {
                                 "Yes",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id1) {
-
+                                        list.remove(et.getText().toString());
                                         linearLayout1.removeView(et);
                                         linearLayout2.removeView(ib);
                                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -317,6 +317,7 @@ public class EditPublication extends AppCompatActivity {
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id1) {
                                         final EditText editText = new EditText(EditPublication.this);
+                                        list.add(et.getText().toString());
                                         int id = placeholder.get(placeholder.size() - 1);
                                         id++;
                                         editText.setId(id);
@@ -421,6 +422,7 @@ public class EditPublication extends AppCompatActivity {
 
                             linearLayout1.setLayoutParams(params);
                             linearLayout2.setLayoutParams(params);
+                            list.remove(et.getText().toString());
                             dialog.cancel();
                         }
                     });
@@ -476,6 +478,8 @@ public class EditPublication extends AppCompatActivity {
                 edtType.setEnabled(true);
                 edtDate.setEnabled(true);
                 edtURL.setEnabled(true);
+                editAdd.setEnabled(true);
+                buttonAdd.setEnabled(true);
                 for(int i = 0 ; i < placeholder.size() ; i++)
                 {
                     etList.get(i).setEnabled(true);
