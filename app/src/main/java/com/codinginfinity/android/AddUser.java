@@ -56,8 +56,9 @@ public class AddUser extends AppCompatActivity {
         Random ran = new SecureRandom() ;
         password = generateString(ran, "abcdefhijklmnopqrstuvwxyzABCDEFHIJKLMNOPQRSTUVWXYZ123456789", 7 ) ;
         Toast.makeText(getApplicationContext(), "User added", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        finish();
+        //Intent intent = new Intent(this, MainActivity.class);
+        //startActivity(intent);
     }
 
     public static String generateString(Random rng, String characters, int length)
