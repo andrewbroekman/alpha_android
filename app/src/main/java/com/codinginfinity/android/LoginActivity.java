@@ -187,8 +187,8 @@ public class LoginActivity extends AppCompatActivity {
 
          if (enteredName.compareTo(username) == 0 && enteredPassword.compareTo(password) == 0) {
              Intent intent = new Intent(this, MainActivity.class);
-             intent.putExtra("username",username);
-             intent.putExtra("permission",permission);
+             intent.putExtra("User",username);
+             intent.putExtra("Permission",permission);
              startActivity(intent);
              finish();
          } else {
