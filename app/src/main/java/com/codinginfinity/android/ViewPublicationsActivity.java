@@ -3,6 +3,7 @@ package com.codinginfinity.android;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -28,6 +29,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,20 +66,26 @@ import java.util.Locale;
 public class ViewPublicationsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+
     //Temporary until I know what the object returned from the server looks like
     public class Publication{
         String name;
+        String owner;
+        String type;
+        String state;
+        String url;
         Date date;
-        String researchGroup;
-        String status;
 
         public Publication() {}
 
-        public Publication(String name, Date date, String researchGroup, String status) {
+        public Publication(String name, String owner, String type, String state, String url, Date date) {
             this.name = name;
             this.date = date;
-            this.researchGroup = researchGroup;
-            this.status = status;
+            this.state = state;
+            this.owner = owner;
+            this.type = type;
+            this.url = url;
         }
     }
 
@@ -81,6 +94,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
     private MyListAdapter adapter;
     private ListView listView;
     private EditText editText;
+    private String username;
 
     @Override
     /**
@@ -102,6 +116,8 @@ public class ViewPublicationsActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        username = getIntent().getExtras().getString("User");
 
         listView = (ListView)findViewById(R.id.publications_listview);
         editText = (EditText)findViewById(R.id.search_bar);
@@ -142,59 +158,8 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * @return nothing
      */
     public void initList(){
-        /*
-            //Retrieve username/userId
-            String value = "";
-            Bundle extras = getIntent().getExtras();
-            if (extras != null) {
-                value = extras.getString("username");
-            }
-        */
-
-        //JSON string example
-        /*
-        [
-            {
-                    "name" : "USA",
-                    "date" : "11-09-2001",
-                    "researchGroup" : "Sexy-Girl",
-                    "status" : "Cancelled"
-            },
-            {
-                    "name" : "Japan",
-                    "date" : "21-03-2011",
-                    "researchGroup" : "",
-                    "status" : "Active"
-            },
-            {
-                    "name" : "China",
-                    "date" : "18-12-2009",
-                    "researchGroup" : "",
-                    "status" : "Active"
-            },
-            {
-                    "name" : "South-Africa",
-                    "date" : "01-11-2003",
-                    "researchGroup" : "Sexy-Girl",
-                    "status" : "Cancelled"
-            },
-            {
-                    "name" : "Iraq",
-                    "date" : "25-08-2010",
-                    "researchGroup" : "TheG",
-                    "status" : "Active"
-            },
-            {
-                    "name" : "Canada",
-                    "date" : "08-10-2012",
-                    "researchGroup" : "",
-                    "status" : "Active"
-            },
-        ]
-        */
-
-        //Retrieve jsonString from server
-        String jsonString = "[ {\"name\" : \"Uncle-Sam\",\"date\" : \"11-09-2001\",\"researchGroup\" : \"Sexy-Girl\",\"status\" : \"Cancelled\"}, {\"name\" : \"Japan\",\"date\" : \"21-03-2011\",\"researchGroup\" : \"\",\"status\" : \"Active\"}, {\"name\" : \"China\",\"date\" : \"18-12-2009\",\"researchGroup\" : \"\",\"status\" : \"Active\"},{\"name\" : \"South-Africa\",\"date\" : \"01-11-2003\",\"researchGroup\" : \"Sexy-Girl\",\"status\" : \"Cancelled\"}, {\"name\" : \"Iraq\",\"date\" : \"25-08-2010\",\"researchGroup\" : \"TheG\",\"status\" : \"Active\"}, {\"name\" : \"Canada\",\"date\" : \"08-10-2012\",\"researchGroup\" : \"\",\"status\" : \"Active\"}, ]";
+        File file = new File(path + "/people.json");
+        String jsonString = Load(file);
 
         try {
             JSONArray jsonArray = new JSONArray(jsonString);
@@ -205,13 +170,30 @@ public class ViewPublicationsActivity extends AppCompatActivity
             for (int i =0; i<jsonArray.length();i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i); //Get each publication from array
 
-                d = null;
-                try {
-                    d = format.parse(jsonObject.getString("date")); //Create date
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                if (jsonObject.getString("name").compareTo(username) == 0) {
+                    JSONArray jsonPubArray = jsonObject.getJSONArray("publications");
+
+                    for (int k = 0; k <jsonPubArray.length();k++) {
+                        JSONObject jsonPub = jsonPubArray.getJSONObject(k);
+
+                        d = null;
+                       /* try {
+                            d = format.parse(jsonPub.getString("start")); //Create date
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        */
+
+                        items.add(new Publication(jsonPub.getString("name"),
+                                        jsonPub.getString("owner"),
+                                        jsonPub.getString("type"),
+                                        jsonPub.getString("state"),
+                                        jsonPub.getString("url"),
+                                        d
+                                )
+                        );
+                    }
                 }
-                items.add(new Publication(jsonObject.getString("name"), d, jsonObject.getString("researchGroup"), jsonObject.getString("status")));
             }
 
         } catch (JSONException e) {
@@ -241,8 +223,10 @@ public class ViewPublicationsActivity extends AppCompatActivity
     public void searchItem(String textToSearch){
         for (Publication item:items){
             if(!(item.name.toLowerCase()).contains(textToSearch.toLowerCase())
-            && !(item.researchGroup.toLowerCase()).contains(textToSearch.toLowerCase())
-            && !(item.status.toLowerCase()).contains(textToSearch.toLowerCase())){
+            && !(item.owner.toLowerCase()).contains(textToSearch.toLowerCase())
+            && !(item.type.toLowerCase()).contains(textToSearch.toLowerCase())
+            && !(item.state.toLowerCase()).contains(textToSearch.toLowerCase())
+            && !(item.url.toLowerCase()).contains(textToSearch.toLowerCase())){
                 listItems.remove(item);
             }
         }
@@ -435,14 +419,6 @@ public class ViewPublicationsActivity extends AppCompatActivity
                             intent.putExtra("pulication_name",getItem(position).name);
                             startActivity(intent);
 
-                        /*
-                            //Retrieve variable in ViewPublication with
-                            Bundle extras = getIntent().getExtras();
-                            if (extras != null) {
-                                String value = extras.getString("new_variable_name");
-                            }
-                        */
-
                     }
                 });
 
@@ -460,5 +436,56 @@ public class ViewPublicationsActivity extends AppCompatActivity
     public class ViewHolder{
         TextView publication_name;
         ImageButton view_btn;
+    }
+
+    public static String Load(File file)
+    {
+        FileInputStream fis = null;
+        try
+        {
+            fis = new FileInputStream(file);
+        }
+        catch (FileNotFoundException e) {e.printStackTrace();}
+        InputStreamReader isr = new InputStreamReader(fis);
+        BufferedReader br = new BufferedReader(isr);
+
+        String test;
+        int anzahl=0;
+        try
+        {
+            while ((test=br.readLine()) != null)
+            {
+                anzahl++;
+            }
+        }
+        catch (IOException e) {e.printStackTrace();}
+
+        try
+        {
+            fis.getChannel().position(0);
+        }
+        catch (IOException e) {e.printStackTrace();}
+
+        String[] array = new String[anzahl];
+
+        String line;
+        int i = 0;
+        try
+        {
+            while((line=br.readLine())!=null)
+            {
+                array[i] = line;
+                i++;
+            }
+        }
+        catch (IOException e) {e.printStackTrace();}
+
+        String returnString = "";
+        for (int k = 0; k < array.length; k++)
+        {
+            returnString += array[k];
+        }
+
+        return returnString;
     }
 }

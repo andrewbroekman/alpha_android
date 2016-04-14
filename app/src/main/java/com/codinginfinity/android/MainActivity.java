@@ -72,10 +72,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     public void viewPapersFunc(View v){
         Intent intent = new Intent(this, ViewPublicationsActivity.class);
+        intent.putExtra("User",username);
         startActivity(intent);
     }
     public void viewPapersFunc(){
         Intent intent = new Intent(this, ViewPublicationsActivity.class);
+        intent.putExtra("User",username);
         startActivity(intent);
     }
 
