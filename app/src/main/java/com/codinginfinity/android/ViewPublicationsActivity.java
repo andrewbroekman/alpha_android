@@ -65,6 +65,8 @@ import java.util.Locale;
 public class ViewPublicationsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+
     //Temporary until I know what the object returned from the server looks like
     public class Publication{
         String name;
@@ -148,59 +150,17 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * @return nothing
      */
     public void initList(){
-        /*
-            //Retrieve username/userId
-            String value = "";
-            Bundle extras = getIntent().getExtras();
+
+        //Retrieve username/userId
+        String username = "demo";
+        /*  Bundle extras = getIntent().getExtras();
             if (extras != null) {
-                value = extras.getString("username");
+                username = extras.getString("username");
             }
         */
 
-        //JSON string example
-        /*
-        [
-            {
-                    "name" : "USA",
-                    "date" : "11-09-2001",
-                    "researchGroup" : "Sexy-Girl",
-                    "status" : "Cancelled"
-            },
-            {
-                    "name" : "Japan",
-                    "date" : "21-03-2011",
-                    "researchGroup" : "",
-                    "status" : "Active"
-            },
-            {
-                    "name" : "China",
-                    "date" : "18-12-2009",
-                    "researchGroup" : "",
-                    "status" : "Active"
-            },
-            {
-                    "name" : "South-Africa",
-                    "date" : "01-11-2003",
-                    "researchGroup" : "Sexy-Girl",
-                    "status" : "Cancelled"
-            },
-            {
-                    "name" : "Iraq",
-                    "date" : "25-08-2010",
-                    "researchGroup" : "TheG",
-                    "status" : "Active"
-            },
-            {
-                    "name" : "Canada",
-                    "date" : "08-10-2012",
-                    "researchGroup" : "",
-                    "status" : "Active"
-            },
-        ]
-        */
-
-        //Retrieve jsonString from server
-        String jsonString = "[ {\"name\" : \"Uncle-Sam\",\"date\" : \"11-09-2001\",\"researchGroup\" : \"Sexy-Girl\",\"status\" : \"Cancelled\"}, {\"name\" : \"Japan\",\"date\" : \"21-03-2011\",\"researchGroup\" : \"\",\"status\" : \"Active\"}, {\"name\" : \"China\",\"date\" : \"18-12-2009\",\"researchGroup\" : \"\",\"status\" : \"Active\"},{\"name\" : \"South-Africa\",\"date\" : \"01-11-2003\",\"researchGroup\" : \"Sexy-Girl\",\"status\" : \"Cancelled\"}, {\"name\" : \"Iraq\",\"date\" : \"25-08-2010\",\"researchGroup\" : \"TheG\",\"status\" : \"Active\"}, {\"name\" : \"Canada\",\"date\" : \"08-10-2012\",\"researchGroup\" : \"\",\"status\" : \"Active\"}, ]";
+        File file = new File(path + "/publication.json");
+        String jsonString = Load(file);
 
         try {
             JSONArray jsonArray = new JSONArray(jsonString);
@@ -440,14 +400,6 @@ public class ViewPublicationsActivity extends AppCompatActivity
                             Intent intent = new Intent(ViewPublicationsActivity.this, EditPub.class);
                             intent.putExtra("pulication_name",getItem(position).name);
                             startActivity(intent);
-
-                        /*
-                            //Retrieve variable in ViewPublication with
-                            Bundle extras = getIntent().getExtras();
-                            if (extras != null) {
-                                String value = extras.getString("new_variable_name");
-                            }
-                        */
 
                     }
                 });
