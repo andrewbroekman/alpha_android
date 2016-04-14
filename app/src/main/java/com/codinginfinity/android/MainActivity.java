@@ -121,6 +121,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
+    public void addGroupFunc(View v)
+    {
+        Intent intent = new Intent(this, addGroup.class);
+        startActivity(intent);
+    }
+
 
     @Override
     /**
