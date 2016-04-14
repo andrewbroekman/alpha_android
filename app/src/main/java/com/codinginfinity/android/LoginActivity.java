@@ -45,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"units\" : \"5\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"1\"," +
-                                             "\"publications\" : []" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Felipe Massa\"," +
@@ -55,7 +54,6 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"units\" : \"1\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"2\"," +
-                                             "\"publications\" : []" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Fernando Alonso\"," +
@@ -65,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"units\" : \"8\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"1\"," +
-                                             "\"publications\" : []" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Jenson Button\"," +
@@ -75,7 +72,6 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"units\" : \"7\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"1\"," +
-                                             "\"publications\" : []" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Valteri Bottas\"," +
@@ -85,7 +81,6 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"units\" : \"12\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"3\"," +
-                                             "\"publications\" : []" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Sebastian Vettel\"," +
@@ -95,7 +90,6 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"units\" : \"9\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"1\"," +
-                                             "\"publications\" : []" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Nico Rosbergl\"," +
@@ -105,7 +99,6 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"units\" : \"5\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"3\"," +
-                                             "\"publications\" : []" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Valentino Rossi\"," +
@@ -115,7 +108,6 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"units\" : \"3\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"1\"," +
-                                             "\"publications\" : []" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Colin McRae\"," +
@@ -125,7 +117,6 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"units\" : \"5\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"1\"," +
-                                             "\"publications\" : []" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Michael Schumacher\"," +
@@ -135,7 +126,6 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"units\" : \"8\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"1\"," +
-                                             "\"publications\" : []" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Juan Pablo Montoya\"," +
@@ -145,7 +135,6 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"units\" : \"9\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"1\"," +
-                                             "\"publications\" : []" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Robert Kubica\"," +
@@ -155,7 +144,6 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"units\" : \"5\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"1\"," +
-                                             "\"publications\" : []" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"demo\"," +
@@ -165,7 +153,6 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"units\" : \"5\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"1\"," +
-                                             "\"publications\" : []" +
                                          "}" +
                                     "]";
              Save(file, peopleJsonString);

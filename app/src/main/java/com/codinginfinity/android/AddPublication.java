@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
 import java.lang.CharSequence;import java.lang.Override;import java.lang.String;import java.text.ParseException;
 import java.util.Date;
 import java.text.DateFormat;
@@ -26,7 +28,7 @@ public class AddPublication extends AppCompatActivity {
     protected String file = "Publications";
     EditText name, owner, type, target, url;
     Spinner state;
-    String name_s, owner_s, type_s, state_s, target_s, start_s, url_s;
+    String name_s, owner_s, type_s, state_s, url_s, adder;
     String envisioned_date, start_date;
 
     @Override
@@ -44,6 +46,9 @@ public class AddPublication extends AppCompatActivity {
             //set content view to landscape}
             setContentView(R.layout.activity_add_publication_landscape);
         }
+
+        adder = getIntent().getExtras().getString("User");
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -86,16 +91,21 @@ public class AddPublication extends AppCompatActivity {
                     url = (EditText) findViewById(R.id.url_edit);
                     url_s = url.getText().toString();
 
-                    newPublication = new CreatePublications(
-                            name_s,
-                            owner_s,
-                            type_s,
-                            state_s,
-                            url_s,
-                            envisioned_date,
-                            start_date,
-                            getApplicationContext()
-                    );
+                    try {
+                        newPublication = new CreatePublications(
+                                adder,
+                                name_s,
+                                owner_s,
+                                type_s,
+                                state_s,
+                                url_s,
+                                envisioned_date,
+                                start_date,
+                                getApplicationContext()
+                        );
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
                     Toast.makeText(getApplicationContext(), "Publication Successfully Created!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(AddPublication.this, MainActivity.class));

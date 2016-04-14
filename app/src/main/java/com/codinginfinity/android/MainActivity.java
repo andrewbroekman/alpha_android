@@ -18,6 +18,7 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    String username;
     @Override
     /**
      * This method gets called when the activity is created.
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         try {
             String user = "Admin";
-
+            username = "Kimi Raikkonen";
             if (user.equals("Admin"))
                 setContentView(R.layout.activity_main_admin);
             else
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void addPaperFunc(View v)
     {
-        boolean userpriv = true;
+        boolean userpriv = false;
         if(userpriv) {
             Intent intent = new Intent(this, AddPublicationAsSuper.class);
             startActivity(intent);
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         else
         {
             Intent intent = new Intent(this, AddPublication.class);
+            intent.putExtra("User",username);
             startActivity(intent);
         }
     }
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void editUserFunc(View v){
-        Intent intent = new Intent(this, ViewPerson.class);
+        Intent intent = new Intent(this, Test.class);
         startActivity(intent);
     }
     public void editUserFunc(){
