@@ -435,7 +435,7 @@
                 android:measureWithLargestChild="true"
                 android:id="@+id/tableRow2"
                 android:clickable="true"
-                android:onClick="viewPapersFunc" >
+                android:onClick="addGroupFunc" >
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -477,7 +477,7 @@
                                 android:layout_width="120dp"
                                 android:layout_height="90dp"
                                 android:id="@+id/imageView7"
-                                android:background="@mipmap/ic_publication_types"
+                                android:background="@mipmap/ic_add_group"
                                 android:layout_alignBottom="@+id/imageButton4"
                                 android:layout_alignParentLeft="true"
                                 android:layout_alignParentStart="true"
@@ -489,7 +489,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceLarge"
-                                android:text="Publication Types"
+                                android:text="Add Group               "
                                 android:id="@+id/textView9"
                                 android:textColor="#ffffff"
                                 android:textSize="23dp"

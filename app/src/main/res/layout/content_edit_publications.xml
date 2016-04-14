@@ -26,7 +26,6 @@
             android:hint="@string/pub_name"
             android:textColor="#000"
             android:textSize="18dp"
-            android:text="Paper 1"
             android:textAlignment="center"
             android:layout_marginTop="20dp"
             />
@@ -39,9 +38,7 @@
             android:textColor="#000"
             android:textSize="18dp"
             android:textAlignment="center"
-            android:layout_marginTop="20dp"
-            android:text="whatever"
-            android:singleLine="true" />
+            android:layout_marginTop="20dp" />
 
         <EditText
             android:layout_width="match_parent"
@@ -52,9 +49,7 @@
             android:textSize="18dp"
             android:textAlignment="center"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:text="Journal"
-            android:singleLine="true" />
+            android:layout_marginTop="20dp" />
 
         <Spinner
             android:layout_width="150dp"
@@ -75,9 +70,7 @@
             android:textColor="#000"
             android:layout_gravity="center"
             android:textAlignment="center"
-            android:layout_marginTop="20dp"
-            android:text="01-01-01"
-            android:singleLine="true" />
+            android:layout_marginTop="20dp" />
 
         <EditText
             android:layout_width="match_parent"
@@ -87,10 +80,7 @@
             android:id="@+id/url_edit"
             android:hint="@string/pub_url"
             android:textAlignment="center"
-            android:layout_marginTop="20dp"
-            android:text="www.swagg.com"
-            android:singleLine="true" />
-
+            android:layout_marginTop="20dp" />
 
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -106,7 +96,7 @@
             android:layout_gravity="center">
             <LinearLayout
                 android:layout_width="90dp"
-                android:layout_height="700dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:orientation="vertical"
                 android:id="@+id/linearLayout1">
@@ -114,7 +104,7 @@
 
             <LinearLayout
                 android:layout_width="90dp"
-                android:layout_height="700dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:layout_gravity="center"
                 android:orientation="vertical"

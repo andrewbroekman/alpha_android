@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class CreatePublications
     JSONObject obj;
     public String path = Environment.getExternalStorageDirectory().getAbsolutePath();
 
-    public CreatePublications(String name, String owner, String type, String state, String url, String target, String start, ArrayList<String> authors, Context ctx) throws JSONException {
+    public CreatePublications(String adderName, String name, String owner, String type, String state, String url, String target, String start, ArrayList<String> authors) throws JSONException {
        // pub = new Publication(name, owner, type, state, url, target, start, authors);
        // publicationsList.add(pub);
         obj= new JSONObject();
@@ -44,28 +45,56 @@ public class CreatePublications
         obj.put("startdate", start);
         obj.put("author", authors);
         String pub = obj.toString();
+        String jsonString;
+        File file = new File(path + "/publications.json");
 
-        String FILENAME = "publications.json";
+        if(file.exists())
+        {
+            jsonString = Load(file);
+            jsonString += "," + pub;
 
-        FileOutputStream fos = null;
+            Save(file,jsonString);
+        }
+        else
+        {
+            Save(file, pub);
+        }
+
         try
         {
-            fos = ctx.openFileOutput(FILENAME, Context.MODE_APPEND);
-            fos.write(pub.getBytes());
-            fos.write("\n\r".getBytes());
-            fos.close();
-        }
-        catch (FileNotFoundException e)
-        {
+            file = new File(path + "/people.json");
+            String json =  Load(file);
+            JSONArray jsonArray = new JSONArray(json);
+            JSONArray jsonPubArray;
+            for (int i =0; i<jsonArray.length();i++)
+            {
+                JSONObject jsonObject = jsonArray.getJSONObject(i); //Get each person from array
+
+                if (adderName.compareTo(jsonObject.getString("name")) == 0)
+                {
+                    if(jsonObject.isNull("publications"))
+                    {
+                        jsonPubArray = new JSONArray();
+                        jsonPubArray = jsonPubArray.put(obj);
+                        jsonObject.put("publications", jsonPubArray);
+                    }
+                    else
+                    {
+                        jsonPubArray = jsonObject.getJSONArray("publications");
+                        jsonPubArray = jsonPubArray.put(obj);
+                        jsonObject.put("publications", jsonPubArray);
+                    }
+                }
+            }
+            Save(file, jsonArray.toString());
+
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+
     }
 
-    public CreatePublications(String adderName, String name, String owner, String type, String state, String url, String target, String start, Context ctx) throws JSONException
+    public CreatePublications(String adderName, String name, String owner, String type, String state, String url, String target, String start) throws JSONException
     {
         obj= new JSONObject();
         obj.put("name",name);
@@ -104,12 +133,11 @@ public class CreatePublications
                     }
                 }
             }
-            Save(file,jsonArray.toString());
+            Save(file, jsonArray.toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
     public JSONObject getList()
@@ -117,6 +145,40 @@ public class CreatePublications
         return obj;
     }
 
+
+    public static void Save(File file, String dataString)
+    {
+        String [] data = String.valueOf(dataString).split(System.getProperty("line.separator"));
+        FileOutputStream fos = null;
+        try
+        {
+            fos = new FileOutputStream(file);
+        }
+        catch (FileNotFoundException e) {e.printStackTrace();}
+        try
+        {
+            try
+            {
+                for (int i = 0; i<data.length; i++)
+                {
+                    fos.write(data[i].getBytes());
+                    if (i < data.length-1)
+                    {
+                        fos.write("\n".getBytes());
+                    }
+                }
+            }
+            catch (IOException e) {e.printStackTrace();}
+        }
+        finally
+        {
+            try
+            {
+                fos.close();
+            }
+            catch (IOException e) {e.printStackTrace();}
+        }
+    }
 
     public static String Load(File file)
     {
@@ -169,38 +231,4 @@ public class CreatePublications
         return returnString;
     }
 
-
-    public static void Save(File file, String dataString)
-    {
-        String [] data = String.valueOf(dataString).split(System.getProperty("line.separator"));
-        FileOutputStream fos = null;
-        try
-        {
-            fos = new FileOutputStream(file);
-        }
-        catch (FileNotFoundException e) {e.printStackTrace();}
-        try
-        {
-            try
-            {
-                for (int i = 0; i<data.length; i++)
-                {
-                    fos.write(data[i].getBytes());
-                    if (i < data.length-1)
-                    {
-                        fos.write("\n".getBytes());
-                    }
-                }
-            }
-            catch (IOException e) {e.printStackTrace();}
-        }
-        finally
-        {
-            try
-            {
-                fos.close();
-            }
-            catch (IOException e) {e.printStackTrace();}
-        }
-    }
 }

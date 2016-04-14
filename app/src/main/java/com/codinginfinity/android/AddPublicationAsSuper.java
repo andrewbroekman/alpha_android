@@ -34,7 +34,7 @@ public class AddPublicationAsSuper extends AppCompatActivity {
     protected String file = "Publications";
     Spinner state;
     EditText name, owner, type, target, authors, url;
-    String name_s, owner_s, type_s, state_s, target_s, authors_s, url_s;
+    String name_s, owner_s, type_s, state_s, target_s, authors_s, url_s, adder;
     String authorsList [];
     String envisioned_date, start_date;
     ArrayList<String> arrayList;
@@ -57,6 +57,7 @@ public class AddPublicationAsSuper extends AppCompatActivity {
         }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        adder = getIntent().getExtras().getString("User");
 
         Spinner spinner = (Spinner) findViewById(R.id.state_edit);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -126,6 +127,7 @@ public class AddPublicationAsSuper extends AppCompatActivity {
                     try
                     {
                         newPublication = new CreatePublications(
+                                adder,
                                 name_s,
                                 owner_s,
                                 type_s,
@@ -133,8 +135,7 @@ public class AddPublicationAsSuper extends AppCompatActivity {
                                 url_s,
                                 envisioned_date,
                                 start_date,
-                                arrayList,
-                                getApplicationContext());
+                                arrayList);
                     }
                     catch (JSONException e)
                     {
@@ -142,7 +143,7 @@ public class AddPublicationAsSuper extends AppCompatActivity {
                     }
 
                     Toast.makeText(getApplicationContext(), "Publication Successfully Created!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(AddPublicationAsSuper.this, MainActivity.class));
+                    finish();
                 }
             });
     }

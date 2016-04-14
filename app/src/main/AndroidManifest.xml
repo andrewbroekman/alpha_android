@@ -60,6 +60,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.codinginfinity.android.MainActivity" />
         </activity>
+<<<<<<< HEAD
         <activity android:name=".viewResearchGroup" />
         <activity
             android:name=".GroupList"
@@ -67,6 +68,17 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+=======
+        <activity
+            android:name=".Test"
+            android:label="@string/title_activity_test"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GroupList"
+            android:label="Group List"
+            android:theme="@style/AppTheme.NoActionBar" />
+            <activity android:name=".addGroup"></activity>
+>>>>>>> refs/remotes/origin/develop
     </application>
 
 </manifest>
