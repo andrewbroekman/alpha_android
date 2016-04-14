@@ -3,6 +3,7 @@ package com.codinginfinity.android;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -70,17 +71,21 @@ public class ViewPublicationsActivity extends AppCompatActivity
     //Temporary until I know what the object returned from the server looks like
     public class Publication{
         String name;
+        String owner;
+        String type;
+        String state;
+        String url;
         Date date;
-        String researchGroup;
-        String status;
 
         public Publication() {}
 
-        public Publication(String name, Date date, String researchGroup, String status) {
+        public Publication(String name, String owner, String type, String state, String url, Date date) {
             this.name = name;
             this.date = date;
-            this.researchGroup = researchGroup;
-            this.status = status;
+            this.state = state;
+            this.owner = owner;
+            this.type = type;
+            this.url = url;
         }
     }
 
@@ -159,7 +164,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
             }
         */
 
-        File file = new File(path + "/publication.json");
+        File file = new File(path + "/people.json");
         String jsonString = Load(file);
 
         try {
@@ -173,11 +178,20 @@ public class ViewPublicationsActivity extends AppCompatActivity
 
                 d = null;
                 try {
-                    d = format.parse(jsonObject.getString("date")); //Create date
+                    d = format.parse(jsonObject.getString("start")); //Create date
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                items.add(new Publication(jsonObject.getString("name"), d, jsonObject.getString("researchGroup"), jsonObject.getString("status")));
+
+                items.add(new Publication(jsonObject.getString("name"),
+                                jsonObject.getString("owner"),
+                                jsonObject.getString("type"),
+                                jsonObject.getString("state"),
+                                jsonObject.getString("url"),
+                                d
+                        )
+
+                );
             }
 
         } catch (JSONException e) {
@@ -207,8 +221,10 @@ public class ViewPublicationsActivity extends AppCompatActivity
     public void searchItem(String textToSearch){
         for (Publication item:items){
             if(!(item.name.toLowerCase()).contains(textToSearch.toLowerCase())
-            && !(item.researchGroup.toLowerCase()).contains(textToSearch.toLowerCase())
-            && !(item.status.toLowerCase()).contains(textToSearch.toLowerCase())){
+            && !(item.owner.toLowerCase()).contains(textToSearch.toLowerCase())
+            && !(item.type.toLowerCase()).contains(textToSearch.toLowerCase())
+            && !(item.state.toLowerCase()).contains(textToSearch.toLowerCase())
+            && !(item.url.toLowerCase()).contains(textToSearch.toLowerCase())){
                 listItems.remove(item);
             }
         }
