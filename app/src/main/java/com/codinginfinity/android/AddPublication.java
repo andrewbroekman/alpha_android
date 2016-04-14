@@ -119,9 +119,11 @@ public class AddPublication extends AppCompatActivity {
                     {
                         e.printStackTrace();
                     }
-
-                    Toast.makeText(getApplicationContext(), "Publication Successfully Created!", Toast.LENGTH_SHORT).show();
-                    finish();
+                    File file = new File(path + "/people.json");
+                    String data = Load(file);
+                    name.setText(data);
+                   // Toast.makeText(getApplicationContext(), "Publication Successfully Created!", Toast.LENGTH_SHORT).show();
+                   // finish();
                 }
             });
     }

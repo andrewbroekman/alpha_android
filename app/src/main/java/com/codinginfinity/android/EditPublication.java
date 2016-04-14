@@ -464,20 +464,24 @@ public class EditPublication extends AppCompatActivity {
             EditText edtType = (EditText) findViewById(R.id.type_edit);
             EditText edtDate = (EditText) findViewById(R.id.date_edit);
             EditText edtURL = (EditText) findViewById(R.id.url_edit);
-            EditText editAdd = (EditText) findViewById(401);
-            ImageButton buttonAdd = (ImageButton) findViewById(402);
+
             ArrayList<EditText> etList = new ArrayList<>();
             ArrayList<ImageButton> ibList = new ArrayList<>();
-            for(int i = 0 ; i < placeholder.size() ; i++)
-            {
-                EditText et = (EditText) findViewById(placeholder.get(i));
-                etList.add(et);
-            }
+            EditText editAdd;
+            ImageButton buttonAdd;
+            if(authors) {
+                editAdd = (EditText) findViewById(401);
+                buttonAdd = (ImageButton) findViewById(402);
 
-            for(int i = 0 ; i < placeholder2.size() ; i++)
-            {
-                ImageButton ib = (ImageButton) findViewById(placeholder2.get(i));
-                ibList.add(ib);
+                for (int i = 0; i < placeholder.size(); i++) {
+                    EditText et = (EditText) findViewById(placeholder.get(i));
+                    etList.add(et);
+                }
+
+                for (int i = 0; i < placeholder2.size(); i++) {
+                    ImageButton ib = (ImageButton) findViewById(placeholder2.get(i));
+                    ibList.add(ib);
+                }
             }
 
             if (btnEdit.getText().equals("Edit")) {
@@ -486,16 +490,18 @@ public class EditPublication extends AppCompatActivity {
                 edtType.setEnabled(true);
                 edtDate.setEnabled(true);
                 edtURL.setEnabled(true);
-                editAdd.setEnabled(true);
-                buttonAdd.setEnabled(true);
-                for(int i = 0 ; i < placeholder.size() ; i++)
-                {
-                    etList.get(i).setEnabled(true);
-                }
+                if(authors) {
+                    editAdd = (EditText) findViewById(401);
+                    buttonAdd = (ImageButton) findViewById(402);
+                    editAdd.setEnabled(true);
+                    buttonAdd.setEnabled(true);
+                    for (int i = 0; i < placeholder.size(); i++) {
+                        etList.get(i).setEnabled(true);
+                    }
 
-                for(int i = 0 ; i < placeholder2.size() ; i++)
-                {
-                    ibList.get(i).setEnabled(true);
+                    for (int i = 0; i < placeholder2.size(); i++) {
+                        ibList.get(i).setEnabled(true);
+                    }
                 }
                 btnEdit.setText("Save");
                 btnCancel.setVisibility(View.VISIBLE);
@@ -519,16 +525,18 @@ public class EditPublication extends AppCompatActivity {
                 edtType.setEnabled(false);
                 edtDate.setEnabled(false);
                 edtURL.setEnabled(false);
-                editAdd.setEnabled(false);
-                buttonAdd.setEnabled(false);
-                for(int i = 0 ; i < placeholder.size() ; i++)
-                {
-                    etList.get(i).setEnabled(false);
-                }
+                if(authors) {
+                    editAdd = (EditText) findViewById(401);
+                    buttonAdd = (ImageButton) findViewById(402);
+                    editAdd.setEnabled(false);
+                    buttonAdd.setEnabled(false);
+                    for (int i = 0; i < placeholder.size(); i++) {
+                        etList.get(i).setEnabled(false);
+                    }
 
-                for(int i = 0 ; i < placeholder2.size() ; i++)
-                {
-                    ibList.get(i).setEnabled(false);
+                    for (int i = 0; i < placeholder2.size(); i++) {
+                        ibList.get(i).setEnabled(false);
+                    }
                 }
 
                 int e = 0;
@@ -540,14 +548,12 @@ public class EditPublication extends AppCompatActivity {
                     jsonArray = new JSONArray(pubString);
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i); //Get each person from array
-                        edtName.setText("HELLO1" + "\n" + user);
                         if (user.compareTo(jsonObject.getString("name")) == 0)
                         {
                             publications = jsonObject.getJSONArray("publications");
                             for (int j = 0; j < publications.length(); j++)
                             {
                                 jsonObject = publications.getJSONObject(j);
-                                edtName.setText("HELLO");
                                 if (pub_name.compareTo(jsonObject.getString("name")) == 0)
                                 {
                                     JSONObject person = new JSONObject();
@@ -569,10 +575,9 @@ public class EditPublication extends AppCompatActivity {
 
                     Save(file,jsonArray.toString());
                     pubString = Load(file);
-                    edtName.setText(pubString);
-                    // Intent intent = new Intent(this, ViewPublicationsActivity.class);
-                    // intent.putExtra("User",user);
-                    //startActivity(intent);
+                    Intent intent = new Intent(this, ViewPublicationsActivity.class);
+                    intent.putExtra("User",user);
+                    startActivity(intent);
 
                 } catch (JSONException ew) {
                     ew.printStackTrace();
