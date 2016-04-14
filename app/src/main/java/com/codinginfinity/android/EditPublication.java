@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -30,7 +31,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.Integer;import java.lang.Override;import java.lang.String;import java.util.ArrayList;
+import java.lang.Integer;import java.lang.Override;import java.lang.String;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+import static com.codinginfinity.android.R.array.state_array;
 
 public class EditPublication extends AppCompatActivity {
 
@@ -42,8 +47,9 @@ public class EditPublication extends AppCompatActivity {
     String pub_name;
     EditText edtName1, edtOwner1, edtType1, edtDate1, edtURL1;
     Spinner edtSpinner;
-    String [] spinnerOps;// = {"In Progress", "Submitted", "In Revision", "Rejected" , "Published", "Abandoned"};
-    String name, owner, type, state, envisionedDate, url;
+    String[] spinnerOps;// = {"In Progress", "Submitted", "In Revision", "Rejected" , "Published", "Abandoned"};
+    String name, owner, type, state, envisionedDate, url, user;
+    boolean authors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,595 +60,532 @@ public class EditPublication extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Spinner spinner = (Spinner) findViewById(R.id.state_edit);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                state_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+        spinnerOps = new String[6];
         spinnerOps[0] = "In Progress";
         spinnerOps[1] = "Submitted";
         spinnerOps[2] = "In Revision";
         spinnerOps[3] = "Rejected";
         spinnerOps[4] = "Published";
         spinnerOps[5] = "Abandoned";
+        authors = false;
 
-        pub_name = "Life of Pies";//getIntent().getExtras().getString("pulication_name");
-        String FILENAME = "publications.json";
+        pub_name = "Process";//getIntent().getExtras().getString("pulication_name");
+        user = "Kimi Raikkonen";//getIntent().getExtras().getString("username");
         File file = new File(path + "/people.json");
 
-        JSONArray author = new JSONArray();
-        String pubString = LoadPublications(FILENAME);
-        try
-        {
+        JSONArray publications = new JSONArray();
+        String author = "";// = new JSONArray();
+
+        String pubString = Load(file);
+
+        try {
             JSONArray jsonArray = new JSONArray(pubString);
             JSONArray jsonPubArray;
-            for (int i =0; i<jsonArray.length();i++)
-            {
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i); //Get each person from array
 
-                if (pub_name.compareTo(jsonObject.getString("name")) == 0)
-                {
-                    name = pub_name;
-                    type = jsonObject.getString("name");
-                    state = jsonObject.getString("state");
-                    envisionedDate = jsonObject.getString("envisioned");
-                    url = jsonObject.getString("url");
-                    owner = jsonObject.getString("owner");
-                    author = jsonObject.getJSONArray("author");
+                if (user.compareTo(jsonObject.getString("name")) == 0) {
+                    publications = jsonObject.getJSONArray("publications");
+                    for (i = 0; i < jsonArray.length(); i++) {
+                        jsonObject = publications.getJSONObject(i);
+                        if (pub_name.compareTo(jsonObject.getString("name")) == 0) {
+                            name = pub_name;
+                            type = jsonObject.getString("type");
+                            state = jsonObject.getString("state");
+                            envisionedDate = jsonObject.getString("envisioned");
+                            url = jsonObject.getString("url");
+                            owner = jsonObject.getString("owner");
+                            if (!jsonObject.isNull("author")) {
+                                authors = true;
+                                author = jsonObject.getString("author");
+                            }
+                        }
+                    }
                 }
             }
-        }
-        catch (JSONException e)
-        {
+
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        list = new ArrayList<>();
-
-        for(int i = 0 ; i < author.length() ; i++)
-        {
-            try
-            {
-                list.add(author.getJSONObject(i).toString());
-            }
-            catch (JSONException e)
-            {
-                e.printStackTrace();
-            }
-        }
-
         int index = 0;
-        for(int i = 0 ; i < spinnerOps.length ; i++)
-        {
-            if(state.equals(spinnerOps[i]))
-            {
+        for (int i = 0; i < spinnerOps.length; i++) {
+            if (state != null && state.equals(spinnerOps[i])) {
                 index = i;
+                break;
             }
         }
+
 
         edtSpinner = (Spinner) findViewById(R.id.state_edit);
         edtSpinner.setSelection(index);
 
-        edtName1 = (EditText) findViewById(R.id.name_edit) ;
+        edtName1 = (EditText) findViewById(R.id.name_edit);
         edtName1.setText(name);
 
-        edtOwner1 = (EditText) findViewById(R.id.owner_edit) ;
+        edtOwner1 = (EditText) findViewById(R.id.owner_edit);
         edtOwner1.setText(owner);
 
-        edtType1 = (EditText) findViewById(R.id.type_edit) ;
+        edtType1 = (EditText) findViewById(R.id.type_edit);
         edtType1.setText(type);
 
-        edtDate1 = (EditText) findViewById(R.id.date_edit) ;
+        edtDate1 = (EditText) findViewById(R.id.date_edit);
         edtDate1.setText(envisionedDate);
 
-        edtURL1 = (EditText) findViewById(R.id.url_edit) ;
+        edtURL1 = (EditText) findViewById(R.id.url_edit);
         edtURL1.setText(url);
-/*
-        int count=0;
-        BufferedReader br;
-        try {
-            if((br = new BufferedReader(new FileReader(""))) != null) {
-                String sCurrentLine;
-                while ((sCurrentLine = br.readLine()) != null) {//just to count the number of elements in the file to create the array
-                    count++;
-                }
+
+
+        if (authors) {
+
+            author = author.substring(1,author.length()-2);
+            String array [] = author.split(",");
+            list = new ArrayList<>();
+
+            for (int i = 0; i < array.length ; i++)
+            {
+                    list.add(array[i]);
             }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        String [] strArray = new String[count];
-        try{
-            if ((br = new BufferedReader(new FileReader(""))) != null) {
-                String sCurrentLine;
-                int i=0;
-                while ((sCurrentLine = br.readLine()) != null) {
-                    strArray[i] = sCurrentLine;
-                    i++;
-                }
-            }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-*/
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
-
-        linearLayout1.setLayoutParams(params);
-        linearLayout2.setLayoutParams(params);
-
-        placeholder = new ArrayList<>();
-        placeholder2 = new ArrayList<>();
 
 
-        /*LinearLayout.LayoutParams */params = new LinearLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        int prevTextViewId = 0;
-        int height = 0;
-        for(int i = 0; i < list.size(); i++)
-        {
-            final EditText textView = new EditText(this);
-            textView.setText(list.get(i));
-            textView.setTextSize(18);
-            textView.setWidth(300);
-            textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-            int curTextViewId = prevTextViewId + 1;
-            placeholder.add(curTextViewId);
-            textView.setId(curTextViewId);
-            params.topMargin = 10;
-            textView.setLayoutParams(params);
-            height = textView.getLayoutParams().height;
-            prevTextViewId = curTextViewId;
-            assert linearLayout1 != null;
-            linearLayout1.addView(textView,params);
-        }
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
 
-        String uri = "@drawable/minus";  // where myresource (without the extension) is the file
-        int imageResource = getResources().getIdentifier(uri, null, getPackageName());
-        final Drawable res = getResources().getDrawable(imageResource);
+            linearLayout1.setLayoutParams(params);
+            linearLayout2.setLayoutParams(params);
+
+            placeholder = new ArrayList<>();
+            placeholder2 = new ArrayList<>();
 
 
-        int prevImageButtonId = 200;
-        for(int i = 0; i < list.size(); i++)
-        {
             params = new LinearLayout.LayoutParams(
                     LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            final ImageButton button = new ImageButton(this);
-            int curImageButtonId = prevImageButtonId + 1;
-            button.setMaxWidth(18);
-            button.setId(curImageButtonId);
-            placeholder2.add(curImageButtonId);
-            button.setImageDrawable(res);
-            button.setBackgroundColor(256);
+            int prevTextViewId = 0;
+            int height = 0;
+            for (int i = 0; i < list.size(); i++) {
+                final EditText textView = new EditText(this);
+                textView.setText(list.get(i));
+                textView.setTextSize(18);
+                textView.setWidth(300);
+                textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                int curTextViewId = prevTextViewId + 1;
+                placeholder.add(curTextViewId);
+                textView.setId(curTextViewId);
+                textView.setEnabled(false);
+                params.topMargin = 10;
+                textView.setLayoutParams(params);
+                height = textView.getLayoutParams().height;
+                prevTextViewId = curTextViewId;
+                assert linearLayout1 != null;
+                linearLayout1.addView(textView, params);
+            }
 
+            String uri = "@drawable/minus";  // where myresource (without the extension) is the file
+            int imageResource = getResources().getIdentifier(uri, null, getPackageName());
+            final Drawable res = getResources().getDrawable(imageResource);
+
+
+            int prevImageButtonId = 200;
+            for (int i = 0; i < list.size(); i++) {
+                params = new LinearLayout.LayoutParams(
+                        LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                final ImageButton button = new ImageButton(this);
+                int curImageButtonId = prevImageButtonId + 1;
+                button.setMaxWidth(18);
+                button.setId(curImageButtonId);
+                placeholder2.add(curImageButtonId);
+                button.setImageDrawable(res);
+                button.setBackgroundColor(256);
+
+
+                params.topMargin = 10;
+                params.height = 58;
+                params.width = 58;
+                button.setLayoutParams(params);
+                prevImageButtonId = curImageButtonId;
+                assert linearLayout2 != null;
+                linearLayout2.addView(button, params);
+
+
+                button.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        int et_id;
+                        int button_id;
+                        button_id = button.getId();
+                        et_id = button_id - 200;
+
+                        final EditText et = (EditText) findViewById(et_id);
+                        final ImageButton ib = (ImageButton) findViewById(button_id);
+
+                        AlertDialog.Builder builder1 = new AlertDialog.Builder(EditPublication.this);
+                        builder1.setMessage("Are you sure you want to remove " + et.getText().toString() + " from the Publication?");
+                        builder1.setCancelable(true);
+
+                        builder1.setPositiveButton(
+                                "Yes",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id1) {
+
+                                        linearLayout1.removeView(et);
+                                        linearLayout2.removeView(ib);
+                                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+
+                                        linearLayout1.setLayoutParams(params);
+                                        linearLayout2.setLayoutParams(params);
+                                        dialog.cancel();
+                                    }
+                                });
+
+                        builder1.setNegativeButton(
+                                "No",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                        AlertDialog alert11 = builder1.create();
+                        alert11.show();
+                    }
+                });
+            }
+
+            EditText editText = new EditText(this);
+            final ImageButton button_Add = new ImageButton(this);
+            params = new LinearLayout.LayoutParams(
+                    LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+
+            params.topMargin = 10;
+            editText.setLayoutParams(params);
+            editText.setWidth(300);
+            editText.setTextSize(18);
+            editText.setHint("Add New Author...");
+            editText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+            editText.setId(401);
+            editText.setLayoutParams(params);
+            params = new LinearLayout.LayoutParams(
+                    LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+
+            button_Add.setId(402);
+
+            String uri2 = "@drawable/plus";  // where myresource (without the extension) is the file
+            int imageResource2 = getResources().getIdentifier(uri2, null, getPackageName());
+            final Drawable res2 = getResources().getDrawable(imageResource2);
+
+            button_Add.setImageDrawable(res2);
+            button_Add.setBackgroundColor(256);
+            button_Add.setMaxHeight(height);
+            button_Add.setMinimumHeight(height);
 
             params.topMargin = 10;
             params.height = 58;
             params.width = 58;
-            button.setLayoutParams(params);
-            prevImageButtonId = curImageButtonId;
-            assert linearLayout2 != null;
-            linearLayout2.addView(button,params);
+            button_Add.setLayoutParams(params);
+
+            linearLayout1.addView(editText);
+            linearLayout2.addView(button_Add);
+            final int height2 = height;
+            button_Add.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    final EditText et = (EditText) findViewById(401);
+                    if (!isEmpty(et)) {
+                        AlertDialog.Builder builder1 = new AlertDialog.Builder(EditPublication.this);
+                        builder1.setMessage("Are you sure you want to add " + et.getText().toString() + " to the Publication?");
+                        builder1.setCancelable(true);
+
+                        builder1.setPositiveButton(
+                                "Yes",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id1) {
+                                        final EditText editText = new EditText(EditPublication.this);
+                                        int id = placeholder.get(placeholder.size() - 1);
+                                        id++;
+                                        editText.setId(id);
+                                        editText.setWidth(300);
+                                        editText.setTextSize(18);
+                                        editText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                        editText.setText(et.getText().toString());
+
+                                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+
+                                        params.topMargin = 10;
+                                        editText.setLayoutParams(params);
+
+                                        final ImageButton newbutton = new ImageButton(EditPublication.this);
+                                        newbutton.setImageDrawable(res);
+                                        newbutton.setBackgroundColor(256);
+                                        button_Add.setMaxHeight(height2);
+                                        button_Add.setMinimumHeight(height2);
+                                        id = placeholder2.get(placeholder2.size() - 1);
+                                        id++;
+                                        newbutton.setId(id);
+                                        params = new LinearLayout.LayoutParams(
+                                                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+
+                                        params.topMargin = 10;
+                                        params.height = 58;
+                                        params.width = 58;
+                                        newbutton.setLayoutParams(params);
+
+                                        EditText et = (EditText) findViewById(401);
+                                        ImageButton ib = (ImageButton) findViewById(402);
+
+                                        linearLayout1.removeViewInLayout(et);
+                                        linearLayout2.removeViewInLayout(ib);
+
+                                        params = new LinearLayout.LayoutParams(
+                                                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+
+                                        linearLayout1.setLayoutParams(params);
+                                        linearLayout2.setLayoutParams(params);
+
+                                        linearLayout1.addView(editText);
+                                        linearLayout2.addView(newbutton);
+
+                                        newbutton.setOnClickListener(new View.OnClickListener() {
+                                            public void onClick(View v) {
+                                                setButton(editText.getId(), newbutton.getId(), newbutton);
+                                            }
+                                        });
 
 
-            button.setOnClickListener(new View.OnClickListener()
-            {
-                public void onClick(View v)
-                {
-                    int et_id;
-                    int button_id;
-                    button_id = button.getId();
-                    et_id = button_id - 200;
+                                        linearLayout1.addView(et);
+                                        et.setText("");
+                                        et.setHint("Add New Author...");
+                                        linearLayout2.addView(ib);
 
-                    final EditText et = (EditText) findViewById(et_id);
-                    final ImageButton ib = (ImageButton) findViewById(button_id);
+                                        linearLayout1.setLayoutParams(params);
+                                        linearLayout2.setLayoutParams(params);
 
-                    AlertDialog.Builder builder1 = new AlertDialog.Builder(EditPublication.this);
-                    builder1.setMessage("Are you sure you want to remove " + et.getText().toString() + " from the Publication?");
-                    builder1.setCancelable(true);
+                                        dialog.cancel();
+                                    }
+                                });
 
-                    builder1.setPositiveButton(
-                            "Yes",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id1) {
+                        builder1.setNegativeButton(
+                                "No",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
 
-                                    linearLayout1.removeView(et);
-                                    linearLayout2.removeView(ib);
-                                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                                            LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                                        dialog.cancel();
+                                    }
+                                });
 
-                                    linearLayout1.setLayoutParams(params);
-                                    linearLayout2.setLayoutParams(params);
-                                    dialog.cancel();
-                                }
-                            });
-
-                    builder1.setNegativeButton(
-                            "No",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-
-                    AlertDialog alert11 = builder1.create();
-                    alert11.show();
-                }
-            });
-        }
-
-        EditText editText = new EditText(this);
-        final ImageButton button_Add = new ImageButton(this);
-        params = new LinearLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-
-        params.topMargin = 10;
-        editText.setLayoutParams(params);
-        editText.setWidth(300);
-        editText.setTextSize(18);
-        editText.setHint("Add New Author...");
-        editText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        int id = placeholder.get(placeholder.size()-1);
-        id++;
-        editText.setId(401);
-        editText.setLayoutParams(params);
-        params = new LinearLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-
-        id = placeholder2.get(placeholder2.size()- 1);
-        id++;
-        button_Add.setId(402);
-
-        String uri2 = "@drawable/plus";  // where myresource (without the extension) is the file
-        int imageResource2 = getResources().getIdentifier(uri2, null, getPackageName());
-        final Drawable res2 = getResources().getDrawable(imageResource2);
-
-        button_Add.setImageDrawable(res2);
-        button_Add.setBackgroundColor(256);
-        button_Add.setMaxHeight(height);
-        button_Add.setMinimumHeight(height);
-
-        params.topMargin = 10;
-        params.height = 58;
-        params.width = 58;
-        button_Add.setLayoutParams(params);
-
-        linearLayout1.addView(editText);
-        linearLayout2.addView(button_Add);
-        final int height2 = height;
-        button_Add.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                final EditText et = (EditText) findViewById(401);
-                if(!isEmpty(et))
-                {
-                    AlertDialog.Builder builder1 = new AlertDialog.Builder(EditPublication.this);
-                    builder1.setMessage("Are you sure you want to add " + et.getText().toString() + " to the Publication?");
-                    builder1.setCancelable(true);
-
-                    builder1.setPositiveButton(
-                            "Yes",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id1) {
-                                    final EditText editText = new EditText(EditPublication.this);
-                                    int id = placeholder.get(placeholder.size() - 1);
-                                    id++;
-                                    editText.setId(id);
-                                    editText.setWidth(300);
-                                    editText.setTextSize(18);
-                                    editText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                                    editText.setText(et.getText().toString());
-
-                                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                                            LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-
-                                    params.topMargin = 10;
-                                    editText.setLayoutParams(params);
-
-                                    final ImageButton newbutton = new ImageButton(EditPublication.this);
-                                    newbutton.setImageDrawable(res);
-                                    newbutton.setBackgroundColor(256);
-                                    button_Add.setMaxHeight(height2);
-                                    button_Add.setMinimumHeight(height2);
-                                    id = placeholder2.get(placeholder2.size() - 1);
-                                    id++;
-                                    newbutton.setId(id);
-                                    params = new LinearLayout.LayoutParams(
-                                            LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-
-                                    params.topMargin = 10;
-                                    params.height = 58;
-                                    params.width = 58;
-                                    newbutton.setLayoutParams(params);
-
-                                    EditText et = (EditText) findViewById(401);
-                                    ImageButton ib = (ImageButton) findViewById(402);
-
-                                    linearLayout1.removeViewInLayout(et);
-                                    linearLayout2.removeViewInLayout(ib);
-
-                                    params = new LinearLayout.LayoutParams(
-                                            LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-
-                                    linearLayout1.setLayoutParams(params);
-                                    linearLayout2.setLayoutParams(params);
-
-                                    linearLayout1.addView(editText);
-                                    linearLayout2.addView(newbutton);
-
-                                    newbutton.setOnClickListener(new View.OnClickListener() {
-                                        public void onClick(View v) {
-                                            setButton(editText.getId(), newbutton.getId(), newbutton);
-                                        }
-                                    });
-
-
-                                    linearLayout1.addView(et);
-                                    et.setText("");
-                                    et.setHint("Add New Author...");
-                                    linearLayout2.addView(ib);
-
-                                    linearLayout1.setLayoutParams(params);
-                                    linearLayout2.setLayoutParams(params);
-
-                                    dialog.cancel();
-                                }
-                            });
-
-                    builder1.setNegativeButton(
-                            "No",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-
-                                    dialog.cancel();
-                                }
-                            });
-
-                    AlertDialog alert11 = builder1.create();
-                    alert11.show();
-                }
+                        AlertDialog alert11 = builder1.create();
+                        alert11.show();
+                        }
+                    }
+                });
             }
-        });
-    }
-
-    public void setButton(int id_et, int id_button, ImageButton button)
-    {
-        int et_id = id_et;
-        int button_id = id_button;
-
-        final EditText et = (EditText) findViewById(et_id);
-        final ImageButton ib = (ImageButton) findViewById(button_id);
-
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(EditPublication.this);
-        builder1.setMessage("Are you sure you want to remove " + et.getText().toString() + " from the Publication?");
-        builder1.setCancelable(true);
-
-        builder1.setPositiveButton(
-                "Yes",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id1) {
-
-                        linearLayout1.removeView(et);
-                        linearLayout2.removeView(ib);
-                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-
-                        linearLayout1.setLayoutParams(params);
-                        linearLayout2.setLayoutParams(params);
-                        dialog.cancel();
-                    }
-                });
-
-        builder1.setNegativeButton(
-                "No",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
-        linearLayout1.setMinimumHeight(linearLayout2.getHeight());
-    }
-
-    private boolean isEmpty(EditText etText)
-    {
-        if (etText.getText().toString().trim().length() > 0) {
-            return false;
-        } else {
-            return true;
         }
-    }
 
-    private String Name ;
-    private String Owner;
-    private String Type;
-    private String Date;
-    private String URL;
-    public void oneditclick(View v){
-        Button btnEdit = (Button) v ;
-        Button btnCancel = (Button) findViewById(R.id.btnCan) ;
-        EditText edtName = (EditText) findViewById(R.id.name_edit) ;
-        EditText edtOwner = (EditText) findViewById(R.id.owner_edit) ;
-        EditText edtType = (EditText) findViewById(R.id.type_edit) ;
-        EditText edtDate = (EditText) findViewById(R.id.date_edit) ;
-        EditText edtURL = (EditText) findViewById(R.id.url_edit) ;
-        Name = edtName.getText().toString() ;
-        Owner = edtOwner.getText().toString() ;
-        Type = edtType.getText().toString() ;
-        Date = edtDate.getText().toString() ;
-        URL = edtURL.getText().toString() ;
+        public void setButton(int id_et, int id_button, ImageButton button) {
+            int et_id = id_et;
+            int button_id = id_button;
 
-        if(btnEdit.getText().equals("Edit"))
-        {
-            edtName.setEnabled(true);
-            edtOwner.setEnabled(true);
-            edtType.setEnabled(true);
-            edtDate.setEnabled(true);
-            edtURL.setEnabled(true);
-            btnEdit.setText("Save");
-            btnCancel.setVisibility(View.VISIBLE);
-            btnCancel.setEnabled(true);
-            return;
+            final EditText et = (EditText) findViewById(et_id);
+            final ImageButton ib = (ImageButton) findViewById(button_id);
+
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(EditPublication.this);
+            builder1.setMessage("Are you sure you want to remove " + et.getText().toString() + " from the Publication?");
+            builder1.setCancelable(true);
+
+            builder1.setPositiveButton(
+                    "Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id1) {
+
+                            linearLayout1.removeView(et);
+                            linearLayout2.removeView(ib);
+                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                    LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+
+                            linearLayout1.setLayoutParams(params);
+                            linearLayout2.setLayoutParams(params);
+                            dialog.cancel();
+                        }
+                    });
+
+            builder1.setNegativeButton(
+                    "No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+            linearLayout1.setMinimumHeight(linearLayout2.getHeight());
         }
-        if(btnEdit.getText().equals("Save")){
-            Name = edtName.getText().toString() ;
-            Owner = edtName.getText().toString() ;
-            Type = edtName.getText().toString() ;
-            Date = edtName.getText().toString() ;
-            URL = edtName.getText().toString() ;
+
+        private boolean isEmpty(EditText etText) {
+            if (etText.getText().toString().trim().length() > 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        private String Name;
+        private String Owner;
+        private String Type;
+        private String Date;
+        private String URL;
+
+        public void oneditclick(View v) {
+            Button btnEdit = (Button) v;
+            Button btnCancel = (Button) findViewById(R.id.btnCan);
+            EditText edtName = (EditText) findViewById(R.id.name_edit);
+            EditText edtOwner = (EditText) findViewById(R.id.owner_edit);
+            EditText edtType = (EditText) findViewById(R.id.type_edit);
+            EditText edtDate = (EditText) findViewById(R.id.date_edit);
+            EditText edtURL = (EditText) findViewById(R.id.url_edit);
+            Name = edtName.getText().toString();
+            Owner = edtOwner.getText().toString();
+            Type = edtType.getText().toString();
+            Date = edtDate.getText().toString();
+            URL = edtURL.getText().toString();
+
+            if (btnEdit.getText().equals("Edit")) {
+                edtName.setEnabled(true);
+                edtOwner.setEnabled(true);
+                edtType.setEnabled(true);
+                edtDate.setEnabled(true);
+                edtURL.setEnabled(true);
+                btnEdit.setText("Save");
+                btnCancel.setVisibility(View.VISIBLE);
+                btnCancel.setEnabled(true);
+                return;
+            }
+            if (btnEdit.getText().equals("Save")) {
+                Name = edtName.getText().toString();
+                Owner = edtName.getText().toString();
+                Type = edtName.getText().toString();
+                Date = edtName.getText().toString();
+                URL = edtName.getText().toString();
+                btnEdit.setText("Edit");
+                btnEdit.setEnabled(true);
+                btnCancel.setVisibility(View.INVISIBLE);
+                btnCancel.setEnabled(false);
+                edtName.setEnabled(false);
+                edtOwner.setEnabled(false);
+                edtType.setEnabled(false);
+                edtDate.setEnabled(false);
+                edtURL.setEnabled(false);
+                return;
+            }
+        }
+
+        public void cancelClick(View v) {
+            Button btnCan = (Button) v;
+            Button btnEdit = (Button) findViewById(R.id.btnEdit);
+            EditText edtName = (EditText) findViewById(R.id.name_edit);
+            EditText edtOwner = (EditText) findViewById(R.id.owner_edit);
+            EditText edtType = (EditText) findViewById(R.id.type_edit);
+            EditText edtDate = (EditText) findViewById(R.id.date_edit);
+            EditText edtURL = (EditText) findViewById(R.id.url_edit);
             btnEdit.setText("Edit");
-            btnEdit.setEnabled(true);
-            btnCancel.setVisibility(View.INVISIBLE);
-            btnCancel.setEnabled(false);
+            edtName.setText(Name);
+            edtOwner.setText(Owner);
+            edtType.setText(Type);
+            edtDate.setText(Date);
+            edtURL.setText(URL);
             edtName.setEnabled(false);
             edtOwner.setEnabled(false);
             edtType.setEnabled(false);
             edtDate.setEnabled(false);
             edtURL.setEnabled(false);
+            btnCan.setVisibility(View.INVISIBLE);
+            btnCan.setEnabled(false);
             return;
         }
-    }
 
-    public void cancelClick(View v) {
-        Button btnCan = (Button) v ;
-        Button btnEdit = (Button) findViewById(R.id.btnEdit) ;
-        EditText edtName = (EditText) findViewById(R.id.name_edit) ;
-        EditText edtOwner = (EditText) findViewById(R.id.owner_edit) ;
-        EditText edtType = (EditText) findViewById(R.id.type_edit) ;
-        EditText edtDate = (EditText) findViewById(R.id.date_edit) ;
-        EditText edtURL = (EditText) findViewById(R.id.url_edit) ;
-        btnEdit.setText("Edit");
-        edtName.setText(Name);
-        edtOwner.setText(Owner);
-        edtType.setText(Type);
-        edtDate.setText(Date);
-        edtURL.setText(URL);
-        edtName.setEnabled(false);
-        edtOwner.setEnabled(false);
-        edtType.setEnabled(false);
-        edtDate.setEnabled(false);
-        edtURL.setEnabled(false);
-        btnCan.setVisibility(View.INVISIBLE);
-        btnCan.setEnabled(false);
-        return;
-    }
-
-    public static void Save(File file, String dataString)
-    {
-        String [] data = String.valueOf(dataString).split(System.getProperty("line.separator"));
+    public static void Save(File file, String dataString) {
+        String[] data = String.valueOf(dataString).split(System.getProperty("line.separator"));
         FileOutputStream fos = null;
-        try
-        {
+        try {
             fos = new FileOutputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-        catch (FileNotFoundException e) {e.printStackTrace();}
-        try
-        {
-            try
-            {
-                for (int i = 0; i<data.length; i++)
-                {
+        try {
+            try {
+                for (int i = 0; i < data.length; i++) {
                     fos.write(data[i].getBytes());
-                    if (i < data.length-1)
-                    {
+                    if (i < data.length - 1) {
                         fos.write("\n".getBytes());
                     }
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            catch (IOException e) {e.printStackTrace();}
-        }
-        finally
-        {
-            try
-            {
+        } finally {
+            try {
                 fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            catch (IOException e) {e.printStackTrace();}
         }
     }
 
-    public static String Load(File file)
-    {
+    public static String Load(File file) {
         FileInputStream fis = null;
-        try
-        {
+        try {
             fis = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-        catch (FileNotFoundException e) {e.printStackTrace();}
         InputStreamReader isr = new InputStreamReader(fis);
         BufferedReader br = new BufferedReader(isr);
 
         String test;
-        int anzahl=0;
-        try
-        {
-            while ((test=br.readLine()) != null)
-            {
+        int anzahl = 0;
+        try {
+            while ((test = br.readLine()) != null) {
                 anzahl++;
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        catch (IOException e) {e.printStackTrace();}
 
-        try
-        {
+        try {
             fis.getChannel().position(0);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        catch (IOException e) {e.printStackTrace();}
 
         String[] array = new String[anzahl];
 
         String line;
         int i = 0;
-        try
-        {
-            while((line=br.readLine())!=null)
-            {
+        try {
+            while ((line = br.readLine()) != null) {
                 array[i] = line;
                 i++;
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        catch (IOException e) {e.printStackTrace();}
 
         String returnString = "";
-        for (int k = 0; k < array.length; k++)
-        {
+        for (int k = 0; k < array.length; k++) {
             returnString += array[k];
         }
 
         return returnString;
     }
 
-    public String LoadPublications(String FILENAME)
-    {
-        try
-        {
-
-            InputStream in = openFileInput(FILENAME);
-            if (in != null)
-            {
-                InputStreamReader tmp=new InputStreamReader(in);
-                BufferedReader reader=new BufferedReader(tmp);
-                String str;
-
-                StringBuilder buf=new StringBuilder();
-
-                while ((str = reader.readLine()) != null)
-                {
-                    buf.append(str+"n");
-                }
-                in.close();
-                return buf.toString();
-            }
-        }
-        catch (java.io.FileNotFoundException e)
-        {
-
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return "";
-    }
 }
 
