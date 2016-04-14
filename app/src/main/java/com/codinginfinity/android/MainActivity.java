@@ -105,6 +105,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
+    public void viewGroupsFunc(View v)
+    {
+        Intent intent = new Intent(this, viewResearchGroup.class);
+        new TestClass(intent);
+        startActivity(intent);
+    }
+    public void viewGroupsFunc()
+    {
+        Intent intent = new Intent(this, viewResearchGroup.class);
+        startActivity(intent);
+
+    }
+
     @Override
     /**
      * This method is used called when the back button is pressed. If the navigation drawer is open,
