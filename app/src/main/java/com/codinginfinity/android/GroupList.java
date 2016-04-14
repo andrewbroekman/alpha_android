@@ -143,7 +143,7 @@ public class GroupList extends AppCompatActivity
             items = new ArrayList<Group>();
 
             for (int i =0; i<jsonArray.length();i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i); //Get each publication from array
+                JSONObject jsonObject = jsonArray.getJSONObject(i); //Get each group from array
 
                 
                 items.add(new Group(jsonObject.getString("name"), jsonObject.getString("fieldOfStudy"), jsonObject.getString("leader")));
@@ -244,8 +244,8 @@ public class GroupList extends AppCompatActivity
                 /**
                  * This method is called in the sort function, overriding it allows you to call
                  * sort on custom objects.
-                 * @param publication1
-                 * @param publication2
+                 * @param group1
+                 * @param group2
                  * @return int
                  */
                 public int compare(Group group1, Group group2)
@@ -263,8 +263,8 @@ public class GroupList extends AppCompatActivity
                 /**
                  * This method is called in the sort function, overriding it allows you to call
                  * sort on custom objects.
-                 * @param publication1
-                 * @param publication2
+                 * @param group1
+                 * @param group2
                  * @return int
                  */
                 public int compare(Group group1, Group group2)
@@ -328,11 +328,11 @@ public class GroupList extends AppCompatActivity
                      */
                     public void onClick(View v) {
                             Intent intent = new Intent(GroupList.this, EditPub.class);
-                            intent.putExtra("pulication_name",getItem(position).name);
+                            intent.putExtra("group_name",getItem(position).name);
                             startActivity(intent);
 
                         /*
-                            //Retrieve variable in ViewPublication with
+                            //Retrieve variable in Viewgroup with
                             Bundle extras = getIntent().getExtras();
                             if (extras != null) {
                                 String value = extras.getString("new_variable_name");
