@@ -414,8 +414,9 @@ public class ViewPublicationsActivity extends AppCompatActivity
                      * @return void
                      */
                     public void onClick(View v) {
-                            Intent intent = new Intent(ViewPublicationsActivity.this, EditPub.class);
+                            Intent intent = new Intent(ViewPublicationsActivity.this, EditPublication.class);
                             intent.putExtra("pulication_name",getItem(position).name);
+                            intent.putExtra("user_name",username);
                             startActivity(intent);
 
                     }
