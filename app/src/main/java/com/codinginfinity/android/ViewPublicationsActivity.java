@@ -118,7 +118,6 @@ public class ViewPublicationsActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         username = getIntent().getExtras().getString("User");
-        Toast.makeText(getApplicationContext(), username, Toast.LENGTH_SHORT).show();
 
         listView = (ListView)findViewById(R.id.publications_listview);
         editText = (EditText)findViewById(R.id.search_bar);
