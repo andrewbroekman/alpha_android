@@ -51,6 +51,7 @@ public class EditPublication extends AppCompatActivity {
     String[] spinnerOps;// = {"In Progress", "Submitted", "In Revision", "Rejected" , "Published", "Abandoned"};
     String name, owner, type, state, envisionedDate, url, user;
     boolean authors;
+    JSONArray publications;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +84,6 @@ public class EditPublication extends AppCompatActivity {
         user = "Kimi Raikkonen";//getIntent().getExtras().getString("username");
         File file = new File(path + "/people.json");
 
-        JSONArray publications = new JSONArray();
         String author = "";// = new JSONArray();
 
         String pubString = Load(file);
@@ -240,6 +240,10 @@ public class EditPublication extends AppCompatActivity {
                                 "Yes",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id1) {
+                                        int i = placeholder.indexOf(et.getId());
+                                        placeholder.remove(i);
+                                        i = placeholder2.indexOf(et.getId()+200);
+                                        placeholder2.remove(i);
                                         list.remove(et.getText().toString());
                                         linearLayout1.removeView(et);
                                         linearLayout2.removeView(ib);
@@ -321,6 +325,8 @@ public class EditPublication extends AppCompatActivity {
                                         int id = placeholder.get(placeholder.size() - 1);
                                         id++;
                                         editText.setId(id);
+                                        placeholder.add(id);
+                                        placeholder.add(id);
                                         editText.setWidth(300);
                                         editText.setTextSize(18);
                                         editText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -339,6 +345,7 @@ public class EditPublication extends AppCompatActivity {
                                         button_Add.setMinimumHeight(height2);
                                         id = placeholder2.get(placeholder2.size() - 1);
                                         id++;
+                                        placeholder2.add(id);
                                         newbutton.setId(id);
                                         params = new LinearLayout.LayoutParams(
                                                 LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -414,7 +421,8 @@ public class EditPublication extends AppCompatActivity {
                     "Yes",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id1) {
-
+                            placeholder.remove(et.getId());
+                            placeholder2.remove(et.getId()+200);
                             linearLayout1.removeView(et);
                             linearLayout2.removeView(ib);
                             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -509,7 +517,58 @@ public class EditPublication extends AppCompatActivity {
                 edtType.setEnabled(false);
                 edtDate.setEnabled(false);
                 edtURL.setEnabled(false);
-                return;
+                editAdd.setEnabled(false);
+                buttonAdd.setEnabled(false);
+                for(int i = 0 ; i < placeholder.size() ; i++)
+                {
+                    etList.get(i).setEnabled(false);
+                }
+
+                for(int i = 0 ; i < placeholder2.size() ; i++)
+                {
+                    ibList.get(i).setEnabled(false);
+                }
+
+                File file = new File(path, "/publications.json");
+                String pubString = Load(file);
+                String startDate = "";
+                try {
+                    JSONArray jsonArray = new JSONArray(pubString);
+                    JSONArray jsonPubArray;
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i); //Get each person from array
+
+                        if (user.compareTo(jsonObject.getString("name")) == 0) {
+                            publications = jsonObject.getJSONArray("publications");
+                            for (i = 0; i < jsonArray.length(); i++) {
+                                jsonObject = publications.getJSONObject(i);
+                                if (pub_name.compareTo(jsonObject.getString("name")) == 0)
+                                {
+                                    startDate = jsonObject.getString("startdate");
+                                    jsonArray.remove(i);
+                                }
+                            }
+                        }
+                    }
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("name", name);
+                    jsonObject.put("owner", owner);
+                    jsonObject.put("type", type);
+                    jsonObject.put("state", state);
+                    jsonObject.put("startdate", startDate);
+                    jsonObject.put("envisioned", envisionedDate);
+                    jsonObject.put("url", url);
+                    jsonObject.put("author", list);
+                    publications.put(jsonObject);
+                    Save(file,jsonArray.toString());
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Intent intent = new Intent(this, ViewPublicationsActivity.class);
+                intent.putExtra("User",user);
+                startActivity(intent);
+
             }
         }
 
@@ -543,80 +602,91 @@ public class EditPublication extends AppCompatActivity {
             return;
         }
 
-    public static void Save(File file, String dataString) {
-        String[] data = String.valueOf(dataString).split(System.getProperty("line.separator"));
+    public static void Save(File file, String dataString)
+    {
+        String [] data = String.valueOf(dataString).split(System.getProperty("line.separator"));
         FileOutputStream fos = null;
-        try {
+        try
+        {
             fos = new FileOutputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
-        try {
-            try {
-                for (int i = 0; i < data.length; i++) {
+        catch (FileNotFoundException e) {e.printStackTrace();}
+        try
+        {
+            try
+            {
+                for (int i = 0; i<data.length; i++)
+                {
                     fos.write(data[i].getBytes());
-                    if (i < data.length - 1) {
+                    if (i < data.length-1)
+                    {
                         fos.write("\n".getBytes());
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-        } finally {
-            try {
+            catch (IOException e) {e.printStackTrace();}
+        }
+        finally
+        {
+            try
+            {
                 fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+            catch (IOException e) {e.printStackTrace();}
         }
     }
 
-    public static String Load(File file) {
+    public static String Load(File file)
+    {
         FileInputStream fis = null;
-        try {
+        try
+        {
             fis = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
+        catch (FileNotFoundException e) {e.printStackTrace();}
         InputStreamReader isr = new InputStreamReader(fis);
         BufferedReader br = new BufferedReader(isr);
 
         String test;
-        int anzahl = 0;
-        try {
-            while ((test = br.readLine()) != null) {
+        int anzahl=0;
+        try
+        {
+            while ((test=br.readLine()) != null)
+            {
                 anzahl++;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        catch (IOException e) {e.printStackTrace();}
 
-        try {
+        try
+        {
             fis.getChannel().position(0);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        catch (IOException e) {e.printStackTrace();}
 
         String[] array = new String[anzahl];
 
         String line;
         int i = 0;
-        try {
-            while ((line = br.readLine()) != null) {
+        try
+        {
+            while((line=br.readLine())!=null)
+            {
                 array[i] = line;
                 i++;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        catch (IOException e) {e.printStackTrace();}
 
         String returnString = "";
-        for (int k = 0; k < array.length; k++) {
+        for (int k = 0; k < array.length; k++)
+        {
             returnString += array[k];
         }
 
         return returnString;
     }
+
 
 }
 
