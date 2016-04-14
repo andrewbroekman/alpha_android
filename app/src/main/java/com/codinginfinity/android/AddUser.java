@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
 import java.security.SecureRandom;
 import java.util.Random;
 
@@ -19,6 +21,8 @@ public class AddUser extends AppCompatActivity {
         setContentView(R.layout.activity_add_user);
 
     }
+    protected CreateUser newUser;
+    private boolean succ ;
     private String Name ;
     private String Email ;
     private String ReGroup = "None";
@@ -55,8 +59,26 @@ public class AddUser extends AppCompatActivity {
         }
         Random ran = new SecureRandom() ;
         password = generateString(ran, "abcdefhijklmnopqrstuvwxyzABCDEFHIJKLMNOPQRSTUVWXYZ123456789", 7 ) ;
-        Toast.makeText(getApplicationContext(), "User added", Toast.LENGTH_SHORT).show();
-        finish();
+        try {
+            newUser = new CreateUser() ;
+            succ = newUser.AddUser(
+                    Name,
+                    password,
+                    Email,
+                    ReGroup,
+                    ConD,
+                    getApplicationContext()
+            );
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if(succ == true) {
+            Toast.makeText(getApplicationContext(), "User added", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "A user with that name is already in the system", Toast.LENGTH_SHORT).show();
+        }
         //Intent intent = new Intent(this, MainActivity.class);
         //startActivity(intent);
     }
