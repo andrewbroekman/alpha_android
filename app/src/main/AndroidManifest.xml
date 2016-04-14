@@ -57,6 +57,7 @@
                 android:value="com.codinginfinity.android.MainActivity" />
         </activity>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <activity android:name=".viewResearchGroup" />
 =======
         <activity
@@ -64,6 +65,8 @@
             android:label="@string/title_activity_test"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 >>>>>>> refs/remotes/origin/develop
+=======
+>>>>>>> parent of ae18679... Added activity
     </application>
 
 </manifest>
