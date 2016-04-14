@@ -80,8 +80,8 @@ public class EditPublication extends AppCompatActivity {
         spinnerOps[5] = "Abandoned";
         authors = false;
 
-        pub_name = "Process";//getIntent().getExtras().getString("pulication_name");
-        user = "Kimi Raikkonen";//getIntent().getExtras().getString("username");
+        pub_name = getIntent().getExtras().getString("pulication_name");
+        user = getIntent().getExtras().getString("user_name");
         File file = new File(path + "/people.json");
 
         String author = "";// = new JSONArray();
