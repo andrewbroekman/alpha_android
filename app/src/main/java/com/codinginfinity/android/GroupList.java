@@ -373,8 +373,9 @@ public class GroupList extends AppCompatActivity
                      * @return void
                      */
                     public void onClick(View v) {
-                            Intent intent = new Intent(GroupList.this, EditPub.class);
+                            Intent intent = new Intent(GroupList.this, viewResearchGroup.class);
                             intent.putExtra("group_name",getItem(position).name);
+                            intent.putExtra("fieldOfStudy",getItem(position).fieldOfStudy);
                             startActivity(intent);
 
                         /*
