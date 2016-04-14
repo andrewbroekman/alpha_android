@@ -68,6 +68,7 @@
             android:name=".GroupList"
             android:label="Group List"
             android:theme="@style/AppTheme.NoActionBar" />
+            <activity android:name=".addGroup"></activity>
     </application>
 
 </manifest>
