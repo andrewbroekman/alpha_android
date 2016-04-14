@@ -41,6 +41,7 @@ import java.io.InputStreamReader;
 public class ViewPerson extends AppCompatActivity {
 
     public String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+    String username;
 
     @Override
     /**
@@ -52,7 +53,7 @@ public class ViewPerson extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_person);
 
-        String username = getIntent().getExtras().getString("User");
+        username = getIntent().getExtras().getString("User");
 
         File file = new File(path + "/people.json");
         String jsonString = Load(file);
@@ -204,6 +205,7 @@ public class ViewPerson extends AppCompatActivity {
     public void btnViewOnClick(View v)
     {
         Intent intent = new Intent(this, ViewPublicationsActivity.class);
+        intent.putExtra("User",username);
         startActivity(intent);
     }
     @Override

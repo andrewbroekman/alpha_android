@@ -27,14 +27,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/edtEmail"
+        android:layout_below="@+id/edtName"
+        android:layout_alignParentEnd="true"
         android:enabled="false"
         android:singleLine="true"
-        android:layout_below="@+id/edtUnitsEarned"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:hint="Email Adress" />
+        android:hint="Email" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -43,13 +42,24 @@
         android:ems="10"
         android:enabled="false"
         android:id="@+id/edtUnitsEarned"
-        android:layout_below="@+id/editText"
-        android:layout_alignParentRight="true"
+        android:layout_below="@+id/edtEmail"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:hint="Units Earned" />
 
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtReasearch"
+        android:enabled="false"
+        android:singleLine="true"
+        android:layout_below="@+id/edtUnitsEarned"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:hint="Research Group" />
 
     <Button
         android:layout_width="wrap_content"
@@ -107,13 +117,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/edtCon"
+        android:layout_below="@+id/edtReasearch"
+        android:layout_alignParentEnd="true"
         android:enabled="false"
         android:singleLine="true"
-        android:layout_below="@+id/edtEmail"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/edtEmail"
-        android:layout_alignEnd="@+id/edtEmail"
         android:hint="Contact Details" />
 
     <EditText
@@ -122,26 +131,13 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/edtPassword"
-        android:enabled="false"
         android:layout_below="@+id/edtCon"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:hint="Password" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText"
         android:enabled="false"
-        android:singleLine="true"
-        android:layout_below="@+id/edtName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/edtName"
-        android:layout_alignEnd="@+id/edtName"
-        android:hint="Research Group" />/>
+        android:hint="Password" />/>
 
 
 </RelativeLayout>
