@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"name\" : \"Felipe Massa\"," +
                                              "\"password\" : \"qwerty123\"," +
                                              "\"email\" : \"Felipe.Massa@gmail.com\"," +
-                                             "\"group\" : \"Sexy-Girl\"," +
+                                             "\"group\" : \"SexyGurls\"," +
                                              "\"units\" : \"1\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"2\"" +
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"name\" : \"Jenson Button\"," +
                                              "\"password\" : \"qwerty123\"," +
                                              "\"email\" : \"Jenson.Button@gmail.com\"," +
-                                             "\"group\" : \"Sexy-Girl\"," +
+                                             "\"group\" : \"SexyGurls\"," +
                                              "\"units\" : \"7\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"1\"" +
@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"name\" : \"Valteri Bottas\"," +
                                              "\"password\" : \"qwerty123\"," +
                                              "\"email\" : \"Valteri.Bottas@gmail.com\"," +
-                                             "\"group\" : \"Sexy-Girl\"," +
+                                             "\"group\" : \"SexyGurls\"," +
                                              "\"units\" : \"12\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"3\"" +
@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"name\" : \"Sebastian Vettel\"," +
                                              "\"password\" : \"qwerty123\"," +
                                              "\"email\" : \"Sebastian.Vettel@gmail.com\"," +
-                                             "\"group\" : \"Sexy-Girl\"," +
+                                             "\"group\" : \"SexyGurls\"," +
                                              "\"units\" : \"9\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"1\"" +
@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"name\" : \"Nico Rosbergl\"," +
                                              "\"password\" : \"qwerty123\"," +
                                              "\"email\" : \"Nico.Rosberg@gmail.com\"," +
-                                             "\"group\" : \"TheG\"," +
+                                             "\"group\" : \"CIRG\"," +
                                              "\"units\" : \"5\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"3\"" +
@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"name\" : \"Valentino Rossi\"," +
                                              "\"password\" : \"qwerty123\"," +
                                              "\"email\" : \"Valentino.Rossi@gmail.com\"," +
-                                             "\"group\" : \"\"," +
+                                             "\"group\" : \"ICSA\"," +
                                              "\"units\" : \"3\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"1\"" +
@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"name\" : \"Colin McRae\"," +
                                              "\"password\" : \"qwerty123\"," +
                                              "\"email\" : \"Colin.McRae@gmail.com\"," +
-                                             "\"group\" : \"Sexy-Girl\"," +
+                                             "\"group\" : \"SSFM\"," +
                                              "\"units\" : \"5\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"1\"" +
@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"name\" : \"Michael Schumacher\"," +
                                              "\"password\" : \"qwerty123\"," +
                                              "\"email\" : \"Michael.Schumacher@gmail.com\"," +
-                                             "\"group\" : \"TheG\"," +
+                                             "\"group\" : \"SESAr\"," +
                                              "\"units\" : \"8\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"1\"" +
@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"name\" : \"Robert Kubica\"," +
                                              "\"password\" : \"qwerty123\"," +
                                              "\"email\" : \"Robert.Kubica@gmail.com\"," +
-                                             "\"group\" : \"TheG\"," +
+                                             "\"group\" : \"CSEDAR\"," +
                                              "\"units\" : \"5\"," +
                                              "\"contact\" : \"0123456789\"," +
                                              "\"permission\" : \"1\"" +
