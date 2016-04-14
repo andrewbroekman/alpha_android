@@ -434,7 +434,7 @@
                 android:measureWithLargestChild="true"
                 android:id="@+id/tableRow2"
                 android:clickable="true"
-                android:onClick="viewPapersFunc" >
+                android:onClick="addGroupFunc" >
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -488,7 +488,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceLarge"
-                                android:text="Publication Types"
+                                android:text="Add Group"
                                 android:id="@+id/textView9"
                                 android:textColor="#ffffff"
                                 android:textSize="23dp"
