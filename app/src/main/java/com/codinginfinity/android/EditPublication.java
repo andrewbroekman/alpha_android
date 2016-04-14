@@ -1,6 +1,7 @@
 package com.codinginfinity.android;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
@@ -131,18 +132,23 @@ public class EditPublication extends AppCompatActivity {
 
         edtName1 = (EditText) findViewById(R.id.name_edit);
         edtName1.setText(name);
+        edtName1.setEnabled(false);
 
         edtOwner1 = (EditText) findViewById(R.id.owner_edit);
         edtOwner1.setText(owner);
+        edtOwner1.setEnabled(false);
 
         edtType1 = (EditText) findViewById(R.id.type_edit);
         edtType1.setText(type);
+        edtType1.setEnabled(false);
 
         edtDate1 = (EditText) findViewById(R.id.date_edit);
         edtDate1.setText(envisionedDate);
+        edtDate1.setEnabled(false);
 
         edtURL1 = (EditText) findViewById(R.id.url_edit);
         edtURL1.setText(url);
+        edtURL1.setEnabled(false);
 
 
         if (authors) {
@@ -205,7 +211,7 @@ public class EditPublication extends AppCompatActivity {
                 placeholder2.add(curImageButtonId);
                 button.setImageDrawable(res);
                 button.setBackgroundColor(256);
-
+                button.setEnabled(false);
 
                 params.topMargin = 10;
                 params.height = 58;
@@ -271,6 +277,7 @@ public class EditPublication extends AppCompatActivity {
             editText.setTextSize(18);
             editText.setHint("Add New Author...");
             editText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            editText.setEnabled(false);
 
             editText.setId(401);
             editText.setLayoutParams(params);
@@ -278,6 +285,7 @@ public class EditPublication extends AppCompatActivity {
                     LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
             button_Add.setId(402);
+            button_Add.setEnabled(false);
 
             String uri2 = "@drawable/plus";  // where myresource (without the extension) is the file
             int imageResource2 = getResources().getIdentifier(uri2, null, getPackageName());
@@ -438,12 +446,6 @@ public class EditPublication extends AppCompatActivity {
             }
         }
 
-        private String Name;
-        private String Owner;
-        private String Type;
-        private String Date;
-        private String URL;
-
         public void oneditclick(View v) {
             Button btnEdit = (Button) v;
             Button btnCancel = (Button) findViewById(R.id.btnCan);
@@ -452,11 +454,21 @@ public class EditPublication extends AppCompatActivity {
             EditText edtType = (EditText) findViewById(R.id.type_edit);
             EditText edtDate = (EditText) findViewById(R.id.date_edit);
             EditText edtURL = (EditText) findViewById(R.id.url_edit);
-            Name = edtName.getText().toString();
-            Owner = edtOwner.getText().toString();
-            Type = edtType.getText().toString();
-            Date = edtDate.getText().toString();
-            URL = edtURL.getText().toString();
+            EditText editAdd = (EditText) findViewById(401);
+            ImageButton buttonAdd = (ImageButton) findViewById(402);
+            ArrayList<EditText> etList = new ArrayList<>();
+            ArrayList<ImageButton> ibList = new ArrayList<>();
+            for(int i = 0 ; i < placeholder.size() ; i++)
+            {
+                EditText et = (EditText) findViewById(placeholder.get(i));
+                etList.add(et);
+            }
+
+            for(int i = 0 ; i < placeholder2.size() ; i++)
+            {
+                ImageButton ib = (ImageButton) findViewById(placeholder2.get(i));
+                ibList.add(ib);
+            }
 
             if (btnEdit.getText().equals("Edit")) {
                 edtName.setEnabled(true);
@@ -464,17 +476,26 @@ public class EditPublication extends AppCompatActivity {
                 edtType.setEnabled(true);
                 edtDate.setEnabled(true);
                 edtURL.setEnabled(true);
+                for(int i = 0 ; i < placeholder.size() ; i++)
+                {
+                    etList.get(i).setEnabled(true);
+                }
+
+                for(int i = 0 ; i < placeholder2.size() ; i++)
+                {
+                    ibList.get(i).setEnabled(true);
+                }
                 btnEdit.setText("Save");
                 btnCancel.setVisibility(View.VISIBLE);
                 btnCancel.setEnabled(true);
                 return;
             }
             if (btnEdit.getText().equals("Save")) {
-                Name = edtName.getText().toString();
-                Owner = edtName.getText().toString();
-                Type = edtName.getText().toString();
-                Date = edtName.getText().toString();
-                URL = edtName.getText().toString();
+                name = edtName.getText().toString();
+                owner = edtName.getText().toString();
+                type = edtName.getText().toString();
+                envisionedDate = edtName.getText().toString();
+                url = edtName.getText().toString();
                 btnEdit.setText("Edit");
                 btnEdit.setEnabled(true);
                 btnCancel.setVisibility(View.INVISIBLE);
@@ -496,12 +517,15 @@ public class EditPublication extends AppCompatActivity {
             EditText edtType = (EditText) findViewById(R.id.type_edit);
             EditText edtDate = (EditText) findViewById(R.id.date_edit);
             EditText edtURL = (EditText) findViewById(R.id.url_edit);
+
+            EditText editAdd = (EditText) findViewById(401);
+            ImageButton buttonAdd = (ImageButton) findViewById(402);
             btnEdit.setText("Edit");
-            edtName.setText(Name);
-            edtOwner.setText(Owner);
-            edtType.setText(Type);
-            edtDate.setText(Date);
-            edtURL.setText(URL);
+            edtName.setText(name);
+            edtOwner.setText(owner);
+            edtType.setText(type);
+            edtDate.setText(envisionedDate);
+            edtURL.setText(url);
             edtName.setEnabled(false);
             edtOwner.setEnabled(false);
             edtType.setEnabled(false);
@@ -509,6 +533,9 @@ public class EditPublication extends AppCompatActivity {
             edtURL.setEnabled(false);
             btnCan.setVisibility(View.INVISIBLE);
             btnCan.setEnabled(false);
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
             return;
         }
 
