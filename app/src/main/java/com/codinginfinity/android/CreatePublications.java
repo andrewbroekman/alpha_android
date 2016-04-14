@@ -32,7 +32,7 @@ public class CreatePublications
     JSONObject obj;
     public String path = Environment.getExternalStorageDirectory().getAbsolutePath();
 
-    public CreatePublications(String name, String owner, String type, String state, String url, String target, String start, ArrayList<String> authors, Context ctx) throws JSONException {
+    public CreatePublications(String adderName, String name, String owner, String type, String state, String url, String target, String start, ArrayList<String> authors) throws JSONException {
        // pub = new Publication(name, owner, type, state, url, target, start, authors);
        // publicationsList.add(pub);
         obj= new JSONObject();
@@ -60,9 +60,41 @@ public class CreatePublications
             Save(file, pub);
         }
 
+        try
+        {
+            file = new File(path + "/people.json");
+            String json =  Load(file);
+            JSONArray jsonArray = new JSONArray(json);
+            JSONArray jsonPubArray;
+            for (int i =0; i<jsonArray.length();i++)
+            {
+                JSONObject jsonObject = jsonArray.getJSONObject(i); //Get each person from array
+
+                if (adderName.compareTo(jsonObject.getString("name")) == 0)
+                {
+                    if(jsonObject.isNull("publications"))
+                    {
+                        jsonPubArray = new JSONArray();
+                        jsonPubArray = jsonPubArray.put(obj);
+                        jsonObject.put("publications", jsonPubArray);
+                    }
+                    else
+                    {
+                        jsonPubArray = jsonObject.getJSONArray("publications");
+                        jsonPubArray = jsonPubArray.put(obj);
+                        jsonObject.put("publications", jsonPubArray);
+                    }
+                }
+            }
+            Save(file, jsonArray.toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    public CreatePublications(String adderName, String name, String owner, String type, String state, String url, String target, String start, Context ctx) throws JSONException
+    public CreatePublications(String adderName, String name, String owner, String type, String state, String url, String target, String start) throws JSONException
     {
         obj= new JSONObject();
         obj.put("name",name);
@@ -106,7 +138,6 @@ public class CreatePublications
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
     public JSONObject getList()
