@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         try {
             String user = "Admin";
-            username = "Kimi Raikkonen";
+            username = getIntent().getExtras().getString("User");
             if (user.equals("Admin"))
                 setContentView(R.layout.activity_main_admin);
             else
@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         boolean userpriv = false;
         if(userpriv) {
             Intent intent = new Intent(this, AddPublicationAsSuper.class);
+            intent.putExtra("User",username);
             startActivity(intent);
         }
         else
@@ -97,27 +98,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     public void addPaperFunc(){
         Intent intent = new Intent(this, addPapersActivity.class);
+        intent.putExtra("User",username);
         startActivity(intent);
     }
 
     public void editUserFunc(View v){
         Intent intent = new Intent(this, ViewPerson.class);
+        intent.putExtra("User",username);
         startActivity(intent);
     }
     public void editUserFunc(){
         Intent intent = new Intent(this, editUserActivity.class);
+        intent.putExtra("User",username);
         startActivity(intent);
     }
     
     public void addUserFunc(View v)
     {
         Intent intent = new Intent(this, AddUser.class);
+        intent.putExtra("User",username);
         startActivity(intent);
     }
     
     public void groupsFunc(View v)
     {
         Intent intent = new Intent(this, GroupList.class);
+        intent.putExtra("User",username);
+        startActivity(intent);
+    }
+
+    public void addGroupFunc(View v)
+    {
+        Intent intent = new Intent(this, addGroup.class);
+        intent.putExtra("User",username);
         startActivity(intent);
     }
 
