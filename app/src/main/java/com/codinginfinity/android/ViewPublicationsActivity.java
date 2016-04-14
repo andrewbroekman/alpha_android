@@ -157,7 +157,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
     public void initList(){
 
         //Retrieve username/userId
-        String username = "demo";
+        String username = "Kimi Raikkonen";
         /*  Bundle extras = getIntent().getExtras();
             if (extras != null) {
                 username = extras.getString("username");
@@ -176,22 +176,29 @@ public class ViewPublicationsActivity extends AppCompatActivity
             for (int i =0; i<jsonArray.length();i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i); //Get each publication from array
 
-                d = null;
-                try {
-                    d = format.parse(jsonObject.getString("start")); //Create date
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                if (jsonObject.getString("name").compareTo(username) == 0) {
+                    JSONArray jsonPubArray = jsonObject.getJSONArray("publications");
+
+                    for (int k = 0; k <jsonPubArray.length();k++) {
+                        JSONObject jsonPub = jsonArray.getJSONObject(k);
+                        d = null;
+                        try {
+                            d = format.parse(jsonPub.getString("start")); //Create date
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        items.add(new Publication(jsonPub.getString("name"),
+                                        jsonPub.getString("owner"),
+                                        jsonPub.getString("type"),
+                                        jsonPub.getString("state"),
+                                        jsonPub.getString("url"),
+                                        d
+                                )
+
+                        );
+                    }
                 }
-
-                items.add(new Publication(jsonObject.getString("name"),
-                                jsonObject.getString("owner"),
-                                jsonObject.getString("type"),
-                                jsonObject.getString("state"),
-                                jsonObject.getString("url"),
-                                d
-                        )
-
-                );
             }
 
         } catch (JSONException e) {
