@@ -55,6 +55,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.codinginfinity.android.MainActivity" />
         </activity>
+        <activity android:name=".viewResearchGroup" />
     </application>
 
 </manifest>
