@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         try {
             String user = "Admin";
-            username = "Kimi Raikkonen";
+            username = getIntent().getExtras().getString("User");
             if (user.equals("Admin"))
                 setContentView(R.layout.activity_main_admin);
             else
@@ -102,10 +102,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void editUserFunc(View v){
         Intent intent = new Intent(this, ViewPerson.class);
+        intent.putExtra("User",username);
         startActivity(intent);
     }
     public void editUserFunc(){
         Intent intent = new Intent(this, editUserActivity.class);
+        intent.putExtra("User",username);
         startActivity(intent);
     }
     

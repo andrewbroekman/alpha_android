@@ -16,58 +16,24 @@
         android:id="@+id/edtName"
         android:layout_marginTop="25dp"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/lblName"
-        android:layout_toEndOf="@+id/lblName"
-        android:layout_marginLeft="31dp"
-        android:layout_marginStart="31dp"
         android:layout_alignParentEnd="true"
         android:enabled="false"
-        android:text="Mark"
-        android:singleLine="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name:"
-        android:id="@+id/lblName"
-        android:textSize="12sp"
-        android:layout_marginBottom="8dp"
-        android:layout_alignBottom="@+id/edtName"
+        android:singleLine="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:hint="Username" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/edtEmail"
         android:layout_below="@+id/edtName"
-        android:layout_alignLeft="@+id/edtName"
-        android:layout_alignStart="@+id/edtName"
         android:layout_alignParentEnd="true"
-        android:text="mark@swag.com"
         android:enabled="false"
-        android:singleLine="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email:"
-        android:id="@+id/lblEmail"
-        android:textSize="12sp"
-        android:layout_marginBottom="8dp"
-        android:layout_alignBottom="@+id/edtEmail"
-        android:layout_toLeftOf="@+id/edtName"
-        android:layout_toStartOf="@+id/edtName" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Units Earned:"
-        android:id="@+id/lblUnitsEarned"
-        android:textSize="12sp"
-        android:layout_alignBottom="@+id/edtUnitsEarned"
-        android:layout_toLeftOf="@+id/edtEmail"
-        android:layout_toStartOf="@+id/edtEmail" />
+        android:singleLine="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:hint="Email" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -76,11 +42,11 @@
         android:ems="10"
         android:enabled="false"
         android:id="@+id/edtUnitsEarned"
-        android:text="69"
         android:layout_below="@+id/edtEmail"
         android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/edtEmail"
-        android:layout_alignStart="@+id/edtEmail" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:hint="Units Earned" />
 
 
     <EditText
@@ -88,26 +54,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/edtReasearch"
         android:enabled="false"
-        android:text="Belthazor"
         android:singleLine="true"
         android:layout_below="@+id/edtUnitsEarned"
-        android:layout_alignLeft="@+id/edtUnitsEarned"
-        android:layout_alignStart="@+id/edtUnitsEarned"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Research Group:"
-        android:id="@+id/textView4"
-        android:textSize="12sp"
-        android:layout_alignBottom="@+id/edtReasearch"
-        android:layout_alignLeft="@+id/lblEmail"
-        android:layout_alignStart="@+id/lblEmail"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/edtReasearch"
-        android:layout_toStartOf="@+id/edtReasearch"/>
+        android:hint="Research Group" />
 
     <Button
         android:layout_width="wrap_content"
@@ -166,23 +118,26 @@
         android:layout_height="wrap_content"
         android:id="@+id/edtCon"
         android:layout_below="@+id/edtReasearch"
-        android:layout_alignLeft="@+id/edtReasearch"
-        android:layout_alignStart="@+id/edtReasearch"
         android:layout_alignParentEnd="true"
-        android:text="082 589 8083"
         android:enabled="false"
-        android:singleLine="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cell number"
-        android:id="@+id/lblCell"
-        android:layout_alignBottom="@+id/edtCon"
+        android:singleLine="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/edtCon"
-        android:layout_toStartOf="@+id/edtCon" />/>
+        android:hint="Contact Details" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/edtPassword"
+        android:layout_below="@+id/edtCon"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:enabled="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:hint="Password" />/>
 
 
 </RelativeLayout>
