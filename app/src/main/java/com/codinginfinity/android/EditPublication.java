@@ -14,7 +14,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.codinginfinity.android.R;
 
@@ -43,7 +42,7 @@ public class EditPublication extends AppCompatActivity {
     String pub_name;
     EditText edtName1, edtOwner1, edtType1, edtDate1, edtURL1;
     Spinner edtSpinner;
-    String [] spinnerOps;
+    String [] spinnerOps;// = {"In Progress", "Submitted", "In Revision", "Rejected" , "Published", "Abandoned"};
     String name, owner, type, state, envisionedDate, url;
 
     @Override
@@ -55,7 +54,84 @@ public class EditPublication extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        spinnerOps[0] = "In Progress";
+        spinnerOps[1] = "Submitted";
+        spinnerOps[2] = "In Revision";
+        spinnerOps[3] = "Rejected";
+        spinnerOps[4] = "Published";
+        spinnerOps[5] = "Abandoned";
 
+        pub_name = "Life of Pies";//getIntent().getExtras().getString("pulication_name");
+        String FILENAME = "publications.json";
+        File file = new File(path + "/people.json");
+
+        JSONArray author = new JSONArray();
+        String pubString = LoadPublications(FILENAME);
+        try
+        {
+            JSONArray jsonArray = new JSONArray(pubString);
+            JSONArray jsonPubArray;
+            for (int i =0; i<jsonArray.length();i++)
+            {
+                JSONObject jsonObject = jsonArray.getJSONObject(i); //Get each person from array
+
+                if (pub_name.compareTo(jsonObject.getString("name")) == 0)
+                {
+                    name = pub_name;
+                    type = jsonObject.getString("name");
+                    state = jsonObject.getString("state");
+                    envisionedDate = jsonObject.getString("envisioned");
+                    url = jsonObject.getString("url");
+                    owner = jsonObject.getString("owner");
+                    author = jsonObject.getJSONArray("author");
+                }
+            }
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+
+        list = new ArrayList<>();
+
+        for(int i = 0 ; i < author.length() ; i++)
+        {
+            try
+            {
+                list.add(author.getJSONObject(i).toString());
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        int index = 0;
+        for(int i = 0 ; i < spinnerOps.length ; i++)
+        {
+            if(state.equals(spinnerOps[i]))
+            {
+                index = i;
+            }
+        }
+
+        edtSpinner = (Spinner) findViewById(R.id.state_edit);
+        edtSpinner.setSelection(index);
+
+        edtName1 = (EditText) findViewById(R.id.name_edit) ;
+        edtName1.setText(name);
+
+        edtOwner1 = (EditText) findViewById(R.id.owner_edit) ;
+        edtOwner1.setText(owner);
+
+        edtType1 = (EditText) findViewById(R.id.type_edit) ;
+        edtType1.setText(type);
+
+        edtDate1 = (EditText) findViewById(R.id.date_edit) ;
+        edtDate1.setText(envisionedDate);
+
+        edtURL1 = (EditText) findViewById(R.id.url_edit) ;
+        edtURL1.setText(url);
 /*
         int count=0;
         BufferedReader br;
@@ -203,11 +279,15 @@ public class EditPublication extends AppCompatActivity {
         editText.setTextSize(18);
         editText.setHint("Add New Author...");
         editText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        int id = placeholder.get(placeholder.size()-1);
+        id++;
         editText.setId(401);
         editText.setLayoutParams(params);
         params = new LinearLayout.LayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
+        id = placeholder2.get(placeholder2.size()- 1);
+        id++;
         button_Add.setId(402);
 
         String uri2 = "@drawable/plus";  // where myresource (without the extension) is the file
@@ -372,8 +452,6 @@ public class EditPublication extends AppCompatActivity {
             return true;
         }
     }
-/*
-    dunno what all this stuff does
 
     private String Name ;
     private String Owner;
@@ -448,7 +526,123 @@ public class EditPublication extends AppCompatActivity {
         btnCan.setEnabled(false);
         return;
     }
-*/
-   
+
+    public static void Save(File file, String dataString)
+    {
+        String [] data = String.valueOf(dataString).split(System.getProperty("line.separator"));
+        FileOutputStream fos = null;
+        try
+        {
+            fos = new FileOutputStream(file);
+        }
+        catch (FileNotFoundException e) {e.printStackTrace();}
+        try
+        {
+            try
+            {
+                for (int i = 0; i<data.length; i++)
+                {
+                    fos.write(data[i].getBytes());
+                    if (i < data.length-1)
+                    {
+                        fos.write("\n".getBytes());
+                    }
+                }
+            }
+            catch (IOException e) {e.printStackTrace();}
+        }
+        finally
+        {
+            try
+            {
+                fos.close();
+            }
+            catch (IOException e) {e.printStackTrace();}
+        }
+    }
+
+    public static String Load(File file)
+    {
+        FileInputStream fis = null;
+        try
+        {
+            fis = new FileInputStream(file);
+        }
+        catch (FileNotFoundException e) {e.printStackTrace();}
+        InputStreamReader isr = new InputStreamReader(fis);
+        BufferedReader br = new BufferedReader(isr);
+
+        String test;
+        int anzahl=0;
+        try
+        {
+            while ((test=br.readLine()) != null)
+            {
+                anzahl++;
+            }
+        }
+        catch (IOException e) {e.printStackTrace();}
+
+        try
+        {
+            fis.getChannel().position(0);
+        }
+        catch (IOException e) {e.printStackTrace();}
+
+        String[] array = new String[anzahl];
+
+        String line;
+        int i = 0;
+        try
+        {
+            while((line=br.readLine())!=null)
+            {
+                array[i] = line;
+                i++;
+            }
+        }
+        catch (IOException e) {e.printStackTrace();}
+
+        String returnString = "";
+        for (int k = 0; k < array.length; k++)
+        {
+            returnString += array[k];
+        }
+
+        return returnString;
+    }
+
+    public String LoadPublications(String FILENAME)
+    {
+        try
+        {
+
+            InputStream in = openFileInput(FILENAME);
+            if (in != null)
+            {
+                InputStreamReader tmp=new InputStreamReader(in);
+                BufferedReader reader=new BufferedReader(tmp);
+                String str;
+
+                StringBuilder buf=new StringBuilder();
+
+                while ((str = reader.readLine()) != null)
+                {
+                    buf.append(str+"n");
+                }
+                in.close();
+                return buf.toString();
+            }
+        }
+        catch (java.io.FileNotFoundException e)
+        {
+
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return "";
+    }
 }
 
