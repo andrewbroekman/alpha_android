@@ -1,6 +1,7 @@
 package com.codinginfinity.android;
 
 import android.content.Intent;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * ViewPersons activity will retrive and display the current
@@ -27,6 +40,8 @@ import android.view.MenuItem;
  */
 public class ViewPerson extends AppCompatActivity {
 
+    public String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+
     @Override
     /**
      * This method gets called when the activity is created.
@@ -36,8 +51,43 @@ public class ViewPerson extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_person);
+
+        String username = getIntent().getExtras().getString("User");
+
+        File file = new File(path + "/people.json");
+        String jsonString = Load(file);
+
+        EditText name = (EditText) findViewById(R.id.edtName);
+        EditText password = (EditText) findViewById(R.id.edtPassword);
+        EditText unitEarned = (EditText) findViewById(R.id.edtUnitsEarned);
+        EditText email = (EditText) findViewById(R.id.edtEmail);
+        EditText research = (EditText) findViewById(R.id.edtReasearch);
+        EditText contactD = (EditText) findViewById(R.id.edtCon);
+
+        try
+        {
+            JSONArray jsonArray = new JSONArray(jsonString);
+            for(int i = 0; i < jsonArray.length(); i++)
+            {
+                JSONObject jsonObj = jsonArray.getJSONObject(i) ;
+                if(username.compareTo(jsonObj.getString("name")) == 0){
+                    name.setText(jsonObj.getString("name"));
+                    password.setText(jsonObj.getString("password"));
+                    unitEarned.setText(jsonObj.getString("units"));
+                    email.setText(jsonObj.getString("email"));
+                    research.setText(jsonObj.getString("group"));
+                    contactD.setText(jsonObj.getString("contact"));
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
     }
     private String Password ;
+    private String Name ;
     private String Email ;
     private String ContactD;
     /**
@@ -55,12 +105,14 @@ public class ViewPerson extends AppCompatActivity {
         Button reportBtn = (Button) findViewById(R.id.btnRe);
         Button cancelBtn = (Button) findViewById(R.id.btnCancel);
 
+        EditText name = (EditText) findViewById(R.id.edtName);
         EditText password = (EditText) findViewById(R.id.edtPassword);
         EditText email = (EditText) findViewById(R.id.edtEmail);
         EditText contactD = (EditText) findViewById(R.id.edtCon);
 
 
         Password = password.getText().toString() ;
+        Name = name.getText().toString() ;
         Email = email.getText().toString() ;
         ContactD = contactD.getText().toString();
 
@@ -80,6 +132,29 @@ public class ViewPerson extends AppCompatActivity {
            Password = password.getText().toString() ;
            Email = email.getText().toString() ;
            ContactD = contactD.getText().toString() ;
+
+           File file = new File(path + "/people.json");
+           String json =  Load(file);
+
+           try
+           {
+               JSONArray jsonArray = new JSONArray(json);
+               for(int i = 0; i < jsonArray.length(); i++)
+               {
+                   JSONObject jsonObj = jsonArray.getJSONObject(i) ;
+                   if(Name.compareTo(jsonObj.getString("name")) == 0){
+
+                       jsonObj.put("password",Password);
+                       jsonObj.put("email", Email);
+                       jsonObj.put("contact",ContactD);
+
+                       Save(file,jsonArray.toString());
+                   }
+               }
+
+           } catch (JSONException e) {
+               e.printStackTrace();
+           }
 
 
            editBtn.setText("Edit");
@@ -103,19 +178,17 @@ public class ViewPerson extends AppCompatActivity {
         Button viewBtn = (Button) findViewById(R.id.btnView);
         Button editBtn = (Button) findViewById(R.id.btnEdit);
         Button reBtn = (Button) findViewById(R.id.btnRe);
-        EditText name = (EditText) findViewById(R.id.edtName);
+        EditText password = (EditText) findViewById(R.id.edtPassword);
         EditText email = (EditText) findViewById(R.id.edtEmail);
         EditText unitedEarned = (EditText) findViewById(R.id.edtUnitsEarned);
         EditText researchGroup = (EditText) findViewById(R.id.edtReasearch);
         EditText conD = (EditText) findViewById(R.id.edtCon);
-        name.setText(Password);
+        password.setText(Password);
         email.setText(Email);
         conD.setText(ContactD);
         editBtn.setText("Edit");
-        name.setEnabled(false);
+        password.setEnabled(false);
         email.setEnabled(false);
-        unitedEarned.setEnabled(false);
-        researchGroup.setEnabled(false);
         conD.setEnabled(false);
         viewBtn.setEnabled(true);
         reBtn.setEnabled(true);
@@ -165,6 +238,90 @@ public class ViewPerson extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public static String Load(File file)
+    {
+        FileInputStream fis = null;
+        try
+        {
+            fis = new FileInputStream(file);
+        }
+        catch (FileNotFoundException e) {e.printStackTrace();}
+        InputStreamReader isr = new InputStreamReader(fis);
+        BufferedReader br = new BufferedReader(isr);
 
+        String test;
+        int anzahl=0;
+        try
+        {
+            while ((test=br.readLine()) != null)
+            {
+                anzahl++;
+            }
+        }
+        catch (IOException e) {e.printStackTrace();}
+
+        try
+        {
+            fis.getChannel().position(0);
+        }
+        catch (IOException e) {e.printStackTrace();}
+
+        String[] array = new String[anzahl];
+
+        String line;
+        int i = 0;
+        try
+        {
+            while((line=br.readLine())!=null)
+            {
+                array[i] = line;
+                i++;
+            }
+        }
+        catch (IOException e) {e.printStackTrace();}
+
+        String returnString = "";
+        for (int k = 0; k < array.length; k++)
+        {
+            returnString += array[k];
+        }
+
+        return returnString;
+    }
+
+
+    public static void Save(File file, String dataString)
+    {
+        String [] data = String.valueOf(dataString).split(System.getProperty("line.separator"));
+        FileOutputStream fos = null;
+        try
+        {
+            fos = new FileOutputStream(file);
+        }
+        catch (FileNotFoundException e) {e.printStackTrace();}
+        try
+        {
+            try
+            {
+                for (int i = 0; i<data.length; i++)
+                {
+                    fos.write(data[i].getBytes());
+                    if (i < data.length-1)
+                    {
+                        fos.write("\n".getBytes());
+                    }
+                }
+            }
+            catch (IOException e) {e.printStackTrace();}
+        }
+        finally
+        {
+            try
+            {
+                fos.close();
+            }
+            catch (IOException e) {e.printStackTrace();}
+        }
+    }
 
 }

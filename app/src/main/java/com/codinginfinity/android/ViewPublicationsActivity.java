@@ -164,7 +164,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
         try {
             JSONArray jsonArray = new JSONArray(jsonString);
             items = new ArrayList<Publication>();
-            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
             Date d;
 
             for (int i =0; i<jsonArray.length();i++) {
@@ -177,12 +177,11 @@ public class ViewPublicationsActivity extends AppCompatActivity
                         JSONObject jsonPub = jsonPubArray.getJSONObject(k);
 
                         d = null;
-                       /* try {
-                            d = format.parse(jsonPub.getString("start")); //Create date
+                        try {
+                            d = format.parse(jsonPub.getString("startdate")); //Create date
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        */
 
                         items.add(new Publication(jsonPub.getString("name"),
                                         jsonPub.getString("owner"),
