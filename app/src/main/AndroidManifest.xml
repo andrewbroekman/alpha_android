@@ -60,24 +60,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.codinginfinity.android.MainActivity" />
         </activity>
-<<<<<<< HEAD
-<<<<<<< HEAD
         <activity android:name=".viewResearchGroup" />
-=======
-        <activity
-            android:name=".Test"
-            android:label="@string/title_activity_test"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/develop
-=======
->>>>>>> parent of ae18679... Added activity
-=======
         <activity
             android:name=".GroupList"
             android:label="Group List"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
->>>>>>> refs/remotes/origin/develop
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
     </application>
 
 </manifest>
