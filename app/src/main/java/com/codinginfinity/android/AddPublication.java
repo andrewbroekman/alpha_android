@@ -107,7 +107,7 @@ public class AddPublication extends AppCompatActivity {
                     }
 
                     Toast.makeText(getApplicationContext(), "Publication Successfully Created!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(AddPublication.this, MainActivity.class));
+                    finish();
                 }
             });
     }
