@@ -37,7 +37,7 @@ public class CreatePublications
         obj.put("author", authors);
         String pub = obj.toString();
 
-        String FILENAME = "publications";
+        String FILENAME = "publications.json";
 
         FileOutputStream fos = null;
         try
@@ -57,7 +57,7 @@ public class CreatePublications
         }
     }
 
-    public CreatePublications(String name, String owner, String type, String state, String url, Date target, Date start)
+    public CreatePublications(String name, String owner, String type, String state, String url, String target, String start, Context ctx)
     {
         //pub = new Publication(name, owner, type, state, url, target, start);
         //publicationsList.add(pub);

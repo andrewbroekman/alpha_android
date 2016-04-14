@@ -272,7 +272,7 @@
             android:measureWithLargestChild="true"
             android:id="@+id/tableRow"
             android:clickable="true"
-            android:onClick="viewPapersFunc" >
+            android:onClick="addUserFunc" >
 
             <RelativeLayout
                 android:layout_width="wrap_content"

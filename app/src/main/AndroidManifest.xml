@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.codinginfinity.android">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -38,6 +38,7 @@
         <activity android:name=".ViewReport" />
         <activity android:name=".ViewPerson" />
         <activity android:name=".EditPub" />
+        <activity android:name=".AddUser" />
         <activity
             android:name=".AddPublication"
             android:label="@string/title_activity_add_publication"
@@ -55,7 +56,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.codinginfinity.android.MainActivity" />
         </activity>
+<<<<<<< HEAD
         <activity android:name=".viewResearchGroup" />
+=======
+        <activity
+            android:name=".Test"
+            android:label="@string/title_activity_test"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+>>>>>>> refs/remotes/origin/develop
     </application>
 
 </manifest>

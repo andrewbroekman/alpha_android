@@ -17,16 +17,6 @@
         android:layout_height="32dp"
         android:id="@+id/list_view_item_view_view_publication"
         android:background="@android:drawable/ic_menu_view"
-        android:layout_alignTop="@+id/list_view_item_edit_view_publication"
-        android:layout_toLeftOf="@+id/list_view_item_edit_view_publication"
-        android:layout_toStartOf="@+id/list_view_item_edit_view_publication"
-        android:clickable="true" />
-    <ImageButton
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_margin="8dp"
-        android:id="@+id/list_view_item_edit_view_publication"
-        android:background="@android:drawable/ic_menu_edit"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:clickable="true" />

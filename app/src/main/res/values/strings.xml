@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ResearchHelper</string>
+    <string name="app_name">Research Helper</string>
     <string name="emailString">Email</string>
     <string name="passwordString">Password</string>
     <string name="loginString">Login</string>

@@ -271,7 +271,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * @return boolean
      */
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.view_publications, menu);
+        getMenuInflater().inflate(R.menu.addpublications, menu);
         return true;
     }
 
@@ -418,7 +418,6 @@ public class ViewPublicationsActivity extends AppCompatActivity
                 ViewHolder viewholder = new ViewHolder();
                 viewholder.publication_name = (TextView) convertView.findViewById(R.id.list_view_item_name_view_publication);
                 viewholder.view_btn = (ImageButton) convertView.findViewById(R.id.list_view_item_view_view_publication);
-                viewholder.edit_btn = (ImageButton) convertView.findViewById(R.id.list_view_item_edit_view_publication);
                 convertView.setTag(viewholder);
             }
             mainViewHolder = (ViewHolder) convertView.getTag();
@@ -432,13 +431,11 @@ public class ViewPublicationsActivity extends AppCompatActivity
                      * @return void
                      */
                     public void onClick(View v) {
-                        Toast.makeText(getContext(), "View button was clicked for item " + position, Toast.LENGTH_SHORT).show();
-
-                        /*
-                            Intent intent = new Intent(this, ViewPublication.class);
-                            intent.putExtra("new_variable_name","value");
+                            Intent intent = new Intent(ViewPublicationsActivity.this, EditPub.class);
+                            intent.putExtra("pulication_name",getItem(position).name);
                             startActivity(intent);
 
+                        /*
                             //Retrieve variable in ViewPublication with
                             Bundle extras = getIntent().getExtras();
                             if (extras != null) {
@@ -446,29 +443,6 @@ public class ViewPublicationsActivity extends AppCompatActivity
                             }
                         */
 
-                    }
-                });
-            mainViewHolder.edit_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    /**
-                     * This method is called when the edit button for an item is clicked.
-                     * @param v reference to object calling the function
-                     * @return void
-                    */
-                    public void onClick(View v) {
-                        Toast.makeText(getContext(), "Edit button was clicked for item " + position, Toast.LENGTH_SHORT).show();
-
-                        /*
-                            Intent intent = new Intent(this, EditPublication.class);
-                            intent.putExtra("new_variable_name","value");
-                            startActivity(intent);
-
-                            //Retrieve variable in EditPublication with
-                            Bundle extras = getIntent().getExtras();
-                            if (extras != null) {
-                                String value = extras.getString("new_variable_name");
-                            }
-                         */
                     }
                 });
 
@@ -486,6 +460,5 @@ public class ViewPublicationsActivity extends AppCompatActivity
     public class ViewHolder{
         TextView publication_name;
         ImageButton view_btn;
-        ImageButton edit_btn;
     }
 }
