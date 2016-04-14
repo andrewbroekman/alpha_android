@@ -94,6 +94,7 @@ public class ViewPublicationsActivity extends AppCompatActivity
     private MyListAdapter adapter;
     private ListView listView;
     private EditText editText;
+    private String username;
 
     @Override
     /**
@@ -115,6 +116,9 @@ public class ViewPublicationsActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        username = getIntent().getExtras().getString("User");
+        Toast.makeText(getApplicationContext(), username, Toast.LENGTH_SHORT).show();
 
         listView = (ListView)findViewById(R.id.publications_listview);
         editText = (EditText)findViewById(R.id.search_bar);
@@ -155,15 +159,6 @@ public class ViewPublicationsActivity extends AppCompatActivity
      * @return nothing
      */
     public void initList(){
-
-        //Retrieve username/userId
-        String username = "Kimi Raikkonen";
-        /*  Bundle extras = getIntent().getExtras();
-            if (extras != null) {
-                username = extras.getString("username");
-            }
-        */
-
         File file = new File(path + "/people.json");
         String jsonString = Load(file);
 
