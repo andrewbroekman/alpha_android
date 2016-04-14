@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"Sexy-Girl\"," +
                                              "\"units\" : \"5\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"1\"," +
+                                             "\"permission\" : \"1\"" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Felipe Massa\"," +
@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"Sexy-Girl\"," +
                                              "\"units\" : \"1\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"2\"," +
+                                             "\"permission\" : \"2\"" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Fernando Alonso\"," +
@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"\"," +
                                              "\"units\" : \"8\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"1\"," +
+                                             "\"permission\" : \"1\"" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Jenson Button\"," +
@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"Sexy-Girl\"," +
                                              "\"units\" : \"7\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"1\"," +
+                                             "\"permission\" : \"1\"" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Valteri Bottas\"," +
@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"Sexy-Girl\"," +
                                              "\"units\" : \"12\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"3\"," +
+                                             "\"permission\" : \"3\"" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Sebastian Vettel\"," +
@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"Sexy-Girl\"," +
                                              "\"units\" : \"9\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"1\"," +
+                                             "\"permission\" : \"1\"" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Nico Rosbergl\"," +
@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"TheG\"," +
                                              "\"units\" : \"5\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"3\"," +
+                                             "\"permission\" : \"3\"" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Valentino Rossi\"," +
@@ -107,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"\"," +
                                              "\"units\" : \"3\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"1\"," +
+                                             "\"permission\" : \"1\"" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Colin McRae\"," +
@@ -116,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"Sexy-Girl\"," +
                                              "\"units\" : \"5\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"1\"," +
+                                             "\"permission\" : \"1\"" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Michael Schumacher\"," +
@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"TheG\"," +
                                              "\"units\" : \"8\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"1\"," +
+                                             "\"permission\" : \"1\"" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Juan Pablo Montoya\"," +
@@ -134,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"\"," +
                                              "\"units\" : \"9\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"1\"," +
+                                             "\"permission\" : \"1\"" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"Robert Kubica\"," +
@@ -143,7 +143,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"TheG\"," +
                                              "\"units\" : \"5\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"1\"," +
+                                             "\"permission\" : \"1\"" +
                                          "}," +
                                          "{" +
                                              "\"name\" : \"demo\"," +
@@ -152,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
                                              "\"group\" : \"demo\"," +
                                              "\"units\" : \"5\"," +
                                              "\"contact\" : \"0123456789\"," +
-                                             "\"permission\" : \"1\"," +
+                                             "\"permission\" : \"1\"" +
                                          "}" +
                                     "]";
              Save(file, peopleJsonString);

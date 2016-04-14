@@ -72,10 +72,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     public void viewPapersFunc(View v){
         Intent intent = new Intent(this, ViewPublicationsActivity.class);
+        intent.putExtra("User",username);
         startActivity(intent);
     }
     public void viewPapersFunc(){
         Intent intent = new Intent(this, ViewPublicationsActivity.class);
+        intent.putExtra("User",username);
         startActivity(intent);
     }
 
@@ -112,6 +114,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent intent = new Intent(this, AddUser.class);
         startActivity(intent);
     }
+    
+    public void groupsFunc(View v)
+    {
+        Intent intent = new Intent(this, GroupList.class);
+        startActivity(intent);
+    }
+
 
     @Override
     /**
