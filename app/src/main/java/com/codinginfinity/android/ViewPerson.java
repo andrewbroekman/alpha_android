@@ -37,10 +37,8 @@ public class ViewPerson extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_person);
     }
-    private String Name ;
+    private String Password ;
     private String Email ;
-    private String ResearchGroup ;
-    private Float UnitedEarned ;
     private String ContactD;
     /**
      * when this button is clicked it makes all the edit
@@ -52,32 +50,24 @@ public class ViewPerson extends AppCompatActivity {
      */
     public void btnEditOnClick(View v)
     {
-       Button editBtn = (Button) v ;
-       Button viewBtn = (Button) findViewById(R.id.btnView);
+        Button editBtn = (Button) v ;
+        Button viewBtn = (Button) findViewById(R.id.btnView);
         Button reportBtn = (Button) findViewById(R.id.btnRe);
         Button cancelBtn = (Button) findViewById(R.id.btnCancel);
-        EditText name = (EditText) findViewById(R.id.edtName);
+
+        EditText password = (EditText) findViewById(R.id.edtPassword);
         EditText email = (EditText) findViewById(R.id.edtEmail);
         EditText contactD = (EditText) findViewById(R.id.edtCon);
-        EditText unitedEarned = (EditText) findViewById(R.id.edtUnitsEarned);
-        EditText researchGroup = (EditText) findViewById(R.id.edtReasearch);
-        Name = name.getText().toString() ;
+
+
+        Password = password.getText().toString() ;
         Email = email.getText().toString() ;
-        String s = unitedEarned.getText().toString() ;
-        try
-        {
-            UnitedEarned = Float.parseFloat(s);
-        }
-        catch (NumberFormatException e)
-        {
-            Toast.makeText(getApplicationContext(), s + " is not a valid number", Toast.LENGTH_SHORT).show() ;
-        }
-        ResearchGroup = researchGroup.getText().toString() ;
         ContactD = contactD.getText().toString();
+
+
        if (editBtn.getText().equals("Edit")) {
-           name.setEnabled(true);
+           password.setEnabled(true);
            email.setEnabled(true);
-           researchGroup.setEnabled(true);
            contactD.setEnabled(true);
            editBtn.setText("save");
            cancelBtn.setEnabled(true);
@@ -87,23 +77,14 @@ public class ViewPerson extends AppCompatActivity {
            return ;
        }
        if(editBtn.getText().equals("save")){
-           Name = name.getText().toString() ;
+           Password = password.getText().toString() ;
            Email = email.getText().toString() ;
-           s = unitedEarned.getText().toString() ;
-           try
-           {
-               UnitedEarned = Float.parseFloat(s);
-           }
-           catch (NumberFormatException e)
-           {
-               Toast.makeText(getApplicationContext(), s + " is not a valid number", Toast.LENGTH_SHORT).show() ;
-           }
-           ResearchGroup = researchGroup.getText().toString() ;
            ContactD = contactD.getText().toString() ;
+
+
            editBtn.setText("Edit");
-           name.setEnabled(false);
+           password.setEnabled(false);
            email.setEnabled(false);
-           researchGroup.setEnabled(false);
            contactD.setEnabled(false);
            viewBtn.setEnabled(true);
            reportBtn.setEnabled(true);
@@ -127,10 +108,8 @@ public class ViewPerson extends AppCompatActivity {
         EditText unitedEarned = (EditText) findViewById(R.id.edtUnitsEarned);
         EditText researchGroup = (EditText) findViewById(R.id.edtReasearch);
         EditText conD = (EditText) findViewById(R.id.edtCon);
-        name.setText(Name);
+        name.setText(Password);
         email.setText(Email);
-        unitedEarned.setText(UnitedEarned.toString());
-        researchGroup.setText(ResearchGroup);
         conD.setText(ContactD);
         editBtn.setText("Edit");
         name.setEnabled(false);
