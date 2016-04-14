@@ -19,6 +19,8 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     String username;
+    String permission;
+    int per;
     @Override
     /**
      * This method gets called when the activity is created.
@@ -29,7 +31,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         try {
             String user = "Admin";
-            username = "Kimi Raikkonen";
+            username = getIntent().getExtras().getString("User");
+            permission = getIntent().getExtras().getString("Permission");
+            per = Integer.parseInt(permission);
             if (user.equals("Admin"))
                 setContentView(R.layout.activity_main_admin);
             else
@@ -84,8 +88,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void addPaperFunc(View v)
     {
         boolean userpriv = false;
-        if(userpriv) {
+        if(per >= 2)
+        {
             Intent intent = new Intent(this, AddPublicationAsSuper.class);
+            intent.putExtra("User",username);
             startActivity(intent);
         }
         else
@@ -102,10 +108,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void editUserFunc(View v){
         Intent intent = new Intent(this, ViewPerson.class);
+        intent.putExtra("User",username);
         startActivity(intent);
     }
     public void editUserFunc(){
         Intent intent = new Intent(this, editUserActivity.class);
+        intent.putExtra("User",username);
         startActivity(intent);
     }
     
@@ -120,6 +128,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent intent = new Intent(this, GroupList.class);
         startActivity(intent);
     }
+
+    public void addGroupFunc(View v)
+    {
+        Intent intent = new Intent(this, addGroup.class);
+        startActivity(intent);
+    }
+
 
     @Override
     /**
