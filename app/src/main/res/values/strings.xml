@@ -48,7 +48,7 @@
     <string-array name="state_array">
         <item>In Progress</item>
         <item>Submitted</item>
-        <item>InRevision</item>
+        <item>In Revision</item>
         <item>Rejected</item>
         <item>Published</item>
         <item>Abandoned</item>
@@ -57,7 +57,7 @@
         Add Publication
     </string>
     <string name="title_activity_add_publication_landscape">AddPublication_landscape</string>
-    <string name="title_activity_edit_publication">EditPublication</string>
+    <string name="title_activity_edit_publication">Edit Publication</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_test">Test</string>
 </resources>
