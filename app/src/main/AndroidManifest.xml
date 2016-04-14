@@ -62,7 +62,7 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".GroupList"
-            android:label="@string/title_activity_group_list"
+            android:label="Group List"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
